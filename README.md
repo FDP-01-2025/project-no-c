@@ -10,7 +10,7 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 
 ## Equipo
 
-- **Nombre del equipo:** [Nombre del equipo]
+- **Nombre del equipo:** No se mas + 
 
 ### Integrantes del equipo
 
