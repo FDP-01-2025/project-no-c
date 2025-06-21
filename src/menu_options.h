@@ -18,6 +18,7 @@ struct X_menu
     x(x), y(y) {}
 
     char movement_x(){
+        show_x();
         int width, height;
         window_size(width, height);
         char move;
@@ -119,13 +120,8 @@ int show_menu(){
     game_start();
         break;
     case 'b':
-    thread_rain1.join();
-    thread_rain2.join();
-    thread_rain3.join();
-    thread_rain4.join();
-    thread_rain5.join();
-    thread_rain6.join();
-    system("cls");
+        system("cls");
+        
         // code options music
         break;
     case 'c':

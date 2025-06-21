@@ -14,7 +14,7 @@ int main(){
     SetConsoleSize(200, 40);
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_MAXIMIZE);
-    PlaySound(TEXT("C://Users//willi//OneDrive//Escritorio//project-no-c//assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC || SND_FILENAME || SND_LOOP);
+    PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC || SND_FILENAME || SND_LOOP);
     Hide_square();
     show_menu();
     Sleep(1000);
