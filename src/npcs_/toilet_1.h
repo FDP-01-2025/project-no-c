@@ -7,8 +7,11 @@
 struct toilet{
     int x;
     int y;
-    toilet(int x, int y):
-    x(x), y(y) {}
+    int health;
+    int damage;
+    int id = 1;
+    toilet(int x, int y, int health, int damage):
+    x(x), y(y), health(health), damage(damage) {}
 
     void show_toilet(){
         key_animation.lock();
@@ -18,10 +21,6 @@ struct toilet{
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
         std::cout << "L";
         key_animation.unlock();
-    }
-
-    void toilet_dialogue(){
-        std::cout << "HOLA PAPUUUUUUUUU";
     }
 };
 

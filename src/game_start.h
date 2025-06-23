@@ -16,15 +16,21 @@
 int show_menu();
 
 void game_start(){ //inicio papu game
-    int width, height, x, y, health, t_x, t_y;
+    int width, height, x, y, health, damage, player_level, t_x, t_y, t_health, t_damage;
+    std::string player_name;
+    player_level = 1;
+    player_name = "skibidi pomni";
+    t_health = 30;
+    t_damage = 7;
     window_size(width, height);
     x = (width / 2);
     y = (height / 2);
-    health = 100;
-    player player_1(health, x, y); // da las coordenadas de player
+    health = 20;
+    damage = 10;
+    player player_1(x, y, health, damage,player_level,player_name); // da las coordenadas de player
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
-    toilet toilet_1(t_x, t_y); // da las coordenadas de toilet
+    toilet toilet_1(t_x, t_y, t_health, t_damage); // da las coordenadas de toilet
     Sleep(1000);
 
     toilet_1.show_toilet(); //show toilet in the game
@@ -55,8 +61,16 @@ void game_start(){ //inicio papu game
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q')
         {
              player = false;
-             show_options();
+             bool fight = true;
+             while (toilet_1.health != 0 && fight == true)
+             {  
+                if (show_options(player_1.name,player_1.level) == 's'){
+                    fight = false;
+                }
+             }
+             system("cls");
         }
+        
         if (move == 'e')
         {
             player = false;

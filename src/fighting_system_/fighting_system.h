@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <thread>
 
+
 struct X_menu_options  
 {
     int x;
@@ -31,18 +32,19 @@ struct X_menu_options
         default:
             break;
         }
+
         if (move == '\r' && x == ((width / 4) - 8))
         {
             return 'a';
         }
-        else if (move == '\r' && x == ((width / 4) + 40))
+        else if (move == '\r' && x == (((width / 4) - 8)+ 40))
         {
             return 'b';
         }
-        else if (move == '\r' && x == ((width / 4) + 80)){
+        else if (move == '\r' && x == (((width / 4) - 8) + 80)){
             return 'c';
         }
-        else if (move == '\r' && x == ((width / 4) + 120)){
+        else if (move == '\r' && x == ((width / 4) - 8) + 120){
             return 'd';
         }
         show_x();
@@ -299,10 +301,8 @@ void square_line(){
     big_square_left_side();
 }
 
-void player_name(){
+void player_name(std::string name){
     int width, height, x, y;
-    std::string name;
-    name = "Skibidi sigma pomni";
     window_size(width, height);
     x = ((width / 5) - 8);
     y = (height) - 7;
@@ -315,10 +315,8 @@ void player_name(){
     key_animation.unlock();
 }
 
-void player_level(){
+void player_level(int level){
     int width, height, x, y;
-    std::string name;
-    name = "Level 1";
     window_size(width, height);
     x = ((width / 4) + 10);
     y = (height) - 7;
@@ -327,15 +325,15 @@ void player_level(){
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    std::cout << name;
+    std::cout << "Level: " << level;
     key_animation.unlock();
 }
 
-void player_(){
-    player_name();
-    player_level();
+void player_(std::string name,int level){
+    player_name(name);
+    player_level(level);
 }
-char show_options(){
+char show_options(std::string name, int level){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -345,11 +343,10 @@ char show_options(){
     Sleep(1000);
     std::thread thread_line(square_line);
     std::thread thread_square1(show_square_option);
-    std::thread thread_player_name(player_);
+    player_(name, level);
     show_options_fighting();
     thread_square1.join();
     thread_line.join();
-    thread_player_name.join();
     Sleep(100);
     show_options_items();
     Sleep(100);
@@ -363,7 +360,13 @@ char show_options(){
         std::cout << "eso tillin xdd ";
         system("cls");
         break;
-    
+    case 'b':
+        break;
+    case 'c':
+        break;
+    case 'd':
+        return 's';
+        break;
     default:
         break;
     }

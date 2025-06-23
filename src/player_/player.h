@@ -8,12 +8,14 @@
 
 struct player
 {
-    int health;
     int x;
     int y;
-    std::string nombre;
-    player(int health, int x, int y):
-        health(health), x(x), y(y) {}
+    int health;
+    int damage;
+    int level;
+    std::string name;
+    player(int x, int y, int health, int damage, int level,std::string name):
+     x(x), y(y), health(health), damage(damage), level(level), name(name) {}
     
     char player_movement(){
         show_player_coord();
