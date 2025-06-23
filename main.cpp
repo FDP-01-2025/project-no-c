@@ -1,11 +1,11 @@
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\menu_options.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\inf_window.h>
+#include "src/menu_options.h"
+#include "src/inf_window.h"
 #include <iostream>
 #include <windows.h>
 #include <thread>
 #include <mmsystem.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\mutex_key.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\hide_square.h>
+#include "src/mutex_key.h"
+#include "src/hide_square.h"
 
 std::mutex key_animation;
 bool verify_raining = true;

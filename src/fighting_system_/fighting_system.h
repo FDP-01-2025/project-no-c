@@ -2,7 +2,7 @@
 #define FIGHTING_SYSTEM_H
 #include <iostream>
 #include <windows.h>
-#include "src/inf_window.h"
+#include "../inf_window.h"
 #include <conio.h>
 #include <thread>
 

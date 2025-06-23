@@ -3,10 +3,10 @@
 #include <windows.h>
 #include <conio.h>
 #include <iostream>
-#include "src/inf_window.h"
-#include "src/rain_menu_animation.h"
-#include "src/mutex_key.h"
-#include "src/game_start.h"
+#include "inf_window.h"
+#include "rain_menu_animation.h"
+#include "mutex_key.h"
+#include "game_start.h"
 #include <thread>
 #include <mutex>
 

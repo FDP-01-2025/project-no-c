@@ -3,8 +3,8 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
-#include "src/inf_window.h"
-#include "src/mutex_key.h"
+#include "../inf_window.h"
+#include "../mutex_key.h"
 
 struct player
 {

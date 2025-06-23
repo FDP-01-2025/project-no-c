@@ -2,8 +2,8 @@
 #define RAIN_MENU_ANIMATION_H
 #include <iostream>
 #include <random>
-#include "src/inf_window.h"
-#include "src/mutex_key.h"
+#include "inf_window.h"
+#include "mutex_key.h"
 
 extern bool verify_raining;
 

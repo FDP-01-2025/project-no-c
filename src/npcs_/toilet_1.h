@@ -1,7 +1,7 @@
 #ifndef TOILET_1_H
 #define TOILET_1_H
 #include <iostream>
-#include "src\inf_window.h"
+#include "../inf_window.h"
 #include <windows.h>
 
 struct toilet{
