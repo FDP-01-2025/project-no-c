@@ -2,7 +2,7 @@
 #define INF_WINDOW_H
 #include <windows.h>
 #include <iostream>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\mutex_key.h>
+#include "src/mutex_key.h"
 inline void window_size(int &width, int &height){
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     HANDLE hconsole = GetStdHandle(STD_OUTPUT_HANDLE);

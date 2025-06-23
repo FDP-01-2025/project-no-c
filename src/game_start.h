@@ -1,17 +1,17 @@
 #ifndef GAME_START_H
 #define GAE_START_H
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\dialogues.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\inf_window.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\mutex_key.h>
+#include "src/dialogues.h"
+#include "src/inf_window.h"
+#include "src/mutex_key.h"
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\player_\player.h>
+#include "src/player_/player.h"
 #include <thread>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\npcs_\toilet_1.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\menu_options.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\fighting_system_\fighting_system.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\rain_menu_animation.h>
+#include "src/npcs_/toilet_1.h"
+#include "src/menu_options.h"
+#include "src/fighting_system_/fighting_system.h"
+#include "src/rain_menu_animation.h"
 
 int show_menu();
 

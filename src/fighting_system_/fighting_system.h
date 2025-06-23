@@ -2,7 +2,7 @@
 #define FIGHTING_SYSTEM_H
 #include <iostream>
 #include <windows.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\inf_window.h>
+#include "src/inf_window.h"
 #include <conio.h>
 #include <thread>
 
@@ -359,6 +359,7 @@ char show_options(std::string name, int level){
     case 'a':
         std::cout << "eso tillin xdd ";
         system("cls");
+        // llamar funcion ataque
         break;
     case 'b':
         break;

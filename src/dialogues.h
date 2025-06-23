@@ -2,8 +2,8 @@
 #define DIALOGUES_H
 #include <iostream>
 #include <conio.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\mutex_key.h>
-#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\inf_window.h>
+#include "src/mutex_key.h"
+#include "src/inf_window.h"
 #include <windows.h>
 #include <thread>
 
