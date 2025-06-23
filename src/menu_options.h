@@ -85,6 +85,7 @@ struct X_menu
 };
 
 int show_menu(){
+    verify_raining = true;
     int width, height;
     window_size(width, height);
     int y_center = (height) / 2;
@@ -133,8 +134,8 @@ int show_menu(){
     thread_rain4.join();
     thread_rain5.join();
     thread_rain6.join();
-        return 0;
-        break;
+    exit(0);
+    break;
     default:
         break;
     }

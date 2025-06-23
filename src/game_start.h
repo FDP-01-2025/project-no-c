@@ -10,6 +10,8 @@
 #include <thread>
 #include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\npcs_\toilet_1.h>
 #include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\menu_options.h>
+#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\fighting_system_\fighting_system.h>
+#include <C:\Users\willi\OneDrive\Escritorio\project-no-c\src\rain_menu_animation.h>
 
 int show_menu();
 
@@ -24,24 +26,77 @@ void game_start(){ //inicio papu game
     t_y = (height / 2) - 3;
     toilet toilet_1(t_x, t_y); // da las coordenadas de toilet
     Sleep(1000);
+
     toilet_1.show_toilet(); //show toilet in the game
 
-    while (true) // bucle infinito para que el jugador se pueda mover
+    while (bool player = true)
     {
-        char move; // variable para almacenar los valores de player_movement()
-        move = player_1.player_movement();
-        if(player_1.x - toilet_1.x <= 1 && player_1.y - toilet_1.y <= 1 && move == 'q'){  // si el jugador este cerca de X y Y, de toilet y presiona q, entonces hablara
-        toilet_1.toilet_dialogue();
-        Sleep(3000);
+
+
+        int prev_x = player_1.x;
+        int prev_y = player_1.y;
+
+        char move = player_1.player_movement();
+
+        // if ((player_1.x - toilet_1.x) < 1)
+        // {
+        //     player_1.x++;
+        // }
+        // // else if(player_1.x - toilet_1.x >= -1 && player_1.y == toilet_1.y){
+        // //     player_1.x--;
+        // // }
+        if (player_1.x == toilet_1.x && player_1.y == toilet_1.y)
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+        }
+
+        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q')
+        {
+             player = false;
+             show_options();
+        }
+        if (move == 'e')
+        {
+            player = false;
+            system("cls");
+            show_menu();
+        }
+        
+        toilet_1.show_toilet();
     }
     
-    if (move == 'e'){ //si el jugador presiona e, entonces regresara al menu
-        system("cls");
-        show_menu();
 
-    }
 }
-}    
+// void movement_player(){
+//     while (bool player = true) // bucle infinito hasta que haya pelea
+//     {
+//         char move; // variable para almacenar los valores de player_movement()
+//         move = player_1.player_movement();
+//         if ((player_1.x - toilet_1.x) <= 1){
+//             player = false;
+//             player_1.x++;
+//         }
+//         else if ((player_1.x - toilet_1.x) >= -1)
+//         {
+//             player_1.x--;
+//         }
+        
+//         if(std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q'){  // si el jugador este cerca de X y Y, de toilet y presiona q, entonces hablara
+//         player = false;
+//         show_options();
+//         Sleep(3000);
+//     }
+    
+//     if (move == 'e'){ //si el jugador presiona e, entonces regresara al menu
+//         system("cls");
+//         show_menu();
+
+//     }
+// }
+// }
+   
 
     // try dialogue system later
     // char next;

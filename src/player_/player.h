@@ -44,7 +44,7 @@ struct player
             break;
         }
         show_player_coord();
-        return player_movement();
+        return 'p';
     }
 
 
