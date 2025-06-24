@@ -356,6 +356,45 @@ void big_square_left_side(){
     }
 }
 
+void enemy_description(const std::string description){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 14;
+    y = (height - 15);
+    COORD coord;
+    for (int i = 0; i < description.length(); i++)
+    {
+        x++;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << description[i];
+        key_animation.unlock();
+        Sleep(200);
+    }
+    
+}
+
+void delete_enemy_description(const std::string description){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 14;
+    y = (height - 15);
+    COORD coord;
+    for (int i = 0; i < description.length(); i++)
+    {
+        x++;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+    }
+    
+}
+
 void square_line(){
     big_square_bottom();
     big_square_top();
@@ -418,6 +457,8 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
+    std::string papu;
+    papu = "jijija";
     X_menu_options x_options(x, y);
     system("cls");
     Sleep(1000);
@@ -434,6 +475,7 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     Sleep(100);
     show_options_run();
     Sleep(100);
+    std::thread description_thread(enemy_description, papu);
     switch (x_options.movement_x())
     {
     case 'a':
@@ -442,13 +484,16 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     case 'b':
         break;
     case 'c':
+
         break;
     case 'd':
+
         return 's';
         break;
     default:
         break;
     }
+    description_thread.join();
     return 'o';
 }
 
