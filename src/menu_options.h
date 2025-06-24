@@ -121,6 +121,12 @@ int show_menu(){
     game_start();
         break;
     case 'b':
+    thread_rain1.join();
+    thread_rain2.join();
+    thread_rain3.join();
+    thread_rain4.join();
+    thread_rain5.join();
+    thread_rain6.join();
         system("cls");
         
         // code options music

@@ -5,7 +5,7 @@
 #include "../inf_window.h"
 #include <conio.h>
 #include <thread>
-
+#include "fight_interaction.h"
 
 struct X_menu_options  
 {
@@ -35,7 +35,12 @@ struct X_menu_options
 
         if (move == '\r' && x == ((width / 4) - 8))
         {
-            return 'a';
+            delete_x(x, y);
+            x = 12;
+            y = (height - 15);
+            if(x_menu_fight() == 'a'){
+                return 'a';
+            }
         }
         else if (move == '\r' && x == (((width / 4) - 8)+ 40))
         {
@@ -83,6 +88,63 @@ struct X_menu_options
         std::cout << " ";
         key_animation.unlock();
     }
+
+
+    char x_menu_fight(){
+        int width, height;
+        window_size(width, height);
+        show_x_fight();
+        char choose;
+        choose = getch();
+        choose = std::tolower(choose);
+        switch (choose)
+        {
+        case 'w':
+            y--;
+            break;
+        case 's':
+            y++;
+            break;
+        case 'e':
+            delete_x(x, y);
+            x = ((width / 4) - 8);
+            y = (height - 3);
+            return 'm';
+            break;
+        default:
+            break;
+    }
+    if (choose == '\r' && y == (height - 15)){
+        delete_x(x,y);
+        return 'a';
+    }
+    show_x_fight();
+    return x_menu_fight();
+}
+    void show_x_fight(){
+        int static prev_x, prev_y;
+        delete_x(prev_x, prev_y);
+        int width, height;
+        window_size(width, height);
+
+        if (y < height - 15)
+        {
+            y++;
+        }
+        if(y > height - 14){
+            y--;
+        }
+        COORD coord;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "X"; 
+        key_animation.unlock();
+        prev_x = x;
+        prev_y = y;
+    }
+
 };
 
 
@@ -329,11 +391,29 @@ void player_level(int level){
     key_animation.unlock();
 }
 
-void player_(std::string name,int level){
+void player_health(int health){
+    const int max_health = health;
+    int width, height, x, y;
+    window_size(width, height);
+    x = ((width / 4) + 30);
+    y = (height) - 7;
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << health << "/" << max_health;
+    key_animation.unlock();
+}
+
+
+void player_(std::string name,int level, int health){
     player_name(name);
     player_level(level);
+    player_health(health);
 }
-char show_options(std::string name, int level){
+
+char show_options(std::string name, int level, int& health, int& damage, int& e_health){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -343,7 +423,7 @@ char show_options(std::string name, int level){
     Sleep(1000);
     std::thread thread_line(square_line);
     std::thread thread_square1(show_square_option);
-    player_(name, level);
+    player_(name, level, health);
     show_options_fighting();
     thread_square1.join();
     thread_line.join();
@@ -357,9 +437,7 @@ char show_options(std::string name, int level){
     switch (x_options.movement_x())
     {
     case 'a':
-        std::cout << "eso tillin xdd ";
-        system("cls");
-        // llamar funcion ataque
+        player_attack(damage, e_health);
         break;
     case 'b':
         break;
@@ -373,6 +451,7 @@ char show_options(std::string name, int level){
     }
     return 'o';
 }
+
 
 
 #endif
