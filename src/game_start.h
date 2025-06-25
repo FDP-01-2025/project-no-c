@@ -15,6 +15,38 @@
 
 int show_menu();
 
+void show_chest_top(){
+    int x, y, width, height;
+    window_size(width, height);
+    x = (width - 29);
+    y = (height / 5); 
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << "___";
+    key_animation.unlock();
+}
+void show_chest_bottom(){
+    int x, y, width, height;
+    window_size(width, height);
+    x = (width - 30);
+    y = (height / 5) + 1; 
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << "|___|";
+    key_animation.unlock();
+}
+
+void show_chest(){
+    show_chest_top();
+    show_chest_bottom();
+}
+
 void game_start(){ //inicio papu game
     int width, height, x, y, health, damage, player_level, t_x, t_y,t_id, t_health, t_damage;
     std::string player_name;
@@ -38,11 +70,10 @@ void game_start(){ //inicio papu game
     Sleep(1000);
 
     toilet_1.show_toilet(); //show toilet in the game
+    show_chest();
 
     while (bool player = true) //Bucle para mover a player
     {
-
-
         int prev_x = player_1.x; //Coordenadas anteriores de player
         int prev_y = player_1.y; 
 
@@ -69,6 +100,14 @@ void game_start(){ //inicio papu game
              system("cls");
         }
         
+        if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1)
+        {
+             player_1.x = prev_x;
+             player_1.y = prev_y;
+            player_1.show_player_coord();
+        }
+        
+
         if (move == 'e') //Si player presiona e, regresara al menu principal
         {
             player = false;
@@ -77,6 +116,7 @@ void game_start(){ //inicio papu game
         }
         
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
+        show_chest();
     }
 
 }
