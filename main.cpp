@@ -13,6 +13,8 @@ bool verify_raining = true;
 int main(){
     SetConsoleSize(200, 40);
     HWND hwnd = GetConsoleWindow();
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     ShowWindow(hwnd, SW_MAXIMIZE);
     PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     Hide_square();

@@ -11,15 +11,29 @@ struct X_menu_options
 {
     int x;
     int y;
-    X_menu_options(int x, int y):
-    x(x), y(y) {}
+    std::string e_name;
+    X_menu_options(int x, int y, std::string e_name):
+    x(x), y(y), e_name(e_name) {}
 
     char movement_x(){
+        static bool description_start = false; //static inicializa una sola vez la variable, y si se vuelve a llamar la funcion la variable sigue con un mismo valor
+        static std::thread description_thread;
+        if (description_start == false)
+        {
+            description_thread = std::thread(&X_menu_options::enemy_description, this ); /*Cuando se pone un thread de un struct
+            se debe configurar como (&struct::funcion, argumentos y si es en el mismo struct, this)*/
+            description_start = true;
+        }
+
+        while (true) // ciclo while para evitar la recursividad
+        {
+        
+        while (_kbhit()){ getch();} // limpia las teclas pendientes
+        
         show_x();
         int width, height;
         window_size(width, height);
-        char move;
-        move = getch();
+        char move = getch();
         move =std::tolower(move);
         switch (move)
         {
@@ -33,27 +47,50 @@ struct X_menu_options
             break;
         }
 
-        if (move == '\r' && x == ((width / 4) - 8))
+        if (move == '\r' && x == ((width / 4) - 8)) 
         {
+            if (description_thread.joinable()) /*Para evitar que crashee el programa se debe verificar si el thread
+                                                puede hacer join, y para eso es este codigo*/
+            {
+                description_thread.join();
+            }
+            delete_enemy_description();
             delete_x(x, y);
             x = 12;
             y = (height - 15);
+            description_start = false; // se pone falso, para reiniciar el thread
             if(x_menu_fight() == 'a'){
                 return 'a';
             }
         }
         else if (move == '\r' && x == (((width / 4) - 8)+ 40))
         {
+            if (description_thread.joinable())
+            {
+                description_thread.join();
+            }
+                description_start = false;
             return 'b';
         }
         else if (move == '\r' && x == (((width / 4) - 8) + 80)){
+            if (description_thread.joinable())
+            {
+                description_thread.join();
+            }   
+                description_start = false;         
             return 'c';
         }
         else if (move == '\r' && x == ((width / 4) - 8) + 120){
+            if (description_thread.joinable())
+            {
+                description_thread.join();
+            }            
+            description_start = false;
             return 'd';
         }
+        // No se pone los anteriores casos de joinable, ya que esto haria que no se viera la descripcion
         show_x();
-        return movement_x();
+        }
     }
     
     void show_x(){
@@ -89,6 +126,44 @@ struct X_menu_options
         key_animation.unlock();
     }
 
+    void enemy_description(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 14;
+    y = (height - 15);
+    COORD coord;
+    for (int i = 0; i < e_name.length(); i++)
+    {
+        x++;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << e_name[i];
+        key_animation.unlock();
+        Sleep(100);
+    }
+    
+}
+
+void delete_enemy_description(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 14;
+    y = (height - 15);
+    COORD coord;
+    for (int i = 0; i < e_name.length(); i++)
+    {
+        x++;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+    }
+    
+}
 
     char x_menu_fight(){
         int width, height;
@@ -279,9 +354,240 @@ void show_square_option_bottom(){
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
+void show_square_Item_top(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 40) - 10);
+    y = (height - 5);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+void show_square_Item_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 40) - 11);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Item_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 40) + 4);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Item_bottom(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 40) - 10);
+    y = (height - 1);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
 
 
-void show_square_option(){
+void show_square_item(){ //show cuadro item
+    show_square_Item_top();
+    show_square_Item_bottom();
+    show_square_Item_left_side();
+    show_square_Item_right_side();
+}
+
+///////////////////////////////////////////////////////
+
+void show_square_Action_top(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 80) - 10);
+    y = (height - 5);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+void show_square_Action_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 80) - 11);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Action_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 80) + 4);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Action_bottom(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 80) - 10);
+    y = (height - 1);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+
+void show_square_Action(){ //show cuadro action
+    show_square_Action_top();
+    show_square_Action_bottom();
+    show_square_Action_left_side();
+    show_square_Action_right_side();
+}
+
+//////////////////////////////////
+
+void show_square_Run_top(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 120) - 10);
+    y = (height - 5);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+void show_square_Run_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 120) - 11);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Run_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 120) + 4);
+    y = (height - 5);
+    COORD coord;
+    coord.X = x;
+    for (int i = 0; i < 5; i++){
+        key_animation.lock();
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void show_square_Run_bottom(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (((width / 4) + 120) - 10);
+    y = (height - 1);
+    COORD coord;
+    coord.Y = y;
+    for (int i = 0; i < 14 ; i++){
+        key_animation.lock();
+        coord.X = x;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+
+void show_square_Run(){ //show cuadro run
+    show_square_Run_top();
+    show_square_Run_bottom();
+    show_square_Run_left_side();
+    show_square_Run_right_side();
+}
+
+//////////////////////////////////////////////////////////////
+
+void show_square_option(){ //show cuadro fight
     show_square_option_top();
     show_square_option_bottom();
     show_square_left_side();
@@ -356,45 +662,6 @@ void big_square_left_side(){
     }
 }
 
-void enemy_description(const std::string description){
-    int width, height, x, y;
-    window_size(width, height);
-    x = 14;
-    y = (height - 15);
-    COORD coord;
-    for (int i = 0; i < description.length(); i++)
-    {
-        x++;
-        key_animation.lock();
-        coord.X = x;
-        coord.Y = y;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << description[i];
-        key_animation.unlock();
-        Sleep(200);
-    }
-    
-}
-
-void delete_enemy_description(const std::string description){
-    int width, height, x, y;
-    window_size(width, height);
-    x = 14;
-    y = (height - 15);
-    COORD coord;
-    for (int i = 0; i < description.length(); i++)
-    {
-        x++;
-        key_animation.lock();
-        coord.X = x;
-        coord.Y = y;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << " ";
-        key_animation.unlock();
-    }
-    
-}
-
 void square_line(){
     big_square_bottom();
     big_square_top();
@@ -452,14 +719,12 @@ void player_(std::string name,int level, int health){
     player_health(health);
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int& e_health){
+char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
-    std::string papu;
-    papu = "jijija";
-    X_menu_options x_options(x, y);
+    X_menu_options x_options(x, y, e_name);
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);
@@ -469,13 +734,18 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     thread_square1.join();
     thread_line.join();
     Sleep(100);
+    std::thread thread_square_item(show_square_item);
     show_options_items();
+    thread_square_item.join();
     Sleep(100);
+    std::thread thread_square_action(show_square_Action);
     show_options_actions();
+    thread_square_action.join();
     Sleep(100);
+    std::thread thread_square_run(show_square_Run);
     show_options_run();
+    thread_square_run.join();
     Sleep(100);
-    std::thread description_thread(enemy_description, papu);
     switch (x_options.movement_x())
     {
     case 'a':
@@ -493,7 +763,6 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     default:
         break;
     }
-    description_thread.join();
     return 'o';
 }
 
