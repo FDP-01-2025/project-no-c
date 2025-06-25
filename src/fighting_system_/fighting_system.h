@@ -719,7 +719,21 @@ void player_(std::string name,int level, int health){
     player_health(health);
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name){
+void show_enemy(std::string enemy_skin){
+    int width, height;
+    window_size(width, height);
+    int x = (width / 2);
+    int y = (height / 2);
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;    
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << enemy_skin;
+    key_animation.unlock();
+}
+
+char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name, std::string character_skin){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -746,6 +760,7 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     show_options_run();
     thread_square_run.join();
     Sleep(100);
+    show_enemy(character_skin);
     switch (x_options.movement_x())
     {
     case 'a':
@@ -763,6 +778,7 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     default:
         break;
     }
+    
     return 'o';
 }
 
