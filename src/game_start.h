@@ -32,7 +32,8 @@ void game_start(){ //inicio papu game
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
     std::string t_skin = "L";
-    toilet toilet_1(t_x, t_y, t_health, t_damage, t_name,t_skin); // da las coordenadas de toilet
+    std::string t_description_1 = "Toilet wanna fight!";
+    toilet toilet_1(t_x, t_y, t_health, t_damage, t_name,t_skin, t_description_1); // da las coordenadas de toilet
     Sleep(1000);
 
     toilet_1.show_toilet(); //show toilet in the game
@@ -60,7 +61,7 @@ void game_start(){ //inicio papu game
              bool fight = true; // inicio ciclo pelea
              while (toilet_1.health > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, toilet_1.health, toilet_1.name, t_skin) == 's'){
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, toilet_1.health, toilet_1.name, t_skin, t_description_1) == 's'){
                     fight = false;
                 }
              }

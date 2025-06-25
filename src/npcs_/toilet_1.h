@@ -10,10 +10,11 @@ struct toilet{
     int health;
     int damage;
     int id = 1;
+    std::string description1;
     std::string name;
     std::string character_skin;
-    toilet(int x, int y, int health, int damage, std::string name, std::string character_skin):
-    x(x), y(y), health(health), damage(damage), name(name), character_skin(character_skin) {}
+    toilet(int x, int y, int health, int damage, std::string name, std::string character_skin, std::string description1):
+    x(x), y(y), health(health), damage(damage), name(name), character_skin(character_skin), description1(description1) {}
 
     void show_toilet(){
         key_animation.lock();

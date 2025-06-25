@@ -12,27 +12,23 @@ struct X_menu_options
     int x;
     int y;
     std::string e_name;
-    X_menu_options(int x, int y, std::string e_name):
-    x(x), y(y), e_name(e_name) {}
+    std::string description1;
+    X_menu_options(int x, int y, std::string e_name, std::string description1):
+    x(x), y(y), e_name(e_name), description1(description1) {}
 
     char movement_x(){
         static bool description_start = false; //static inicializa una sola vez la variable, y si se vuelve a llamar la funcion la variable sigue con un mismo valor
         static std::thread description_thread;
         if (description_start == false)
         {
-            description_thread = std::thread(&X_menu_options::enemy_description, this ); /*Cuando se pone un thread de un struct
+            description_thread = std::thread(&X_menu_options::enemy_description, this, description1); /*Cuando se pone un thread de un struct
             se debe configurar como (&struct::funcion, argumentos y si es en el mismo struct, this)*/
             description_start = true;
         }
-
-        while (true) // ciclo while para evitar la recursividad
-        {
-        
-        while (_kbhit()){ getch();} // limpia las teclas pendientes
-        
         show_x();
         int width, height;
         window_size(width, height);
+        while (_kbhit()){ getch();} // limpia las teclas pendientes 
         char move = getch();
         move =std::tolower(move);
         switch (move)
@@ -54,12 +50,13 @@ struct X_menu_options
             {
                 description_thread.join();
             }
-            delete_enemy_description();
+            delete_enemy_description(description1);
             delete_x(x, y);
+            description_start = false; // se pone falso, para reiniciar el thread
             x = 12;
             y = (height - 15);
-            description_start = false; // se pone falso, para reiniciar el thread
-            if(x_menu_fight() == 'a'){
+            char menu_fight = x_menu_fight();
+            if(menu_fight == 'a'){
                 return 'a';
             }
         }
@@ -89,8 +86,9 @@ struct X_menu_options
             return 'd';
         }
         // No se pone los anteriores casos de joinable, ya que esto haria que no se viera la descripcion
+        // Ni description_start = false, dado que esto haria que fuera un bucle normal
         show_x();
-        }
+        return movement_x();
     }
     
     void show_x(){
@@ -125,34 +123,34 @@ struct X_menu_options
         std::cout << " ";
         key_animation.unlock();
     }
-
-    void enemy_description(){
+//////////////Enemy descriptions /////////////////////////////////  
+    void enemy_description(std::string string){
     int width, height, x, y;
     window_size(width, height);
     x = 14;
     y = (height - 15);
     COORD coord;
-    for (int i = 0; i < e_name.length(); i++)
+    for (int i = 0; i < string.length(); i++)
     {
         x++;
         key_animation.lock();
         coord.X = x;
         coord.Y = y;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << e_name[i];
+        std::cout << string[i];
         key_animation.unlock();
-        Sleep(100);
+        Sleep(20);
     }
     
 }
 
-void delete_enemy_description(){
+void delete_enemy_description(std::string string){
     int width, height, x, y;
     window_size(width, height);
     x = 14;
     y = (height - 15);
     COORD coord;
-    for (int i = 0; i < e_name.length(); i++)
+    for (int i = 0; i < string.length(); i++)
     {
         x++;
         key_animation.lock();
@@ -164,8 +162,15 @@ void delete_enemy_description(){
     }
     
 }
-
+//////////////////////////////////Menu fight /////////////////////////////
     char x_menu_fight(){
+        static bool enemy_name = false;
+        static std::thread thread_name;
+        if (enemy_name == false)
+        {
+            thread_name = std::thread(&X_menu_options::enemy_description, this,e_name);
+            enemy_name = true;
+        }
         int width, height;
         window_size(width, height);
         show_x_fight();
@@ -181,6 +186,75 @@ void delete_enemy_description(){
             y++;
             break;
         case 'e':
+        if (thread_name.joinable())
+        {
+            thread_name.join();
+        }
+            enemy_name = false;
+            delete_x(x, y);
+            delete_enemy_description(e_name);
+            x = ((width / 4) - 8);
+            y = (height - 3);
+            return 'm';
+            break;
+        default:
+            break;
+    }
+    if (choose == '\r' && y == (height - 15)){
+        if (thread_name.joinable())
+        {
+            thread_name.join();
+        }
+        
+        delete_x(x,y);
+        enemy_name = false;
+        return 'a';
+    }
+    show_x_fight();
+    return x_menu_fight();
+}
+    void show_x_fight(){
+        int static prev_x, prev_y;
+        delete_x(prev_x, prev_y);
+        int width, height;
+        window_size(width, height);
+
+        if (y < height - 15)
+        {
+            y++;
+        }
+        if(y > height - 14){
+            y--;
+        }
+        COORD coord;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "X"; 
+        key_animation.unlock();
+        prev_x = x;
+        prev_y = y;
+    }
+
+/////////////ITEM MENU///////////////////////////
+char x_menu_Item(){
+        int width, height;
+        window_size(width, height);
+        show_x_fight();
+        char choose;
+        choose = getch();
+        choose = std::tolower(choose);
+        switch (choose)
+        {
+        case 'w':
+            y--;
+            break;
+        case 's':
+            y++;
+            break;
+        case 'e':
+            
             delete_x(x, y);
             x = ((width / 4) - 8);
             y = (height - 3);
@@ -194,9 +268,9 @@ void delete_enemy_description(){
         return 'a';
     }
     show_x_fight();
-    return x_menu_fight();
+    return x_menu_Item();
 }
-    void show_x_fight(){
+    void show_x_Item(){
         int static prev_x, prev_y;
         delete_x(prev_x, prev_y);
         int width, height;
@@ -733,12 +807,12 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name, std::string character_skin){
+char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name, std::string character_skin, std::string description1){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
-    X_menu_options x_options(x, y, e_name);
+    X_menu_options x_options(x, y, e_name, description1);
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);
