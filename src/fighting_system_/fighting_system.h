@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <thread>
 #include "fight_interaction.h"
+#include "enemy_attack.h"
 
 struct X_menu_options  
 {
@@ -66,16 +67,30 @@ struct X_menu_options
             {
                 description_thread.join();
             }
-                description_start = false;
-            return 'b';
+            delete_enemy_description(description1);
+            description_start = false;
+            x = 12;
+            y = (height - 15);
+            char menu_item = x_menu_Item();
+            if (menu_item == 'b')
+            {
+                return 'b';
+            }
         }
         else if (move == '\r' && x == (((width / 4) - 8) + 80)){
             if (description_thread.joinable())
             {
                 description_thread.join();
             }   
-                description_start = false;         
-            return 'c';
+            delete_enemy_description(description1);
+            description_start = false;     
+            x = 12;
+            y = (height - 15);
+            char menu_action = x_menu_Action();
+            if (menu_action == 'c')
+            {
+                return 'c';
+            }     
         }
         else if (move == '\r' && x == ((width / 4) - 8) + 120){
             if (description_thread.joinable())
@@ -205,7 +220,7 @@ void delete_enemy_description(std::string string){
         {
             thread_name.join();
         }
-        
+        delete_enemy_description(e_name);
         delete_x(x,y);
         enemy_name = false;
         return 'a';
@@ -254,7 +269,6 @@ char x_menu_Item(){
             y++;
             break;
         case 'e':
-            
             delete_x(x, y);
             x = ((width / 4) - 8);
             y = (height - 3);
@@ -265,7 +279,7 @@ char x_menu_Item(){
     }
     if (choose == '\r' && y == (height - 15)){
         delete_x(x,y);
-        return 'a';
+        return 'c';
     }
     show_x_fight();
     return x_menu_Item();
@@ -293,7 +307,61 @@ char x_menu_Item(){
         prev_x = x;
         prev_y = y;
     }
+///////////////////Action menu/////////////////////////////
+char x_menu_Action(){
+        int width, height;
+        window_size(width, height);
+        show_x_fight();
+        char choose;
+        choose = getch();
+        choose = std::tolower(choose);
+        switch (choose)
+        {
+        case 'w':
+            y--;
+            break;
+        case 's':
+            y++;
+            break;
+        case 'e':
+            delete_x(x, y);
+            x = ((width / 4) - 8);
+            y = (height - 3);
+            return 'm';
+            break;
+        default:
+            break;
+    }
+    if (choose == '\r' && y == (height - 15)){
+        delete_x(x,y);
+        return 'c';
+    }
+    show_x_fight();
+    return x_menu_Action();
+}
+    void show_x_Action(){
+        int static prev_x, prev_y;
+        delete_x(prev_x, prev_y);
+        int width, height;
+        window_size(width, height);
 
+        if (y < height - 15)
+        {
+            y++;
+        }
+        if(y > height - 14){
+            y--;
+        }
+        COORD coord;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "X"; 
+        key_animation.unlock();
+        prev_x = x;
+        prev_y = y;
+    }
 };
 
 
@@ -807,7 +875,7 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int& e_health, std::string e_name, std::string character_skin, std::string description1){
+char show_options(std::string name, int level, int& health, int& damage, int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -839,6 +907,7 @@ char show_options(std::string name, int level, int& health, int& damage, int& e_
     {
     case 'a':
         player_attack(damage, e_health);
+        enemy_attack(id, health, e_damage);
         break;
     case 'b':
         break;

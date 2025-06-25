@@ -65,8 +65,8 @@ void player_attack2(int damage, int& e_health){
     thread_attack.join();
 
     int x_, y_;
-    x_ = width / 2;
-    y_ = height / 2;
+    x_ = (width / 2) + 2;
+    y_ = (height / 2) - 1;
     if(e_health > 0)
     {
         COORD coord;
@@ -77,18 +77,31 @@ void player_attack2(int damage, int& e_health){
         std::cout << e_health;
         key_animation.unlock();
         Sleep(500);
+        delete_e_health(x_, y_);
     }
     else {
+    int last_x, last_y;
+    last_x = width / 2;
+    last_y = height / 2;
     COORD coord;
     key_animation.lock();
-    coord.X = x_;
-    coord.Y = y_;
+    coord.X = last_x;
+    coord.Y = last_y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     std::cout << "Enemy defeat! :D";
     key_animation.unlock();
     Sleep(500);}
 }
 
+void delete_e_health(int x, int y){
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << "   ";
+    key_animation.unlock();
+}
 
 };
 
@@ -100,7 +113,6 @@ void player_attack(int damage, int& e_health){
     int x = 0, y = 0;
     attack player_attack(x, y);
     player_attack.player_attack2(damage, e_health);
-    return;
 }
 
 
