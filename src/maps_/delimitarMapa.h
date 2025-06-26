@@ -1,72 +1,23 @@
-#include <windows.h>
-#include <conio.h>
-#include <iostream>
-
-using namespace std;
+#ifndef DELIMITAR_MAPA_H
+#define DELIMITAR_MAPA_H
 
 
-void window_size(int &width, int &height) {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
+    
+    int left_limit   = 4;                     
+    int right_limit  = screen_width - 5;      
+    int top_limit    = 2;                     
+    int bottom_limit = screen_height - 3;     
+
+    
+    if (player_x < left_limit || player_x > right_limit || player_y < top_limit || player_y > bottom_limit) {
+        player_x = previous_x;
+        player_y = previous_y;
+    }
 }
 
+#endif
 
-struct Player {
-    int x;
-    int y;
-    int max_width;
-    int max_height;
-
-    Player(int x_, int y_, int w, int h)
-        : x(x_), y(y_), max_width(w), max_height(h) {}
-
-    void show() {
-        COORD coord;
-        coord.X = x;
-        coord.Y = y;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "X";
-    }
-
-    void clear() {
-        COORD coord;
-        coord.X = x;
-        coord.Y = y;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << " ";
-    }
-
-    void move() {
-        while (true) {
-            char input = getch();
-            input = tolower(input);
-            clear();
-
-            if (input == 'w' && y > 2) y--;                      
-            else if (input == 's' && y < max_height - 3) y++;   
-            else if (input == 'a' && x > 2) x--;                
-            else if (input == 'd' && x < max_width - 4) x++;    
-            else if (input == 'q') break;                       
-
-            show();
-        }
-    }
-};
-
-void start_map() {
-    system("cls");
-    int width, height;
-    window_size(width, height);
-
-    int start_x = width / 2;
-    int start_y = height / 2;
-
-    Player player(start_x, start_y, width, height);
-    player.show();
-    player.move();
-}
 
 
 
