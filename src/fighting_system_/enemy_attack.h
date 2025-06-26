@@ -5,6 +5,16 @@
 #include "../inf_window.h"
 #include "fighting_system.h"
 
+/////////////// continuar mas tarde
+#define MAX_PROJECTILES 30 //Define que los proyectiles maximos de cualquier ataque seran 30
+
+struct Projectile {
+    int x, y;
+    bool active; 
+};
+
+Projectile projectiles[MAX_PROJECTILES]; // definimos como arreglo simple
+
 struct enemy_attack_X
 {
     int x;
@@ -234,7 +244,88 @@ void fight_square(){
 
 void show_enemy(std::string enemy_skin);
 
-void enemy_attack(int id, int health,int e_damage){
+void projectiles_init(){ // Inicializamos la variable active para cada proyectil en False
+    for (int i = 0; i < MAX_PROJECTILES; i++)
+    {
+        projectiles[i].active = false;   
+    }
+}
+
+void spawn_projectiles(int min_x, int max_x, int y){
+    srand(time(0));
+    for (int i = 0; i < MAX_PROJECTILES; i++){
+        if (projectiles[i].active == false)
+        {
+            projectiles[i].x = min_x + rand() % (max_x - min_x);
+            projectiles[i].y = y;
+            projectiles[i].active = true;
+            break;
+        }
+    }
+}
+
+void update_projectiles(int max_y){
+    for (int i = 0; i < MAX_PROJECTILES; i++)
+    {
+        if (projectiles[i].active)
+        {
+            projectiles[i].y++;
+            if (projectiles[i].y > max_y){
+            projectiles[i].active = false;
+        }     
+        }   
+    }
+}
+
+void delete_prev_projectile(int x, int y){
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << " ";
+    key_animation.unlock();
+}
+
+
+void show_projectiles(){
+    int width, height;
+    window_size(width, height);
+    int prev_x, prev_y;
+    for (int i = 0; i < MAX_PROJECTILES; i++)
+    {
+        while (projectiles[i].active && projectiles[i].y != (height-9))
+        {
+            delete_prev_projectile(prev_x, prev_y);
+            projectiles[i].y++;
+            COORD coord;
+            key_animation.lock();
+            coord.X = projectiles[i].x;
+            coord.Y = projectiles[i].y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << "+"; 
+            key_animation.unlock();
+            Sleep(800);
+            prev_x = projectiles[i].x;
+            prev_y = projectiles[i].y;
+        }
+    }   
+}
+
+
+bool player_collision(int player_x, int player_y){
+    for (int i = 0; i < MAX_PROJECTILES; i++)
+    {
+        if (projectiles[i].active && projectiles[i].x == player_x && projectiles[i].y == player_y);
+        {
+            return true;
+        }
+    }
+    return false;    
+}
+
+
+void enemy_attack(int id, int& health,int& e_damage){
     int width, height, x, y;
     window_size(width, height);
     x = (width / 2);
@@ -243,11 +334,22 @@ void enemy_attack(int id, int health,int e_damage){
     switch (id)
     {
     case 1:
+        projectiles_init();
         delete_big_square();
         show_enemy("L");
         fight_square();
-        player_fight.player_movement();
-        Sleep(10000);
+        while (projectiles->x != player_fight.x && projectiles->y != player_fight.y)
+        {
+            spawn_projectiles(69,(width - 71),(height - 17));
+            update_projectiles(height - 10);
+            std::thread thread_projectiles(show_projectiles);
+            player_fight.player_movement();
+            if (player_collision(player_fight.x, player_fight.y) == true)
+            {
+                health = health - e_damage; 
+            }
+            
+        }
         /* code */
         break;
     

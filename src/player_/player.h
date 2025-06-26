@@ -14,6 +14,8 @@ struct player
     int damage;
     int level;
     std::string name;
+    std::string inventory_item[5];
+    int inventory = 0;
     player(int x, int y, int health, int damage, int level,std::string name):
      x(x), y(y), health(health), damage(damage), level(level), name(name) {}
     
@@ -86,6 +88,49 @@ struct player
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         std::cout << " ";
         key_animation.unlock();
+    }
+
+    bool add_item(const std::string &item){
+        if (inventory < 5)
+        {
+            inventory_item[inventory++] = item;
+            return true;
+        }
+        if (inventory > 5){
+            return false;
+        }
+    }
+
+    void use_item(const std::string& item_name){
+        static bool knife = false;
+        for (int i = 0; i < inventory; i++){
+            if (inventory_item[i] == item_name)
+            {
+                if (item_name == "Being sucesfully")
+                {
+                    //funcion playsound mi compa JAJAJAJ
+                }
+                if (item_name == "Cookie"){
+                    health += 10;
+                }
+                if (item_name == "Apple"){
+                    health += 5;
+                }
+                if (item_name == "Knife" && knife == false)
+                {
+                    knife = true;
+                    damage = 15;
+                }
+                if (item_name == "Knife" && knife == true){
+                    knife = false;
+                    damage = 10;
+                }
+                if (item_name == "Cake")
+                {
+                    health += 20;
+                }
+            }
+        }
     }
 };
 

@@ -907,7 +907,7 @@ char show_options(std::string name, int level, int& health, int& damage, int id,
     {
     case 'a':
         player_attack(damage, e_health);
-        enemy_attack(id, health, e_damage);
+        //enemy_attack(id, health, e_damage);
         break;
     case 'b':
         break;
