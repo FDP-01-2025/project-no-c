@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <windows.h>
 #include "player_/player.h"
+#include "maps_/mapLimits.h" // para delimitar el mapa
 #include <thread>
 #include "npcs_/toilet_1.h"
 #include "menu_options.h"
