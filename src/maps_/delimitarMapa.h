@@ -1,11 +1,9 @@
-#ifndef PLAYER_MOVEMENT_H
-#define PLAYER_MOVEMENT_H
-
 #include <windows.h>
 #include <conio.h>
 #include <iostream>
 
 using namespace std;
+
 
 void window_size(int &width, int &height) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -13,6 +11,7 @@ void window_size(int &width, int &height) {
     width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 }
+
 
 struct Player {
     int x;
@@ -45,11 +44,11 @@ struct Player {
             input = tolower(input);
             clear();
 
-            if (input == 'w' && y > 2) y--;                    
-            else if (input == 's' && y < max_height - 3) y++;  
-            else if (input == 'a' && x > 2) x--;               
-            else if (input == 'd' && x < max_width - 4) x++;   
-            else if (input == 'q') break;                      
+            if (input == 'w' && y > 2) y--;                      
+            else if (input == 's' && y < max_height - 3) y++;   
+            else if (input == 'a' && x > 2) x--;                
+            else if (input == 'd' && x < max_width - 4) x++;    
+            else if (input == 'q') break;                       
 
             show();
         }
@@ -69,4 +68,5 @@ void start_map() {
     player.move();
 }
 
-#endif
+
+
