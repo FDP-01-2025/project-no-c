@@ -1,5 +1,5 @@
 #ifndef GAME_START_H
-#define GAE_START_H
+#define GAME_START_H
 #include "dialogues.h"
 #include "inf_window.h"
 #include "mutex_key.h"
@@ -12,7 +12,7 @@
 #include "menu_options.h"
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
-
+#include "maps_/delimitarMapa.h"
 
 int show_menu();
 
@@ -78,7 +78,7 @@ void game_start(){ //inicio papu game
     {
         int prev_x = player_1.x; //Coordenadas anteriores de player
         int prev_y = player_1.y; 
-
+        
         char move = player_1.player_movement(); //Movimiento player
 
         if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
@@ -87,7 +87,8 @@ void game_start(){ //inicio papu game
             player_1.y = prev_y;
             player_1.show_player_coord();
         }
-
+        restrictMapBorders(player_1.x, player_1.y, width, height, prev_x, prev_y);
+        
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
              player = false; // se detiene el ciclo player
