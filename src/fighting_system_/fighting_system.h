@@ -12,10 +12,12 @@ struct X_menu_options
 {
     int x;
     int y;
+    int inventory;
+    std::string inventory_item;
     std::string e_name;
     std::string description1;
-    X_menu_options(int x, int y, std::string e_name, std::string description1):
-    x(x), y(y), e_name(e_name), description1(description1) {}
+    X_menu_options(int x, int y,int inventory,std::string inventory_item, std::string e_name, std::string description1):
+    x(x), y(y), inventory(inventory), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
 
     char movement_x(){
         static bool description_start = false; //static inicializa una sola vez la variable, y si se vuelve a llamar la funcion la variable sigue con un mismo valor
@@ -67,6 +69,7 @@ struct X_menu_options
             {
                 description_thread.join();
             }
+            delete_x(x, y);
             delete_enemy_description(description1);
             description_start = false;
             x = 12;
@@ -82,6 +85,7 @@ struct X_menu_options
             {
                 description_thread.join();
             }   
+            delete_x(x, y);
             delete_enemy_description(description1);
             description_start = false;     
             x = 12;
@@ -254,19 +258,26 @@ void delete_enemy_description(std::string string){
 
 /////////////ITEM MENU///////////////////////////
 char x_menu_Item(){
+        
         int width, height;
         window_size(width, height);
-        show_x_fight();
+        show_x_Item();
         char choose;
         choose = getch();
         choose = std::tolower(choose);
         switch (choose)
         {
         case 'w':
-            y--;
+            y -= 2;
             break;
         case 's':
-            y++;
+            y += 2;
+            break;
+        case 'a':
+            x -= 2;
+            break;
+        case 'd':
+            x += 2;
             break;
         case 'e':
             delete_x(x, y);
@@ -281,7 +292,7 @@ char x_menu_Item(){
         delete_x(x,y);
         return 'c';
     }
-    show_x_fight();
+    show_x_Item();
     return x_menu_Item();
 }
     void show_x_Item(){
@@ -289,13 +300,107 @@ char x_menu_Item(){
         delete_x(prev_x, prev_y);
         int width, height;
         window_size(width, height);
-
-        if (y < height - 15)
-        {
-            y++;
+        if(inventory == 0){
+        if (y < (height - 15))
+            {
+            y += 2;
         }
-        if(y > height - 14){
-            y--;
+        if(y > (height - 15)){
+            y -= 2;    
+        }   
+        if(x > 12){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        }
+        if (inventory == 1)
+        {
+        if (y < (height - 15))
+            {
+            y += 2;
+        }
+        if(y > (height - 15)){
+            y -= 2;    
+        }   
+        if(x > 12){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        }
+        if (inventory == 2)
+        {
+        if (y < (height - 15))
+            {
+            y += 2;
+        }
+        if(y > (height - 13)){
+            y -= 2;    
+        }   
+        if(x > 12){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        }
+        if (inventory == 3)
+        {
+        if (y < (height - 15))
+            {
+            y += 2;
+        }
+        if(y > (height - 11)){
+            y -= 2;    
+        }   
+        if(x > 12){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        }       
+        if (inventory == 4)
+        {
+        if (y < (height - 15))
+            {
+            y += 2;
+        }
+        if(y > (height - 11)){
+            y -= 2;    
+        }   
+        if(y == (height -15) && x > 14){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        if (y != (height -15) && x > 12)
+        {
+            x -=2;
+        }
+        }
+        if (inventory == 5){
+        if (y < (height - 15))
+            {
+            y += 2;
+        }
+        if(y > (height - 11)){
+            y -= 2;    
+        }   
+        if(y >= (height -15) && y <= (height - 13) && x > 14){
+            x -= 2;
+        }
+        if(x < 12){
+            x += 2;
+        }
+        if (y == (height -11) && x > 12)
+        {
+            x -=2;
+        }
         }
         COORD coord;
         key_animation.lock();
@@ -349,7 +454,7 @@ char x_menu_Action(){
         {
             y++;
         }
-        if(y > height - 14){
+        if(y > height - 15){
             y--;
         }
         COORD coord;
@@ -875,12 +980,12 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){
+char show_options(std::string name, int level, int& health, int& damage, int inventory,std::string inventory_item, int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
-    X_menu_options x_options(x, y, e_name, description1);
+    X_menu_options x_options(x, y, inventory,inventory_item, e_name, description1);
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);
