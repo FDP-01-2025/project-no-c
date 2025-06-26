@@ -13,6 +13,7 @@
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
 
+
 int show_menu();
 
 void show_chest_top(){
@@ -60,7 +61,8 @@ void game_start(){ //inicio papu game
     y = (height / 2);
     health = 20;
     damage = 10;
-    player player_1(x, y, health, damage,player_level,player_name); // da las coordenadas de player
+    int inventory = 0;
+    player player_1(x, y, health, damage, inventory,player_level,player_name); // da las coordenadas de player
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
@@ -93,7 +95,7 @@ void game_start(){ //inicio papu game
              bool fight = true; // inicio ciclo pelea
              while (toilet_1.health > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item[player_1.inventory], toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){
                     fight = false;
                 }
              }
@@ -107,6 +109,10 @@ void game_start(){ //inicio papu game
             player_1.show_player_coord();
         }
         
+        if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
+            player_1.add_item("Cookie");
+        }
+
 
         if (move == 'e') //Si player presiona e, regresara al menu principal
         {

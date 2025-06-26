@@ -14,10 +14,10 @@ struct player
     int damage;
     int level;
     std::string name;
-    std::string inventory_item[5];
-    int inventory = 0;
-    player(int x, int y, int health, int damage, int level,std::string name):
-     x(x), y(y), health(health), damage(damage), level(level), name(name) {}
+    std::string inventory_item[6];
+    int inventory;
+    player(int x, int y, int health, int damage, int inventory, int level,std::string name):
+     x(x), y(y), health(health), damage(damage), inventory(inventory), level(level), name(name) {}
     
     char player_movement(){
         show_player_coord();
@@ -91,14 +91,12 @@ struct player
     }
 
     bool add_item(const std::string &item){
-        if (inventory < 5)
+        if (inventory < 6)
         {
             inventory_item[inventory++] = item;
             return true;
         }
-        if (inventory > 5){
             return false;
-        }
     }
 
     void use_item(const std::string& item_name){
