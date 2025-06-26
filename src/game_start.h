@@ -13,7 +13,7 @@
 #include "menu_options.h"
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
-#include "maps_/delimitarMapa.h"
+#include "maps_/mapLimits.h"
 
 int show_menu();
 
@@ -97,7 +97,7 @@ void game_start(){ //inicio papu game
              bool fight = true; // inicio ciclo pelea
              while (toilet_1.health > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item[player_1.inventory], toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                 }
              }
@@ -112,7 +112,18 @@ void game_start(){ //inicio papu game
         }
         
         if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
-            player_1.add_item("Cookie");
+            for (int i = 0; i < inventory + 1; i++)
+            {
+                if (player_1.inventory_item[i] == "Cookie"){
+                    player_1.add_item("Apple");
+                    break;
+                }
+                if (player_1.inventory_item[i] != "Cookie")
+                {
+                    player_1.add_item("Cookie");
+                    break;
+                }
+            }
         }
 
 
@@ -127,7 +138,7 @@ void game_start(){ //inicio papu game
         show_chest();
     }
 
-}
+}  // El array empieza siempre en 0, cuando se utiliza el 1 aparece el objeto 2;
 
     // try dialogue system later
     // char next;

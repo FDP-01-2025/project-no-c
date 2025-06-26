@@ -15,7 +15,7 @@ struct player
     int level;
     std::string name;
     std::string inventory_item[6];
-    int inventory;
+    int inventory = 0;
     player(int x, int y, int health, int damage, int inventory, int level,std::string name):
      x(x), y(y), health(health), damage(damage), inventory(inventory), level(level), name(name) {}
     
@@ -43,6 +43,9 @@ struct player
             break;
         case 'e':
             return 'e';
+            break;
+        case 'g':
+            show_inventory();
             break;
         default:
             break;
@@ -91,12 +94,18 @@ struct player
     }
 
     bool add_item(const std::string &item){
-        if (inventory < 6)
+        if (inventory < 5)
         {
             inventory_item[inventory++] = item;
             return true;
         }
             return false;
+    }
+
+    void show_inventory(){
+        for (int i = 0; i < inventory; i++){
+            std::cout << inventory_item[i];
+        }
     }
 
     void use_item(const std::string& item_name){
