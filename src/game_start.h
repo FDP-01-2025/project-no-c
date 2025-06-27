@@ -71,9 +71,9 @@ void game_start(){ //inicio papu game
     std::string t_description_1 = "Toilet wanna fight!";
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
     Sleep(1000);
-
     toilet_1.show_toilet(); //show toilet in the game
     show_chest();
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
     while (bool player = true) //Bucle para mover a player
     {
@@ -92,6 +92,8 @@ void game_start(){ //inicio papu game
         
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
+            PlaySound(NULL, 0, 0);
+            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_ASYNC || SND_FILENAME);
              player = false; // se detiene el ciclo player
              toilet_1.health = 30; // vida base de toilet
              bool fight = true; // inicio ciclo pelea
@@ -99,8 +101,10 @@ void game_start(){ //inicio papu game
              {  
                 if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
+                    PlaySound(NULL, 0, 0);
                 }
              }
+            PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
              system("cls");
         }
         
@@ -133,7 +137,6 @@ void game_start(){ //inicio papu game
             system("cls");
             show_menu();
         }
-        
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         show_chest();
     }

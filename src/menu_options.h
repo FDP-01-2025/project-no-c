@@ -10,6 +10,8 @@
 #include <thread>
 #include <mutex>
 
+extern bool verify_music;
+
 struct X_menu
 {
     int x;
@@ -86,6 +88,7 @@ struct X_menu
 
 int show_menu(){
     verify_raining = true;
+    PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     int width, height;
     window_size(width, height);
     int y_center = (height) / 2;
@@ -110,6 +113,7 @@ int show_menu(){
     switch (x1.movement_x())
     {
     case 'a':
+    PlaySound(NULL, 0, 0);
     verify_raining = false;
     thread_rain1.join();
     thread_rain2.join();
@@ -132,6 +136,7 @@ int show_menu(){
         // code options music
         break;
     case 'c':
+    PlaySound(NULL, 0, 0);
     verify_raining = false;
     system("cls");
     thread_rain1.join();

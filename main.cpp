@@ -9,6 +9,7 @@
 
 std::mutex key_animation;
 bool verify_raining = true;
+bool verify_music = true;
 
 int main(){
     SetConsoleSize(200, 40);
@@ -16,7 +17,6 @@ int main(){
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
     ShowWindow(hwnd, SW_MAXIMIZE);
-    PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     Hide_square();
     show_menu();
     Sleep(1000);
