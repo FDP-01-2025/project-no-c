@@ -46,7 +46,7 @@ void dialogue_square_bottom(){
 }
 
 void dialogue_background(){
-
+    
 }
 
 void dialogue_square(){

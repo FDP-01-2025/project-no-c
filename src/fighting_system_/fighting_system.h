@@ -189,6 +189,7 @@ void delete_enemy_description(std::string string){
     x = 14;
     y = (height - 15);
     COORD coord;
+    bool fifth_item = false;
     for (int a = 0; a < inventory + 1; a++)
     {
         
@@ -201,13 +202,26 @@ void delete_enemy_description(std::string string){
         std::cout << inventory_item[a][i]; //Poner dos arrays, uno para el item y otro para su cadena string
         key_animation.unlock();
         x++;
-        Sleep(20);
+        Sleep(15);
         }
-        if (y != (height - 11))
+
+        if (fifth_item == true)
         {
+            x = 26;
             y += 2;
         }
-        x = 14;
+        else if (y == (height - 11))
+        {
+            y = (height - 15);
+            x = 26;
+            fifth_item = true;
+        }
+        else if (y != (height - 11))
+        {
+            x = 14;
+            y += 2;
+        }
+        
     }
 }
 
@@ -217,6 +231,7 @@ void delete_enemy_description(std::string string){
     x = 14;
     y = (height - 15);
     COORD coord;
+    bool fifth_item = false;
     for (int a = 0; a < inventory + 1; a++)
     {
         
@@ -230,11 +245,24 @@ void delete_enemy_description(std::string string){
         key_animation.unlock();
         x++;
         }
-        if (y != (height - 11))
+
+        if (fifth_item == true)
         {
+            x = 26;
             y += 2;
         }
-        x = 14;
+        else if (y == (height - 11))
+        {
+            y = (height - 15);
+            x = 26;
+            fifth_item = true;
+        }
+        else if (y != (height - 11))
+        {
+            x = 14;
+            y += 2;
+        }
+        
     }
 }
 
