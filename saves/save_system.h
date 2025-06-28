@@ -6,7 +6,7 @@ using namespace std;
 
     struct Savegame
     {
-        int name;
+        string name;
         int x;
         int y;
         int health;
@@ -29,7 +29,8 @@ using namespace std;
             return;
         }
         cout << "Insert name of save file: ";
-        cin >> savegame[total].name;
+        cin.ignore();
+        getline(cin, savegame[total].name);
         ++total;
         cout << "File saved! \n";
     }
@@ -68,7 +69,7 @@ using namespace std;
 
     archivo.close();//siempre cerrarlo para evitar erroress
 
-    cout << "Datos guardados\n";
+    cout << "Data saved\n";
     }
     void cargar() {
     ifstream archivo("savefile.txt");
