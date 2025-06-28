@@ -7,6 +7,9 @@
 #include <thread>
 #include "fight_interaction.h"
 #include "enemy_attack.h"
+#include "items_system.h"
+
+std::string item_used;
 
 struct X_menu_options  
 {
@@ -396,10 +399,9 @@ char x_menu_Item(){
         item_name_ = false;
         delete_item_name();
         delete_x(x,y);
-        int choose = 1;
-        std::cout << inventory_item[choose];       
-        Sleep(10000);
-        return 'c';
+        int choose = 0;
+        item_used = inventory_item[choose];
+        return 'b';
     }
     show_x_Item();
     return x_menu_Item();
@@ -1089,7 +1091,7 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int level, int& health, int& damage, int inventory,std::string inventory_item[], int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
+char show_options(std::string name, int& level, int& health, int& damage, int inventory,std::string inventory_item[], int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -1127,6 +1129,7 @@ char show_options(std::string name, int level, int& health, int& damage, int inv
         //enemy_attack(id, health, e_damage);
         break;
     case 'b':
+        use_item(item_used,health,damage);
         break;
     case 'c':
 

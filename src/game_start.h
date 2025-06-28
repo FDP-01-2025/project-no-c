@@ -73,8 +73,8 @@ void game_start(){ //inicio papu game
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
 
 
-    int c_x = (width / 2) + 10;
-    int c_y = (height / 2) - 3;
+    int c_x = (width / 2) - 30;
+    int c_y = (height / 2) + 10;
     int c_health = 10;
     int c_damage = 5;
     int c_id = 2;
