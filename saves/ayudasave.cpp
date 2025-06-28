@@ -1,6 +1,3 @@
-#ifndef SAVE_SYSTEM_H
-#define SAVE_SYSTEM_H
-#endif
 #include <fstream>
 #include <iostream>
 
