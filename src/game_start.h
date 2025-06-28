@@ -10,6 +10,7 @@
 #include "maps_/mapLimits.h" // para delimitar el mapa
 #include <thread>
 #include "npcs_/toilet_1.h"
+#include "enemys_/cow_enemy.h"
 #include "menu_options.h"
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
@@ -70,8 +71,21 @@ void game_start(){ //inicio papu game
     std::string t_skin = "L";
     std::string t_description_1 = "Toilet wanna fight!";
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
+
+
+    int c_x = (width / 2) + 10;
+    int c_y = (height / 2) - 3;
+    int c_health = 10;
+    int c_damage = 5;
+    int c_id = 2;
+    std::string c_name = "Cow";
+    std::string c_skin = "C";
+    std::string c_description_1 = "Moo, I'm a cow!";  
+    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id, c_name, c_skin, c_description_1);// Coordenadas de cow  
+
     Sleep(1000);
     toilet_1.show_toilet(); //show toilet in the game
+    cow_1.show_cow();
     show_chest();
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
@@ -137,7 +151,9 @@ void game_start(){ //inicio papu game
             system("cls");
             show_menu();
         }
+        
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
+        cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
     }
 
