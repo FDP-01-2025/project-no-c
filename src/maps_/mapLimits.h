@@ -1,7 +1,7 @@
 #ifndef DELIMITAR_MAPA_H
 #define DELIMITAR_MAPA_H
 #include <iostream>
-
+#include <windows.h>
 using namespace std;
 
 void drawMapBorders(int screen_width, int screen_height) {
@@ -55,56 +55,6 @@ void drawMapBorders(int screen_width, int screen_height) {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│";
         key_animation.unlock();
-    }
-}
-
-#include <windows.h>
-#include <iostream>
-using namespace std;
-
-void drawMapBorders(int screen_width, int screen_height) {
-    int left_limit   = 4;
-    int right_limit  = screen_width - 5;
-    int top_limit    = 2;
-    int bottom_limit = screen_height - 3;
-
-    COORD coord;
-
-    
-    coord.X = left_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
-
-    coord.X = right_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐";
-
-    coord.X = left_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└";
-
-    coord.X = right_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘";
-
-    for (int x = left_limit + 1; x < right_limit; x++) {
-        coord.X = x;
-
-        coord.Y = top_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "─";
-
-        coord.Y = bottom_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "─";
-    }
-
-    for (int y = top_limit + 1; y < bottom_limit; y++) {
-        coord.Y = y;
-
-        coord.X = left_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "│";
-
-        coord.X = right_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "│";
     }
 }
 

@@ -138,7 +138,7 @@ void game_start(){ //inicio papu game
             drawMapBorders(width, height);
         }
         
-        if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1)
+        if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1) //Si ´player quiere pisar alguna coordenada de chest retrocedera
         {
              player_1.x = prev_x;
              player_1.y = prev_y;
@@ -146,16 +146,25 @@ void game_start(){ //inicio papu game
         }
         
         if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
-            for (int i = 0; i < player_1.inventory + 1; i++)
-            {
+            bool search_item = false;
+
+            for (int i = 0; i < player_1.inventory + 1; i++){
                 if (player_1.inventory_item[i] == "Cookie"){
-                    player_1.add_item("Apple");
-                    break;
-                }
-                player_1.add_item("Cookie");
+                player_1.add_item("Apple"); 
+                search_item = true; 
                 break;
                 }
-            
+            }
+            if (search_item == false)
+            {
+             for (int i = 0; i < player_1.inventory + 1; i++)
+                {
+                if (player_1.inventory_item[i] != "Cookie"){
+                    player_1.add_item("Cookie");
+                    break;
+                    }                
+                }
+            }
         }
 
 
