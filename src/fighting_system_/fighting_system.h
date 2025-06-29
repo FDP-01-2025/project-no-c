@@ -15,11 +15,11 @@ struct X_menu_options
 {
     int x;
     int y;
-    int inventory;
+    int& inventory;
     std::string* inventory_item; // Asterisco para señalar que el puntero es array
     std::string e_name;
     std::string description1;
-    X_menu_options(int x, int y,int inventory,std::string* inventory_item, std::string e_name, std::string description1):
+    X_menu_options(int x, int y,int& inventory,std::string* inventory_item, std::string e_name, std::string description1):
     x(x), y(y), inventory(inventory), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
 
     char movement_x(){

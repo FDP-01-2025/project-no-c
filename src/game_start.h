@@ -72,6 +72,10 @@ void game_start(){ //inicio papu game
     std::string t_description_1 = "Toilet wanna fight!";
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
 
+    int left_limit   = 5;                     
+    int right_limit  = width - 6;      
+    int top_limit    = 3;                     
+    int bottom_limit = height - 4;     
 
     int c_x = (width / 2) - 30;
     int c_y = (height / 2) + 10;
@@ -87,14 +91,24 @@ void game_start(){ //inicio papu game
     toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();
     show_chest();
+    drawMapBorders(width, height);
+
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
     while (bool player = true) //Bucle para mover a player
     {
+        
         int prev_x = player_1.x; //Coordenadas anteriores de player
         int prev_y = player_1.y; 
         
         char move = player_1.player_movement(); //Movimiento player
+
+        if (player_1.x < left_limit || player_1.x > right_limit || player_1.y < top_limit || player_1.y > bottom_limit ){
+        player_1.x = prev_x;
+        player_1.y = prev_y;
+        player_1.show_player_coord();
+        drawMapBorders(width, height);
+        }
 
         if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
         {
@@ -102,7 +116,6 @@ void game_start(){ //inicio papu game
             player_1.y = prev_y;
             player_1.show_player_coord();
         }
-        restrictMapBorders(player_1.x, player_1.y, width, height, prev_x, prev_y);
         
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
@@ -121,7 +134,8 @@ void game_start(){ //inicio papu game
                 }
              }
             PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-             system("cls");
+            system("cls");
+            drawMapBorders(width, height);
         }
         
         if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1)
@@ -132,18 +146,16 @@ void game_start(){ //inicio papu game
         }
         
         if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
-            for (int i = 0; i < inventory + 1; i++)
+            for (int i = 0; i < player_1.inventory + 1; i++)
             {
                 if (player_1.inventory_item[i] == "Cookie"){
                     player_1.add_item("Apple");
                     break;
                 }
-                if (player_1.inventory_item[i] != "Cookie")
-                {
-                    player_1.add_item("Cookie");
-                    break;
+                player_1.add_item("Cookie");
+                break;
                 }
-            }
+            
         }
 
 
@@ -153,7 +165,7 @@ void game_start(){ //inicio papu game
             system("cls");
             show_menu();
         }
-        
+
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();

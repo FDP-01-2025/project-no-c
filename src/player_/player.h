@@ -15,7 +15,7 @@ struct player
     int level;
     std::string name;
     std::string inventory_item[6];
-    int inventory = 0;
+    int inventory;
     player(int x, int y, int health, int damage, int inventory, int level,std::string name):
      x(x), y(y), health(health), damage(damage), inventory(inventory), level(level), name(name) {}
     
@@ -61,19 +61,6 @@ struct player
         int static prev_x, prev_y;
         delete_prev_coord(prev_x, prev_y);
         COORD coord;
-        if (x > width - 1)
-        {
-            x--;
-        }
-        if (x < 0){
-            x++;
-        }
-        if (y > height - 1){
-            y--;
-        }
-        if (y < 0){
-            y++;
-        }
         key_animation.lock();
         coord.X = x;
         coord.Y = y;
