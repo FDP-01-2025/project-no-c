@@ -1,5 +1,5 @@
-#ifndef DELIMITAR_MAPA_H
-#define DELIMITAR_MAPA_H
+#ifndef LIMIT_MAP_H
+#define LIMIT_MAP_H
 
 
 void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
