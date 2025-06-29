@@ -5,7 +5,6 @@
 #include <iostream>
 using namespace std;
 
-// Dibuja visualmente los bordes del mapa
 void drawMapBorders(int screen_width, int screen_height) {
     int left_limit   = 4;
     int right_limit  = screen_width - 5;
@@ -14,7 +13,7 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
-    // Esquinas
+    
     coord.X = left_limit; coord.Y = top_limit;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
 
@@ -27,7 +26,6 @@ void drawMapBorders(int screen_width, int screen_height) {
     coord.X = right_limit; coord.Y = bottom_limit;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘";
 
-    // Líneas horizontales
     for (int x = left_limit + 1; x < right_limit; x++) {
         coord.X = x;
 
@@ -40,7 +38,6 @@ void drawMapBorders(int screen_width, int screen_height) {
         cout << "─";
     }
 
-    // Líneas verticales
     for (int y = top_limit + 1; y < bottom_limit; y++) {
         coord.Y = y;
 
@@ -54,7 +51,6 @@ void drawMapBorders(int screen_width, int screen_height) {
     }
 }
 
-// Restringe el movimiento del jugador si intenta cruzar los bordes del mapa
 void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
     int left_limit   = 4;
     int right_limit  = screen_width - 5;
