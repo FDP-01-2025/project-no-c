@@ -1099,9 +1099,6 @@ char show_options(std::string name, int& level, int& health, int& damage, int in
     X_menu_options x_options(x, y, inventory,inventory_item, e_name, description1);
     system("cls");
     Sleep(1000);
-    if (character_skin == "L"){
-    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-    }
     std::thread thread_line(square_line);
     std::thread thread_square1(show_square_option);
     player_(name, level, health);

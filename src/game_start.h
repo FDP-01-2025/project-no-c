@@ -107,10 +107,12 @@ void game_start(){ //inicio papu game
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
             PlaySound(NULL, 0, 0);
-            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_ASYNC || SND_FILENAME);
-             player = false; // se detiene el ciclo player
-             toilet_1.health = 30; // vida base de toilet
-             bool fight = true; // inicio ciclo pelea
+            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
+            PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            //Sleep(800);
+            player = false; // se detiene el ciclo player
+            toilet_1.health = 30; // vida base de toilet
+            bool fight = true; // inicio ciclo pelea
              while (toilet_1.health > 0 && fight == true)
              {  
                 if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
