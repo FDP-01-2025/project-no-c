@@ -20,8 +20,11 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 2. **Nombre completo:** Johann Andre Angel Menjivar  
    **Carnet:** 00071625
 
-3. **Nombre completo:** [Nombre del estudiante 3]  
-   **Carnet:** [Carnet del estudiante 3]
+3. **Nombre completo:** Jose Andres Calles Ramirez  
+   **Carnet:** 00054525
+
+4. **Nombre completo:**  
+   **Carnet:** 
 
 (Agregar más integrantes si es necesario)
 
@@ -29,4 +32,4 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 
 1. Clona este repositorio en tu máquina local:
    ```bash
-   git clone [https://github.com/FDP-01-2025/project-no-c.git]
+   git clone https://github.com/FDP-01-2025/project-no-c.git
