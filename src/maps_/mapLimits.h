@@ -32,76 +32,95 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
+<<<<<<< HEAD
     key_animation.lock();
+=======
+>>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     coord.X = left_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
+
     coord.X = right_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐";
+
     coord.X = left_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└";
+
     coord.X = right_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘"; key_animation.unlock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘";
 
     
     for (int x = left_limit + 1; x < right_limit; x++) {
-        key_animation.lock();
         coord.X = x;
+
         coord.Y = top_limit;
+<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
         key_animation.lock();
         coord.Y = bottom_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
+=======
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
+
+        coord.Y = bottom_limit;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
+>>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     }
 
     
     for (int y = top_limit + 1; y < bottom_limit; y++) {
-        key_animation.lock();
         coord.Y = y;
 
         coord.X = left_limit;
+<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
         key_animation.lock();
         coord.X = right_limit;  
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
+=======
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
+
+        coord.X = right_limit;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
+>>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     }
 
 
 
-    draw_line(10, 5, 30, 5, '#');   
-    draw_line(10, 10, 30, 10, '#'); 
-    draw_line(10, 5, 10, 10, '#');  
-    draw_line(30, 5, 30, 10, '#');  
-    
-    
-    draw_line(35, 3, 55, 3, '*');
-    draw_line(35, 9, 55, 9, '*');
-    draw_line(35, 3, 35, 9, '*');
-    draw_line(55, 3, 55, 9, '*');
-
-    
-    draw_line(15, 13, 35, 13, '*');
-    draw_line(15, 19, 35, 19, '*');
-    draw_line(15, 13, 15, 19, '*');
-    draw_line(35, 13, 35, 19, '*');
+draw_line(8, 4, 28, 4, '#');   
+draw_line(8, 9, 28, 9, '#');   
+draw_line(8, 4, 8, 9, '#');    
+draw_line(28, 4, 28, 9, '#');  
 
 
-    draw_line(40, 14, 60, 14, '*');
-    draw_line(40, 20, 60, 20, '*');
-    draw_line(40, 14, 40, 20, '*');
-    draw_line(60, 14, 60, 20, '*');
-    
+draw_line(55, 3, 75, 3, '#');
+draw_line(55, 8, 75, 8, '#');
+draw_line(55, 3, 55, 8, '#');
+draw_line(75, 3, 75, 8, '#');
 
-    draw_line(25, 22, 45, 22, '*');
-    draw_line(25, 28, 45, 28, '*');
-    draw_line(25, 22, 25, 28, '*');
-    draw_line(45, 22, 45, 28, '*');
+
+
+draw_line(10, 15, 30, 15, '#');
+draw_line(10, 20, 30, 20, '#');
+draw_line(10, 15, 10, 20, '#');
+draw_line(30, 15, 30, 20, '#');
+
+
+
+draw_line(50, 16, 70, 16, '#');
+draw_line(50, 21, 70, 21, '#');
+draw_line(50, 16, 50, 21, '#');
+draw_line(70, 16, 70, 21, '#');
+
+
+
+draw_line(30, 25, 50, 25, '#');
+draw_line(30, 30, 50, 30, '#');
+draw_line(30, 25, 30, 30, '#');
+draw_line(50, 25, 50, 30, '#');
 }
 
 void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
@@ -174,6 +193,7 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     }
 }
 
+<<<<<<< HEAD
 
 void drawRoomWalls() {
     COORD coord;
@@ -214,4 +234,6 @@ void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
     }
 }
 
+=======
+>>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
 #endif
