@@ -5,6 +5,25 @@
 #include <iostream>
 using namespace std;
 
+void draw_line(int x1, int y1, int x2, int y2, char symbol) {
+    COORD coord;
+    if (x1 == x2) {
+        for (int y = y1; y <= y2; y++) {
+            coord.X = x1;
+            coord.Y = y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            cout << symbol;
+        }
+    } else {
+        for (int x = x1; x <= x2; x++) {
+            coord.X = x;
+            coord.Y = y1;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            cout << symbol;
+        }
+    }
+}
+
 void drawMapBorders(int screen_width, int screen_height) {
     int left_limit   = 4;
     int right_limit  = screen_width - 5;
@@ -30,25 +49,30 @@ void drawMapBorders(int screen_width, int screen_height) {
         coord.X = x;
 
         coord.Y = top_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "─";
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
 
         coord.Y = bottom_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "─";
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
     }
 
     for (int y = top_limit + 1; y < bottom_limit; y++) {
         coord.Y = y;
 
         coord.X = left_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "│";
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
 
         coord.X = right_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout << "│";
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
     }
+
+
+    // Sala 1
+    draw_line(10, 5, 30, 5, '#');   
+    draw_line(10, 10, 30, 10, '#'); 
+    draw_line(10, 5, 10, 10, '#');  
+    draw_line(30, 5, 30, 10, '#');  
+
+    
 }
 
 void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
@@ -60,44 +84,21 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     if (player_x < left_limit || player_x > right_limit || player_y < top_limit || player_y > bottom_limit) {
         player_x = previous_x;
         player_y = previous_y;
+        return;
     }
-}
 
-void drawRoomWalls() {
-    COORD coord;
-    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    for (int x = 10; x <= 30; ++x) {
-        coord = { (SHORT)x, 5 };
-        SetConsoleCursorPosition(h, coord); cout << "─";
-
-        coord = { (SHORT)x, 15 };
-        SetConsoleCursorPosition(h, coord); cout << "─";
+    if ((player_x == 10 || player_x == 30) && (player_y >= 5 && player_y <= 10) && player_x != 30 && player_y != 7) {
+        player_x = previous_x;
+        player_y = previous_y;
+        return;
     }
-    for (int y = 6; y < 15; ++y) {
-        coord = { 10, (SHORT)y };
-        SetConsoleCursorPosition(h, coord); cout << "│";
-
-        coord = { 30, (SHORT)y };
-        SetConsoleCursorPosition(h, coord); cout << "│";
+    if ((player_y == 5 || player_y == 10) && (player_x >= 10 && player_x <= 30) && player_x != 30) {
+        player_x = previous_x;
+        player_y = previous_y;
+        return;
     }
-}
 
 
-void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
-   
-    if ((player_x == 10 || player_x == 30) && (player_y >= 5 && player_y <= 15)) {
-        if (!(player_y == 15 && player_x == 20)) {
-            player_x = prev_x;
-            player_y = prev_y;
-        }
-    }
-    if ((player_y == 5 || player_y == 15) && (player_x >= 10 && player_x <= 30)) {
-        if (!(player_y == 15 && player_x == 20)) {
-            player_x = prev_x;
-            player_y = prev_y;
-        }
-    }
 }
 
 #endif
