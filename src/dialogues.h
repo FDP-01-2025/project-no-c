@@ -10,11 +10,11 @@
 void dialogue_square_top(){
     int width, height, x, y;
     window_size(width, height);
-    x = 0;
+    x = 8;
     y = ((height / 2) + 8);
     COORD coord;
     coord.Y = y;
-    while (x < width - 1)
+    while (x < width - 10)
     {
         x++;
         key_animation.lock();
@@ -22,18 +22,17 @@ void dialogue_square_top(){
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         std::cout << "-";
         key_animation.unlock();
-        Sleep(1);
     }
 }
 
 void dialogue_square_bottom(){
     int width, height, x, y;
     window_size(width, height);
-    x = 0;
+    x = 8;
     y = height - 1;
     COORD coord;
     coord.Y = y;
-    while (x < width - 1)
+    while (x < width - 10)
     {
         x++;
         key_animation.lock();
@@ -41,26 +40,77 @@ void dialogue_square_bottom(){
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         std::cout << "-";
         key_animation.unlock();
-        Sleep(1);
+    }
+}
+
+void dialogue_square_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = width - 10;
+    y = ((height / 2) + 8);
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void dialogue_square_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 8;
+    y = ((height / 2) + 8);
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
     }
 }
 
 void dialogue_background(){
-    
+    int width, height, x, y;
+    window_size(width, height);
+    x = 9;
+    y = (height / 2) + 9;
+    COORD coord;
+    for (int i = 0; i < 16; i++)
+    {
+        for (int a = 0; a < width - 19; a++)
+        {
+            coord.X = x;
+            coord.Y = y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << " ";
+            x++;
+        }
+        x = 9;
+        y++;
+    }
 }
 
 void dialogue_square(){
-    std::thread thread_dialogue_top(dialogue_square_top);
-    std::thread thread_dialogue_bottom(dialogue_square_bottom);
-    thread_dialogue_top.join();
-    thread_dialogue_bottom.join();
+    dialogue_background();
+    dialogue_square_bottom();
+    dialogue_square_top();
+    dialogue_square_left_side();
+    dialogue_square_right_side();
 }
 
 void center_dialogue(const std::string dialogue){
     int width, height, x, y;
     window_size(width, height);
-    x = (width / 2);
-    y = (height / 2) + 10;    
+    x = (width - dialogue.length()) / 2;
+    y = (height / 2) + 14;    
     COORD coord;
     key_animation.lock();
     coord.X = x;
@@ -69,20 +119,19 @@ void center_dialogue(const std::string dialogue){
     for (int i = 0; i < dialogue.length(); i++)
     {
         std::cout << dialogue[i];
-        Sleep(3);
+        Sleep(15);
     }
     key_animation.unlock();
-
 }
 
-void delete_square_top(){
-        int width, height, x, y;
+void delete_dialogue_square_top(){
+    int width, height, x, y;
     window_size(width, height);
-    x = 0;
+    x = 8;
     y = ((height / 2) + 8);
     COORD coord;
     coord.Y = y;
-    while (x < width - 1)
+    while (x < width - 10)
     {
         x++;
         key_animation.lock();
@@ -90,18 +139,17 @@ void delete_square_top(){
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         std::cout << " ";
         key_animation.unlock();
-        Sleep(1);
     }
 }
 
-void delete_square_bottom(){
-        int width, height, x, y;
+void delete_dialogue_square_bottom(){
+    int width, height, x, y;
     window_size(width, height);
-    x = 0;
+    x = 8;
     y = height - 1;
     COORD coord;
     coord.Y = y;
-    while (x < width - 1)
+    while (x < width - 10)
     {
         x++;
         key_animation.lock();
@@ -109,34 +157,85 @@ void delete_square_bottom(){
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         std::cout << " ";
         key_animation.unlock();
-        Sleep(1);
     }
+}
+
+void delete_dialogue_square_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = width - 10;
+    y = ((height / 2) + 8);
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void delete_dialogue_square_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 8;
+    y = ((height / 2) + 8);
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void delete_center_dialogue(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = 9;
+    y = (height / 2) + 14;    
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    for (int i = 0; i < width - 19; i++)
+    {
+        std::cout << " ";
+        x++;
+    }
+    key_animation.unlock();
 }
 
 void delete_square(){
-    std::thread thread_delete_square_top(delete_square_top);
-    std::thread thread_delte_square_bottom(delete_square_bottom);
-    thread_delete_square_top.join();
-    thread_delte_square_bottom.join();
+    delete_dialogue_square_top();
+    delete_dialogue_square_bottom();
+    delete_dialogue_square_right_side();
+    delete_dialogue_square_left_side();
+    delete_center_dialogue();
 }
 
-void delete_dialogue(){
-int width, height, x, y;
-    window_size(width, height);
-    x = 0;
-    y = (height / 2) + 10;    
-    COORD coord;
-    for (int i = 0; i < width - 1; i++)
+
+
+
+
+
+
+
+
+
+void finish_dialogue(){
+    char move = getch();
+    while (move != '\r')
     {
-        x++;
-        key_animation.lock();
-        coord.Y = y;
-        coord.X = x;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << " ";
-        key_animation.unlock();
+        move = getch();
     }
-    
+    delete_square();
 }
 
 #endif 

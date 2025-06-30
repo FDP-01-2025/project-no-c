@@ -114,6 +114,10 @@ void game_start(){ //inicio papu game
     std::string c_description_3 = "Nyaaaaa";
     cat_enemy cat_1(c_health, c_damage, c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 637fa654d0e7e49900a1db7df2ccdd7a05f76508
     //Horse stats
 
     int h_x = (width / 2) + 10;
@@ -241,7 +245,8 @@ void game_start(){ //inicio papu game
     oscar_1.show_oscar();
     show_chest();
     drawMapBorders(width, height);
-    drawRoomWalls();
+    //drawRoomWalls();
+    
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
     while (bool player = true) //Bucle para mover a player
@@ -295,11 +300,13 @@ void game_start(){ //inicio papu game
         }
         
         if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
+            dialogue_square();
             bool search_item = false;
-
             for (int i = 0; i < player_1.inventory + 1; i++){
                 if (player_1.inventory_item[i] == "Cookie"){
                 player_1.add_item("Apple"); 
+                center_dialogue("You got a Apple!");
+                finish_dialogue();
                 search_item = true; 
                 break;
                 }
@@ -310,10 +317,13 @@ void game_start(){ //inicio papu game
                 {
                 if (player_1.inventory_item[i] != "Cookie"){
                     player_1.add_item("Cookie");
+                    center_dialogue("You got a Cookie!");
+                    finish_dialogue();
                     break;
                     }                
                 }
             }
+            drawMapBorders(width, height);
         }
 
 
@@ -327,7 +337,7 @@ void game_start(){ //inicio papu game
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
-        drawRoomWalls();
+        //drawRoomWalls();
     }
 
 }  // El array empieza siempre en 0, cuando se utiliza el 1 aparece el objeto 2;
