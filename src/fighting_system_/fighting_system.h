@@ -15,11 +15,11 @@ struct X_menu_options
 {
     int x;
     int y;
-    int inventory;
+    int& inventory;
     std::string* inventory_item; // Asterisco para señalar que el puntero es array
     std::string e_name;
     std::string description1;
-    X_menu_options(int x, int y,int inventory,std::string* inventory_item, std::string e_name, std::string description1):
+    X_menu_options(int x, int y,int& inventory,std::string* inventory_item, std::string e_name, std::string description1):
     x(x), y(y), inventory(inventory), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
 
     char movement_x(){
@@ -391,7 +391,7 @@ char x_menu_Item(){
         default:
             break;
     }
-    if (choose == '\r' && y == (height - 15) && x == (12)){
+    if (choose == '\r' && y == (height - 15) && x == (12) && inventory != 0){
         if (item_name_thread.joinable())
         {
                 item_name_thread.join();
@@ -400,6 +400,58 @@ char x_menu_Item(){
         delete_item_name();
         delete_x(x,y);
         int choose = 0;
+        item_used = inventory_item[choose];
+        delete_item_inventory(inventory, inventory_item, item_used);
+        return 'b';
+    }
+    if (choose == '\r' && y == (height - 13) && x == (12) && inventory != 0){
+        if (item_name_thread.joinable())
+        {
+                item_name_thread.join();
+        }
+        item_name_ = false;
+        delete_item_name();
+        delete_x(x,y);
+        int choose = 1;
+        item_used = inventory_item[choose];
+        delete_item_inventory(inventory, inventory_item, item_used);
+        return 'b';
+    }
+    if (choose == '\r' && y == (height - 11) && x == (12) && inventory != 0){
+        if (item_name_thread.joinable())
+        {
+                item_name_thread.join();
+        }
+        item_name_ = false;
+        delete_item_name();
+        delete_x(x,y);
+        int choose = 2;
+        item_used = inventory_item[choose];
+        delete_item_inventory(inventory, inventory_item, item_used);
+        return 'b';
+    }
+    if (choose == '\r' && y == (height - 15) && x == (24) && inventory != 0){
+        if (item_name_thread.joinable())
+        {
+                item_name_thread.join();
+        }
+        item_name_ = false;
+        delete_item_name();
+        delete_x(x,y);
+        int choose = 3;
+        item_used = inventory_item[choose];
+        delete_item_inventory(inventory, inventory_item, item_used);
+        return 'b';
+    }
+    if (choose == '\r' && y == (height - 13) && x == (24) && inventory != 0){
+        if (item_name_thread.joinable())
+        {
+                item_name_thread.join();
+        }
+        item_name_ = false;
+        delete_item_name();
+        delete_x(x,y);
+        int choose = 4;
         item_used = inventory_item[choose];
         delete_item_inventory(inventory, inventory_item, item_used);
         return 'b';

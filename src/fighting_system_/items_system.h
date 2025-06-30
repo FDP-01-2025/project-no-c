@@ -45,15 +45,16 @@ void delete_text(std::string item){
 }
 
 void delete_item_inventory(int& inventory, std::string inventory_[], std::string item_name){
-    bool item = false;
-    for (int i = 0; i < inventory + 1; i++){
-        if (inventory_[i] == item_name && item == false)
-        {
-            item = true;
-            inventory_[i] = inventory_[i + 1];
+    for (int i = 0; i < inventory; i++){ // El for llega hasta inventory - 1, que es el ultimo item antes de salirse del array
+        if (inventory_[i] == item_name)
+        { 
+            for (int a = i; a < inventory - 1; a++){ // Cuando encuentra al item, desde el item encontrado copia el siguiente hasta el ulitmo elemento del array 
+                inventory_[a] = inventory_[a + 1];
+            }
+            inventory_[inventory - 1] = ""; // Ya que no se copia nada despues de inventory - 1 lo ponemos como "" para vaciar el slot
             inventory--;
+            break;
         }
-        inventory_[i] = inventory_[i + 1];
     }
 }
 
