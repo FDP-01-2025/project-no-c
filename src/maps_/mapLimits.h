@@ -1,7 +1,8 @@
 #ifndef DELIMITAR_MAPA_H
 #define DELIMITAR_MAPA_H
-#include <iostream>
+
 #include <windows.h>
+#include <iostream>
 using namespace std;
 
 void drawMapBorders(int screen_width, int screen_height) {
@@ -12,49 +13,42 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
-    key_animation.lock();
+
     coord.X = left_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
+
     coord.X = right_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐";
+
     coord.X = left_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└"; key_animation.unlock();
-    key_animation.lock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└";
+
     coord.X = right_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘"; key_animation.unlock();
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘";
 
     for (int x = left_limit + 1; x < right_limit; x++) {
-        key_animation.lock();
         coord.X = x;
+
         coord.Y = top_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─";
-        key_animation.unlock();
-    
-        key_animation.lock();
-        coord.X = x;
+
         coord.Y = bottom_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─";
-        key_animation.unlock();
     }
 
+
     for (int y = top_limit + 1; y < bottom_limit; y++) {
-        key_animation.lock();
         coord.Y = y;
+
         coord.X = left_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│";
-        key_animation.unlock();
-                
-        key_animation.lock();
-        coord.Y = y;
+
         coord.X = right_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│";
-        key_animation.unlock();
     }
 }
 
@@ -69,6 +63,7 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
         player_y = previous_y;
     }
 }
+
 
 void drawRoomWalls() {
     COORD coord;
@@ -90,8 +85,9 @@ void drawRoomWalls() {
     }
 }
 
-void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
 
+void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
+    
     if ((player_x == 10 || player_x == 30) && (player_y >= 5 && player_y <= 15)) {
         if (!(player_y == 15 && player_x == 20)) {
             player_x = prev_x;
@@ -106,12 +102,4 @@ void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
     }
 }
 
-
-
-
 #endif
-
-
-
-
-
