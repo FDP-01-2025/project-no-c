@@ -32,10 +32,7 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
-<<<<<<< HEAD
     key_animation.lock();
-=======
->>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     coord.X = left_limit; coord.Y = top_limit;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌"; key_animation.unlock();
     key_animation.lock();
@@ -53,19 +50,12 @@ void drawMapBorders(int screen_width, int screen_height) {
         key_animation.lock();
         coord.X = x;
         coord.Y = top_limit;
-<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
         key_animation.lock();
         coord.Y = bottom_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
-=======
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
-
-        coord.Y = bottom_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
->>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     }
 
     
@@ -74,19 +64,12 @@ void drawMapBorders(int screen_width, int screen_height) {
         coord.Y = y;
 
         coord.X = left_limit;
-<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
         key_animation.lock();
         coord.X = right_limit;  
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
-=======
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
-
-        coord.X = right_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
->>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     }
 
 
@@ -191,7 +174,6 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     }
 }
 
-<<<<<<< HEAD
 
 void drawRoomWalls() {
     COORD coord;
@@ -233,6 +215,3 @@ void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
 }
 
 #endif
-=======
-#endif
->>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
