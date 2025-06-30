@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
     struct Savegame
     {
         string name;
@@ -115,7 +114,7 @@ using namespace std;
 
 
   }
-int main() {
+int save_menu() {
   cargar();
   int op;
 
