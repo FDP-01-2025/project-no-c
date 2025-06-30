@@ -20,11 +20,11 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 2. **Nombre completo:** Johann Andre Angel Menjivar  
    **Carnet:** 00071625
 
-3. **Nombre completo:** Jose Andres Calles Ramirez  
-   **Carnet:** 00054525
+3. **Nombre completo:**   Daniel Alexander Avelar Orellana
+   **Carnet:** 00089625
 
-4. **Nombre completo:**  
-   **Carnet:** 
+4. **Nombre completo:**  Jose Andres Calles Ramirez
+   **Carnet:**  00054525
 
 (Agregar más integrantes si es necesario)
 
