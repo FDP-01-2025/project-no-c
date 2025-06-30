@@ -7,7 +7,6 @@
 #include <conio.h>
 #include <windows.h>
 #include "player_/player.h"
-#include "maps_/mapLimits.h" // para delimitar el mapa
 #include <thread>
 #include "npcs_/toilet_1.h"
 #include "enemys_/cow_enemy.h"
@@ -15,6 +14,8 @@
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
 #include "maps_/mapLimits.h"
+#include "maps_/river.h"
+
 
 int show_menu();
 
@@ -59,8 +60,8 @@ void game_start(){ //inicio papu game
     t_damage = 7;
     t_id = 1;
     window_size(width, height);
-    x = (width / 4);
-    y = (height / 2);
+    x = (width / 12);
+    y = (height / 4);
     health = 20;
     damage = 10;
     int inventory = 0;
@@ -87,8 +88,8 @@ void game_start(){ //inicio papu game
     std::string c_name = "Cow";
     std::string c_skin = "C";
     std::string c_description_1 = "The cow is cowing you!"; 
-    std::string c_description_2 = "Moo i'm a cow!";
-    std::string c_description_3 = "The cow is exhausted :c"; 
+    std::string c_description_2 = "The cow is exhausted :c ";
+    std::string c_description_3 = "Moo i'm a cow!"; 
     cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
 
     //Cat stats
@@ -131,7 +132,7 @@ void game_start(){ //inicio papu game
     cow_1.show_cow();
     show_chest();
     drawMapBorders(width, height);
-    //drawRoomWalls();
+    river();
     
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
@@ -223,6 +224,7 @@ void game_start(){ //inicio papu game
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
+        river();
         //drawRoomWalls();
     }
 
