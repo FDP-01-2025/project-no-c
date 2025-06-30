@@ -11,6 +11,15 @@
 #include <thread>
 #include "npcs_/toilet_1.h"
 #include "enemys_/cow_enemy.h"
+#include "enemys_/cat_enemy.h"
+#include "enemys_/horse_enemy.h"
+#include "enemys_/iguana_enemy.h"
+#include "enemys_/pig_enemy.h"
+#include "enemys_/sheep_enemy.h"
+#include "enemys_/snail_enemy.h"
+#include "enemys_/thief_enemy.h"
+#include "enemys_/hachi_enemy.h"
+#include "enemys_/oscar_enemy.h"
 #include "menu_options.h"
 #include "fighting_system_/fighting_system.h"
 #include "rain_menu_animation.h"
@@ -81,8 +90,8 @@ void game_start(){ //inicio papu game
 
     int c_x = (width / 2) - 30;
     int c_y = (height / 2) + 10;
-    int c_health = 10;
-    int c_damage = 5;
+    int c_health = 30;
+    int c_damage = 7;
     int c_id = 2;
     std::string c_name = "Cow";
     std::string c_skin = "C";
@@ -93,42 +102,143 @@ void game_start(){ //inicio papu game
 
     //Cat stats
 
+    int c_x = (width / 2) - 35;
+    int c_y = (height / 2) - 10;
+    int c_health = 15;
+    int c_damage = 5;
+    int c_id = 3;
+    std::string c_name = "Cat";
+    std::string c_skin = "G";
+    std::string c_description_1 = "The cat scratches at you!";
+    std::string c_description_2 = "Meow! The cat is angry.";
+    std::string c_description_3 = "Nyaaaaa";
+    cat_enemy cat_1(c_health, c_damage, c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);
 
-    
     //Horse stats
 
-
+    int h_x = (width / 2) + 10;
+    int h_y = (height / 2) - 6;
+    int h_health = 25;
+    int h_damage = 8;
+    int h_id = 4;
+    std::string h_name = "Horse";
+    std::string h_skin = "H";
+    std::string h_description_1 = "The horse gallops toward you!";
+    std::string h_description_2 = "Its hooves thunder on the ground.";
+    std::string h_description_3 = "The horse looks ready to charge.";
+    horse_enemy horse_1(h_health, h_damage, h_x, h_y, h_id, h_name, h_skin, h_description_1, h_description_2, h_description_3);
 
     //Iguana stats
 
-
+    int i_x = (width / 2) + 20;
+    int i_y = (height / 2) + 4;
+    int i_health = 15;
+    int i_damage = 5;
+    int i_id = 5;
+    std::string i_name = "Iguana";
+    std::string i_skin = "I";
+    std::string i_description_1 = "The iguana eyes you suspiciously.";
+    std::string i_description_2 = "It flicks its tongue.";
+    std::string i_description_3 = "The iguana scurries away quickly.";
+    iguana_enemy iguana_1(i_health, i_damage, i_x, i_y, i_id, i_name, i_skin, i_description_1, i_description_2, i_description_3);
 
     //Pig stats
 
+    int p_x = (width / 2) - 25;
+    int p_y = (height / 2) + 5;
+    int p_health = 20;
+    int p_damage = 9;
+    int p_id = 6;
+    std::string p_name = "Pig";
+    std::string p_skin = "P";
+    std::string p_description_1 = "The pig charges at you!";
+    std::string p_description_2 = "Oink oink!";
+    std::string p_description_3 = "The pig is hungry";
+    pig_enemy pig_1(p_health, p_damage, p_x, p_y, p_id, p_name, p_skin, p_description_1, p_description_2, p_description_3);
 
-    
     //Sheep stats
 
-
+    int s_x = (width / 2) - 20;
+    int s_y = (height / 2) + 8;
+    int s_health = 40;
+    int s_damage = 5;
+    int s_id = 7;
+    std::string s_name = "Sheep";
+    std::string s_skin = "S";
+    std::string s_description_1 = "The sheep jumps at you!";
+    std::string s_description_2 = "Meeeee Meeeeee";
+    std::string s_description_3 = "The sheep seems confused.";
+    sheep_enemy sheep_1(s_health, s_damage, s_x, s_y, s_id, s_name, s_skin, s_description_1, s_description_2, s_description_3);
 
     //Snail stats
 
-
+    int sn_x = (width / 2) - 15;
+    int sn_y = (height / 2) + 11;
+    int sn_health = 12;
+    int sn_damage = 6;
+    int sn_id = 8;
+    std::string sn_name = "Snail";
+    std::string sn_skin = "@";
+    std::string sn_description_1 = "The snail is slowly approaching...";
+    std::string sn_description_2 = "Slime trails everywhere!";
+    std::string sn_description_3 = "Snail is dizzy from spinning.";
+    snail_enemy snail_1(sn_health, sn_damage, sn_x, sn_y, sn_id, sn_name, sn_skin, sn_description_1, sn_description_2, sn_description_3);
 
     //Thief stats
 
-
+    int t_x = (width / 2) + 10;
+    int t_y = (height / 2) - 6;
+    int t_health = 35;
+    int t_damage = 12;
+    int t_id = 9;
+    std::string t_name = "Thief";
+    std::string t_skin = "T";
+    std::string t_description_1 = "The thief sneaks behind you! whit a knife";
+    std::string t_description_2 = "He tries to steal you";
+    std::string t_description_3 = "The thief vanishes in smoke!";
+    thief_enemy thief_1(t_health, t_damage, t_x, t_y, t_id, t_name, t_skin, t_description_1, t_description_2, t_description_3);
 
     //Hachi stats
 
-
+    int h_x = (width / 2) + 18;
+    int h_y = (height / 2) - 10;
+    int h_health = 50;
+    int h_damage = 15;
+    int h_id = 10;
+    std::string h_name = "Hachi";
+    std::string h_skin = "H";
+    std::string h_description_1 = "Hachi growls with loyalty.";
+    std::string h_description_2 = "He prepares to defend his master!";
+    std::string h_description_3 = "Hachi watches you silently and farts.";
+    hachi_enemy hachi_1(h_health, h_damage, h_x, h_y, h_id, h_name, h_skin, h_description_1, h_description_2, h_description_3);
 
     //Oscar stats
+
+    int o_x = (width / 2) + 15;
+    int o_y = (height / 2) + 6;
+    int o_health = 80;
+    int o_damage = 30;
+    int o_id = 11;
+    std::string o_name = "Oscar";
+    std::string o_skin = "O";
+    std::string o_description_1 = "Oscar flexes his muscles!";
+    std::string o_description_2 = "You feel intimidated...";
+    std::string o_description_3 = "Oscar takes a deep breath.";
+    oscar_enemy oscar_1(o_health, o_damage, o_x, o_y, o_id, o_name, o_skin, o_description_1, o_description_2, o_description_3);
 
     //show enemys 
     Sleep(1000);
     toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();
+    cat_1.show_cat();
+    horse_1.show_horse();
+    iguana_1.show_iguana();
+    pig_1.show_pig();
+    sheep_1.show_sheep();
+    snail_1.show_snail();
+    thief_1.show_thief();
+    hachi_1.show_hachi();
+    oscar_1.show_oscar();
     show_chest();
     drawMapBorders(width, height);
     drawRoomWalls();
