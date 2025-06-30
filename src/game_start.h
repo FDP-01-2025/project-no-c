@@ -59,7 +59,7 @@ void game_start(){ //inicio papu game
     t_damage = 7;
     t_id = 1;
     window_size(width, height);
-    x = (width / 2);
+    x = (width / 4);
     y = (height / 2);
     health = 20;
     damage = 10;
@@ -92,7 +92,7 @@ void game_start(){ //inicio papu game
     cow_1.show_cow();
     show_chest();
     drawMapBorders(width, height);
-
+    drawRoomWalls();
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
     while (bool player = true) //Bucle para mover a player
@@ -178,6 +178,7 @@ void game_start(){ //inicio papu game
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
+        drawRoomWalls();
     }
 
 }  // El array empieza siempre en 0, cuando se utiliza el 1 aparece el objeto 2;
