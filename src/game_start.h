@@ -77,6 +77,8 @@ void game_start(){ //inicio papu game
     int top_limit    = 3;                     
     int bottom_limit = height - 4;     
 
+    //Cow stats
+
     int c_x = (width / 2) - 30;
     int c_y = (height / 2) + 10;
     int c_health = 10;
@@ -84,9 +86,46 @@ void game_start(){ //inicio papu game
     int c_id = 2;
     std::string c_name = "Cow";
     std::string c_skin = "C";
-    std::string c_description_1 = "Moo, I'm a cow!";  
-    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id, c_name, c_skin, c_description_1);// Coordenadas de cow  
+    std::string c_description_1 = "The cow is cowing you!"; 
+    std::string c_description_2 = "Moo i'm a cow!";
+    std::string c_description_3 = "The cow is exhausted :c"; 
+    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
 
+    //Cat stats
+
+
+    
+    //Horse stats
+
+
+
+    //Iguana stats
+
+
+
+    //Pig stats
+
+
+    
+    //Sheep stats
+
+
+
+    //Snail stats
+
+
+
+    //Thief stats
+
+
+
+    //Hachi stats
+
+
+
+    //Oscar stats
+
+    //show enemys 
     Sleep(1000);
     toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();

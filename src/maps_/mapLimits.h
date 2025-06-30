@@ -32,10 +32,7 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
-<<<<<<< HEAD
     key_animation.lock();
-=======
->>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     coord.X = left_limit; coord.Y = top_limit;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
 
@@ -53,19 +50,12 @@ void drawMapBorders(int screen_width, int screen_height) {
         coord.X = x;
 
         coord.Y = top_limit;
-<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
         key_animation.lock();
         coord.Y = bottom_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "─"; key_animation.unlock();
-=======
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
-
-        coord.Y = bottom_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
->>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     }
 
     
@@ -73,19 +63,12 @@ void drawMapBorders(int screen_width, int screen_height) {
         coord.Y = y;
 
         coord.X = left_limit;
-<<<<<<< HEAD
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
         key_animation.lock();
         coord.X = right_limit;  
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
         cout << "│"; key_animation.unlock();
-=======
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
-
-        coord.X = right_limit;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
->>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
     }
 
 
@@ -193,7 +176,6 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     }
 }
 
-<<<<<<< HEAD
 
 void drawRoomWalls() {
     COORD coord;
@@ -234,6 +216,4 @@ void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
     }
 }
 
-=======
->>>>>>> 9a4c2c6152ae0655156530d982e51bc6115525f5
 #endif
