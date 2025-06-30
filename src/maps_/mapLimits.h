@@ -63,6 +63,45 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     }
 }
 
+void drawRoomWalls() {
+    COORD coord;
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    for (int x = 10; x <= 30; ++x) {
+        coord = { (SHORT)x, 5 };
+        SetConsoleCursorPosition(h, coord); cout << "─";
+
+        coord = { (SHORT)x, 15 };
+        SetConsoleCursorPosition(h, coord); cout << "─";
+    }
+    for (int y = 6; y < 15; ++y) {
+        coord = { 10, (SHORT)y };
+        SetConsoleCursorPosition(h, coord); cout << "│";
+
+        coord = { 30, (SHORT)y };
+        SetConsoleCursorPosition(h, coord); cout << "│";
+    }
+}
+
+void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
+
+    if ((player_x == 10 || player_x == 30) && (player_y >= 5 && player_y <= 15)) {
+        if (!(player_y == 15 && player_x == 20)) {
+            player_x = prev_x;
+            player_y = prev_y;
+        }
+    }
+    if ((player_y == 5 || player_y == 15) && (player_x >= 10 && player_x <= 30)) {
+        if (!(player_y == 15 && player_x == 20)) {
+            player_x = prev_x;
+            player_y = prev_y;
+        }
+    }
+}
+
+
+
+
 #endif
 
 
