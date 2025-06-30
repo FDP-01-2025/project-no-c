@@ -48,6 +48,9 @@ struct X_menu
         else if (move == '\r' && y == ((height / 2) + 2)){
             return 'c';
         }
+        else if (move == '\r' && y == ((height / 2) + 5)){
+            return 'd';
+        }
         show_x();
         return movement_x();
     }
@@ -58,7 +61,7 @@ struct X_menu
         int width, height;
         window_size(width, height);
 
-        if (y > ((height / 2) + 2))
+        if (y > ((height / 2) + 5))
         {
             y -= 3;
         }
@@ -102,10 +105,12 @@ int show_menu(){
     center_text("New Game", y_center - 4);
     std::thread thread_rain4(rain_main2);
     Sleep(1000);
-    center_text("Options", y_center - 1);
+    center_text("Continue", y_center - 1);
+    Sleep(1000);
+    center_text("Options", y_center + 2);
     std::thread thread_rain5(rain_main);
     Sleep(1000);
-    center_text("Exit", y_center + 2);
+    center_text("Exit", y_center + 5);
     std::thread thread_rain6(rain_main2);
     int x = (width / 2) - 7;
     int y = (height / 2) - 4;
@@ -131,11 +136,20 @@ int show_menu(){
     thread_rain4.join();
     thread_rain5.join();
     thread_rain6.join();
-        system("cls");
-        
-        // code options music
+        system("cls");       
+        // code continue game
         break;
     case 'c':
+    thread_rain1.join();
+    thread_rain2.join();
+    thread_rain3.join();
+    thread_rain4.join();
+    thread_rain5.join();
+    thread_rain6.join();
+    system("cls");
+        // code music option
+    break;
+    case 'd':
     PlaySound(NULL, 0, 0);
     verify_raining = false;
     system("cls");

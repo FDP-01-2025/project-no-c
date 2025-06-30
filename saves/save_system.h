@@ -1,9 +1,6 @@
-#ifndef SAVE_SYSTEM_H
-#define SAVE_SYSTEM_H
 #include <iostream>
 #include <fstream>
 using namespace std;
-
     struct Savegame
     {
         string name;
@@ -12,6 +9,7 @@ using namespace std;
         int health;
         int damage;
         int level;
+        string nombre;
     };
 
     const int MAX_SAVES = 5;
@@ -22,6 +20,7 @@ using namespace std;
 
     void agregar()
     {
+      Savegame e;
         if (total >= MAX_SAVES)
         {
             cout << "All saves slots used! (max. " << MAX_SAVES << " saves)\n"; // en caso de llenarse con maximo, mandar mensaje de error
@@ -30,69 +29,100 @@ using namespace std;
         }
         cout << "Insert name of save file: ";
         cin.ignore();
-        getline(cin, savegame[total].name);
-        ++total;
+        getline(cin, e.nombre);
+        total++;
+        ofstream archivo("savefile.txt", ios::app);
+    if (archivo.is_open()) {
+        archivo << e.nombre << endl;
+        archivo.close();
+    } else {
+        cout << "error opening savefile.txt.\n";
+    }
         cout << "File saved! \n";
     }
 
     void mostrar()
     {
-        cout << "\nSAVES\n";
+      ifstream archivo("savefile.txt");
+      Savegame e;
 
-        if (total == 0)
+    if (archivo.is_open()) {
+        while (archivo >> e.nombre ) {
+            cout << "game: " << e.nombre << endl;
+        }
+        archivo.close();
+    } else {
+        cout << "error opening savefile.txt\n";
+    }
+
+    if (total == 0)
         {
             cout << "No games saved.\n";
 
             return;
         }
-
-        for (int i = 0; i < total; ++i)
-        {
-            cout << savegame[i].name << " -\n";
-        }
     }
 
-    void guardar() {
-    ofstream archivo("savefile.txt");
-
-    if (!archivo) {
-        cerr << "error opening savefile.txt\n";
-
-        return;
-    }
-
-    archivo << total << '\n';
-
-    for (int i = 0; i < total; ++i) {
-        archivo << savegame[i].name << " - ";
-    }
-
-    archivo.close();//siempre cerrarlo para evitar erroress
-
-    cout << "Data saved\n";
-    }
+    
     void cargar() {
     ifstream archivo("savefile.txt");
+    Savegame e;
 
     if (!archivo) return;
 
     archivo >> total;
 
-    if (total > MAX_SAVES) total = MAX_SAVES;
+    if (total >= MAX_SAVES) total = MAX_SAVES;
 
     for (int i = 0; i < total; ++i) {
-        archivo >> savegame[i].name;
+        archivo >> e.nombre;
     }
     archivo.close();
 
 }
-int main() {
+  void eliminar(){
+    ifstream archivo("savefile.txt");
+    ofstream temp("temp.txt");
+    Savegame e;
+    string buscado;
+    bool eliminado = false;
+    
+    cout << "insert name of save to delete: ";
+    cin >> buscado;
+
+    if (archivo.is_open() && temp.is_open()) {
+        while (archivo >> e.nombre) {
+            if (e.nombre == buscado) {
+                eliminado = true;               // No se copia: se “borra”
+                total--;
+              } else {
+                temp << e.nombre << endl;
+            }
+        }
+      archivo.close();
+      temp.close();
+      remove("savefile.txt");
+      rename("temp.txt", "savefile.txt");
+
+      if (eliminado)
+            cout << "User deleted.\n";
+        else
+            cout << "User not found.\n";
+    } else {
+        cout << "Error opening saves file.\n";
+    }
+
+
+  }
+int save_menu() {
   cargar();
   int op;
 
   do {
-    cout << "\n1. Save game  2. Show saves  3.Save and exit\n ";
-
+    cout << "\n1. Save game\n";
+    cout << "2. Show saves\n";
+    cout << "3. Delete game\n";
+    cout << "4.Exit\n";
     cin >> op;
 
     switch (op) {
@@ -105,7 +135,10 @@ int main() {
         break;
 
       case 3:
-        guardar();
+        eliminar();
+        break;
+
+      case 4:
         cout << "Leaving...\n";
         break;
 
@@ -113,8 +146,8 @@ int main() {
         cout << "Invalid option\n";
     }
 
-  } while (op != 3);
+  } while (op != 4);
 
   return 0;
 }
-#endif
+
