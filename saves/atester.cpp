@@ -123,7 +123,7 @@ int main() {
     cout << "\n1. Save game\n";
     cout << "2. Show saves\n";
     cout << "3. Delete game\n";
-    cout << "4.Exit\n";
+    cout << "4. Exit\n";
     cin >> op;
 
     switch (op) {
