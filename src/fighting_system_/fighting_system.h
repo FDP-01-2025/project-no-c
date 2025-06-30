@@ -8,6 +8,7 @@
 #include "fight_interaction.h"
 #include "enemy_attack.h"
 #include "items_system.h"
+#include "enemy_description.h"
 
 std::string item_used;
 
@@ -16,11 +17,13 @@ struct X_menu_options
     int x;
     int y;
     int& inventory;
+    int& e_health;
+    int& e_damage;
     std::string* inventory_item; // Asterisco para señalar que el puntero es array
     std::string e_name;
     std::string description1;
-    X_menu_options(int x, int y,int& inventory,std::string* inventory_item, std::string e_name, std::string description1):
-    x(x), y(y), inventory(inventory), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
+    X_menu_options(int x, int y,int& inventory, int& e_health, int& e_damage,std::string* inventory_item, std::string e_name, std::string description1):
+    x(x), y(y),inventory(inventory),e_health(e_health), e_damage(e_damage), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
 
     char movement_x(){
         static bool description_start = false; //static inicializa una sola vez la variable, y si se vuelve a llamar la funcion la variable sigue con un mismo valor
@@ -578,9 +581,16 @@ char x_menu_Item(){
     }
 ///////////////////Action menu/////////////////////////////
 char x_menu_Action(){
+        static bool description = false;
+        static std::thread description_thread;
+        if (description == false)
+        {
+            description_thread = std::thread(&X_menu_options::enemy_description, this,"Description");
+            description = true;
+        }
         int width, height;
         window_size(width, height);
-        show_x_fight();
+        show_x_Action();
         char choose;
         choose = getch();
         choose = std::tolower(choose);
@@ -593,6 +603,11 @@ char x_menu_Action(){
             y++;
             break;
         case 'e':
+            if(description_thread.joinable()){
+                description_thread.join();
+            }
+            description = false;
+            delete_enemy_description("Description");
             delete_x(x, y);
             x = ((width / 4) - 8);
             y = (height - 3);
@@ -602,10 +617,16 @@ char x_menu_Action(){
             break;
     }
     if (choose == '\r' && y == (height - 15)){
+        if(description_thread.joinable()){
+            description_thread.join();
+        }
+        description = false;
+        delete_enemy_description("Description");
         delete_x(x,y);
+        show_enemy_description(e_health, e_damage, e_name, description1);
         return 'c';
     }
-    show_x_fight();
+    show_x_Action();
     return x_menu_Action();
 }
     void show_x_Action(){
@@ -1149,7 +1170,7 @@ char show_options(std::string name, int& level, int& health, int& damage, int& i
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
-    X_menu_options x_options(x, y, inventory,inventory_item, e_name, description1);
+    X_menu_options x_options(x, y, inventory,e_health, e_damage,inventory_item, e_name, description1);
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);

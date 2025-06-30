@@ -32,38 +32,61 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
+<<<<<<< HEAD
+    key_animation.lock();
+=======
+>>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     coord.X = left_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
-
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌"; key_animation.unlock();
+    key_animation.lock();
     coord.X = right_limit; coord.Y = top_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐";
-
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┐"; key_animation.unlock();
+    key_animation.lock();
     coord.X = left_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└";
-
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "└"; key_animation.unlock();
+    key_animation.lock();
     coord.X = right_limit; coord.Y = bottom_limit;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘";
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┘"; key_animation.unlock();
 
     
     for (int x = left_limit + 1; x < right_limit; x++) {
+        key_animation.lock();
         coord.X = x;
-
         coord.Y = top_limit;
+<<<<<<< HEAD
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        cout << "─"; key_animation.unlock();
+        key_animation.lock();
+        coord.Y = bottom_limit;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        cout << "─"; key_animation.unlock();
+=======
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
 
         coord.Y = bottom_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "─";
+>>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     }
 
     
     for (int y = top_limit + 1; y < bottom_limit; y++) {
+        key_animation.lock();
         coord.Y = y;
 
         coord.X = left_limit;
+<<<<<<< HEAD
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        cout << "│"; key_animation.unlock();
+        key_animation.lock();
+        coord.X = right_limit;  
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        cout << "│"; key_animation.unlock();
+=======
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
 
         coord.X = right_limit;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "│";
+>>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
     }
 
 
@@ -171,4 +194,48 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
     }
 }
 
+<<<<<<< HEAD
+
+void drawRoomWalls() {
+    COORD coord;
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    for (int x = 10; x <= 30; ++x) {
+        key_animation.lock();
+        coord = { (SHORT)x, 5 };
+        SetConsoleCursorPosition(h, coord); cout << "─"; key_animation.unlock(); //Restringir acceso a la consola cuando se printee esta coord
+        key_animation.lock();
+        coord = { (SHORT)x, 15 };
+        SetConsoleCursorPosition(h, coord); cout << "─"; key_animation.unlock();
+    }
+    for (int y = 6; y < 15; ++y) {
+        key_animation.lock();
+        coord = { 10, (SHORT)y };
+        SetConsoleCursorPosition(h, coord); cout << "│"; key_animation.unlock();
+        key_animation.lock();
+        coord = { 30, (SHORT)y };
+        SetConsoleCursorPosition(h, coord); cout << "│"; key_animation.unlock();
+    }
+}
+
+
+void restrictRooms(int &player_x, int &player_y, int prev_x, int prev_y) {
+    
+    if ((player_x == 10 || player_x == 30) && (player_y >= 5 && player_y <= 15)) {
+        if (!(player_y == 15 && player_x == 20)) {
+            player_x = prev_x;
+            player_y = prev_y;
+        }
+    }
+    if ((player_y == 5 || player_y == 15) && (player_x >= 10 && player_x <= 30)) {
+        if (!(player_y == 15 && player_x == 20)) {
+            player_x = prev_x;
+            player_y = prev_y;
+        }
+    }
+}
+
 #endif
+=======
+#endif
+>>>>>>> cf417a2268de586198981280ccd036a7bebb46ba
