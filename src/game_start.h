@@ -103,22 +103,18 @@ void game_start(){ //inicio papu game
 
     //Cat stats
 
-    int c_x = (width / 2) - 35;
-    int c_y = (height / 2) - 10;
-    int c_health = 15;
-    int c_damage = 5;
-    int c_id = 3;
-    std::string c_name = "Cat";
-    std::string c_skin = "G";
-    std::string c_description_1 = "The cat scratches at you!";
-    std::string c_description_2 = "Meow! The cat is angry.";
-    std::string c_description_3 = "Nyaaaaa";
-    cat_enemy cat_1(c_health, c_damage, c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);
+    int ca_x = (width / 2) - 35;
+    int ca_y = (height / 2) - 10;
+    int ca_health = 15;
+    int ca_damage = 5;
+    int ca_id = 3;
+    std::string ca_name = "Cat";
+    std::string ca_skin = "G";
+    std::string ca_description_1 = "The cat scratches at you!";
+    std::string ca_description_2 = "Meow! The cat is angry.";
+    std::string ca_description_3 = "Nyaaaaa";
+    cat_enemy cat_1(ca_health, ca_damage, ca_x, ca_y, ca_id, ca_name, ca_skin, ca_description_1, ca_description_2, ca_description_3);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 637fa654d0e7e49900a1db7df2ccdd7a05f76508
     //Horse stats
 
     int h_x = (width / 2) + 10;
@@ -191,31 +187,31 @@ void game_start(){ //inicio papu game
 
     //Thief stats
 
-    int t_x = (width / 2) + 10;
-    int t_y = (height / 2) - 6;
-    int t_health = 35;
-    int t_damage = 12;
-    int t_id = 9;
-    std::string t_name = "Thief";
-    std::string t_skin = "T";
-    std::string t_description_1 = "The thief sneaks behind you! whit a knife";
-    std::string t_description_2 = "He tries to steal you";
-    std::string t_description_3 = "The thief vanishes in smoke!";
-    thief_enemy thief_1(t_health, t_damage, t_x, t_y, t_id, t_name, t_skin, t_description_1, t_description_2, t_description_3);
+    int th_x = (width / 2) + 10;
+    int th_y = (height / 2) - 6;
+    int th_health = 35;
+    int th_damage = 12;
+    int th_id = 9;
+    std::string th_name = "Thief";
+    std::string th_skin = "T";
+    std::string th_description_1 = "The thief sneaks behind you! whit a knife";
+    std::string th_description_2 = "He tries to steal you";
+    std::string th_description_3 = "The thief vanishes in smoke!";
+    thief_enemy thief_1(th_health, th_damage, th_x, th_y, th_id, th_name, th_skin, th_description_1, th_description_2, th_description_3);
 
     //Hachi stats
 
-    int h_x = (width / 2) + 18;
-    int h_y = (height / 2) - 10;
-    int h_health = 50;
-    int h_damage = 15;
-    int h_id = 10;
-    std::string h_name = "Hachi";
-    std::string h_skin = "H";
-    std::string h_description_1 = "Hachi growls with loyalty.";
-    std::string h_description_2 = "He prepares to defend his master!";
-    std::string h_description_3 = "Hachi watches you silently and farts.";
-    hachi_enemy hachi_1(h_health, h_damage, h_x, h_y, h_id, h_name, h_skin, h_description_1, h_description_2, h_description_3);
+    int ha_x = (width / 2) + 18;
+    int ha_y = (height / 2) - 10;
+    int ha_health = 50;
+    int ha_damage = 15;
+    int ha_id = 10;
+    std::string ha_name = "Hachi";
+    std::string ha_skin = "H";
+    std::string ha_description_1 = "Hachi growls with loyalty.";
+    std::string ha_description_2 = "He prepares to defend his master!";
+    std::string ha_description_3 = "Hachi watches you silently and farts.";
+    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, h_y, ha_id, ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
 
     //Oscar stats
 
