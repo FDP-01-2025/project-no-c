@@ -74,28 +74,28 @@ void drawMapBorders(int screen_width, int screen_height) {
     draw_line(30, 5, 30, 10, '#');  
     
     
-    draw_line(35, 3, 55, 3, '#');
-    draw_line(35, 9, 55, 9, '#');
-    draw_line(35, 3, 35, 9, '#');
-    draw_line(55, 3, 55, 9, '#');
+    draw_line(35, 3, 55, 3, '*');
+    draw_line(35, 9, 55, 9, '*');
+    draw_line(35, 3, 35, 9, '*');
+    draw_line(55, 3, 55, 9, '*');
 
     
-    draw_line(15, 13, 35, 13, '#');
-    draw_line(15, 19, 35, 19, '#');
-    draw_line(15, 13, 15, 19, '#');
-    draw_line(35, 13, 35, 19, '#');
+    draw_line(15, 13, 35, 13, '*');
+    draw_line(15, 19, 35, 19, '*');
+    draw_line(15, 13, 15, 19, '*');
+    draw_line(35, 13, 35, 19, '*');
 
 
-    draw_line(40, 14, 60, 14, '#');
-    draw_line(40, 20, 60, 20, '#');
-    draw_line(40, 14, 40, 20, '#');
-    draw_line(60, 14, 60, 20, '#');
+    draw_line(40, 14, 60, 14, '*');
+    draw_line(40, 20, 60, 20, '*');
+    draw_line(40, 14, 40, 20, '*');
+    draw_line(60, 14, 60, 20, '*');
     
 
-    draw_line(25, 22, 45, 22, '#');
-    draw_line(25, 28, 45, 28, '#');
-    draw_line(25, 22, 25, 28, '#');
-    draw_line(45, 22, 45, 28, '#');
+    draw_line(25, 22, 45, 22, '*');
+    draw_line(25, 28, 45, 28, '*');
+    draw_line(25, 22, 25, 28, '*');
+    draw_line(45, 22, 45, 28, '*');
 }
 
 void restrictMapBorders(int &player_x, int &player_y, int screen_width, int screen_height, int previous_x, int previous_y) {
