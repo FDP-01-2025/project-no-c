@@ -1,23 +1,16 @@
-#ifndef MENU_OPTIONS_H
-#define MENU_OPTIONS_H
-#include <windows.h>
-#include <conio.h>
+#ifndef PLAYER_GAMES_H
+#define PLAYER_GAMES_H
 #include <iostream>
+#include <conio.h>
+#include <windows.h>
 #include "inf_window.h"
-#include "rain_menu_animation.h"
-#include "mutex_key.h"
-#include "game_start.h"
-#include <thread>
-#include <mutex>
-#include "player_games.h"
+#include "menu_options.h"
 
-extern bool verify_music;
-
-struct X_menu
+struct X_menu_principal_option
 {
     int x;
     int y;
-    X_menu(int x, int y):
+    X_menu_principal_option(int x, int y):
     x(x), y(y) {}
 
     char movement_x(){
@@ -90,83 +83,44 @@ struct X_menu
     }
 };
 
-int show_menu(){
-    PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+void show_menu_principal_options_Save(){
+    Sleep(1000);
     int width, height;
-    // static bool rain = false;
-    // static std::thread rain1;
-    // if (rain == false)
-    // {
-    //     rain1 = std::thread(rain_main);
-    //     rain = true;
-    // }
     window_size(width, height);
     int y_center = (height) / 2;
-    std::thread thread_rain1(rain_main);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    std::thread thread_rain2(rain_main2);
-    Sleep(2000);
-    center_text("Tonacatale", y_center - 7);
-    std::thread thread_rain3(rain_main);
-    Sleep(2000);
-    center_text("New Game", y_center - 4);
-    std::thread thread_rain4(rain_main2);
+    center_text("Games:", y_center - 7);
     Sleep(1000);
-    center_text("Continue", y_center - 1);
+    center_text("Game 1:", y_center - 4);
     Sleep(1000);
-    center_text("Options", y_center + 2);
-    std::thread thread_rain5(rain_main);
+    center_text("Game 2:", y_center - 1);
     Sleep(1000);
-    center_text("Exit", y_center + 5);
-    std::thread thread_rain6(rain_main2);
+    center_text("Game 3:", y_center + 2);
+    Sleep(1000);
+    center_text("Return", y_center + 5);
+    Sleep(1000);
     int x = (width / 2) - 7;
     int y = (height / 2) - 4;
-    X_menu x1(x, y);
-    switch (x1.movement_x())
+    X_menu_principal_option x_option(x, y);
+    switch (x_option.movement_x())
     {
     case 'a':
-    PlaySound(NULL, 0, 0);
-    verify_raining = false;
-    thread_rain1.join();
-    thread_rain2.join();
-    thread_rain3.join();
-    thread_rain4.join();
-    thread_rain5.join();
-    thread_rain6.join();
-    system("cls");
-    game_start();
+        //Cargar archivo 1
         break;
     case 'b':
-        system("cls");  
-        show_menu_principal_options_Save();
-        // code continue game
+        //Cargar archivo 2
         break;
     case 'c':
-    system("cls");
-
-        // code music option
-    break;
+        //Cargar archivo 3
+        break;
     case 'd':
-    PlaySound(NULL, 0, 0);
-    verify_raining = false;
-    system("cls");
-    thread_rain1.join();
-    thread_rain2.join();
-    thread_rain3.join();
-    thread_rain4.join();
-    thread_rain5.join();
-    thread_rain6.join();
-    exit(0);
-    break;
+        system("cls");
+        show_menu();
+        break;
     default:
         break;
     }
-    // x1.movement_x();
-    // thread_rain1.join();
-    // thread_rain2.join();
-    // thread_rain3.join();
-    // thread_rain4.join();
-    return 0;
 }
+
+
 
 #endif

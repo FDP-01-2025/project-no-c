@@ -3,7 +3,7 @@
 #include <iostream>
 #include <windows.h>
 #include <thread>
-#include <mmsystem.h>
+#include <mmsystem.h> //Playsound
 #include "src/mutex_key.h"
 #include "src/hide_square.h"
 
@@ -22,4 +22,4 @@ int main(){
     Sleep(1000);
 }
 
-//g++ main.cpp -lwinmm
+//g++ main.cpp -lwinmm 

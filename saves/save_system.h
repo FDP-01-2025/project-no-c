@@ -41,6 +41,8 @@ using namespace std;
         cout << "File saved! \n";
     }
 
+  
+
     void mostrar()
     {
       ifstream archivo("savefile.txt");
@@ -78,8 +80,8 @@ using namespace std;
         archivo >> e.nombre;
     }
     archivo.close();
-
 }
+
   void eliminar(){
     ifstream archivo("savefile.txt");
     ofstream temp("temp.txt");

@@ -24,7 +24,9 @@
 #include "rain_menu_animation.h"
 #include "maps_/mapLimits.h"
 #include "maps_/river.h"
-#include "saves/save_system.h"
+#include "../saves/save_system.h"
+#include "show_player_options.h"
+
 
 int show_menu();
 
@@ -268,7 +270,7 @@ void game_start(){ //inicio papu game
             player_1.show_player_coord();
         }
         
-        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
+        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1) // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
             PlaySound(NULL, 0, 0);
             PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
@@ -328,14 +330,41 @@ void game_start(){ //inicio papu game
         //TEST! si player presiona e saldra cuadro de SAVES
         {
             player = false;
-            system("cls");
-            save_menu();
+            char player_options = show_player_options();
+            switch (player_options)
+            {
+            case 'a':
+                drawMapBorders(width, height);
+                continue;
+                break;
+            case 'b':
+                
+                break;
+            case 'c':
+                //Codigo calles de guardar partida
+                break;
+            case 'd':
+                system("cls");
+                show_menu();
+                break;
+            default:
+                break;
+            }
         }
 
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
         river();
+        cat_1.show_cat();
+        horse_1.show_horse();
+        iguana_1.show_iguana();
+        pig_1.show_pig();
+        sheep_1.show_sheep();
+        snail_1.show_snail();
+        thief_1.show_thief();
+        hachi_1.show_hachi();
+        oscar_1.show_oscar();
         //drawRoomWalls();
     }
 
