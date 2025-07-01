@@ -24,9 +24,13 @@
 #include "rain_menu_animation.h"
 #include "maps_/mapLimits.h"
 #include "maps_/river.h"
+<<<<<<< HEAD
 #include "../saves/save_system.h"
 #include "show_player_options.h"
 
+=======
+#include "saves_/save_system.h"
+>>>>>>> d85c5beae7bb7adebef4a42d82d3f87660c739a9
 
 int show_menu();
 
@@ -329,6 +333,7 @@ void game_start(){ //inicio papu game
         if (move == 'e') //Si player presiona e, regresara al menu principal
         //TEST! si player presiona e saldra cuadro de SAVES
         {
+<<<<<<< HEAD
             player = false;
             char player_options = show_player_options();
             switch (player_options)
@@ -350,6 +355,11 @@ void game_start(){ //inicio papu game
             default:
                 break;
             }
+=======
+            
+            system("cls");
+            
+>>>>>>> d85c5beae7bb7adebef4a42d82d3f87660c739a9
         }
 
         toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
