@@ -11,13 +11,14 @@ struct player
     int x;
     int y;
     int health;
+    int max_health = 20;
     int damage;
     int level;
     std::string name;
     std::string inventory_item[6];
     int inventory;
-    player(int x, int y, int health, int damage, int inventory, int level,std::string name):
-     x(x), y(y), health(health), damage(damage), inventory(inventory), level(level), name(name) {}
+    player(int x, int y, int health, int max_health, int damage, int inventory, int level,std::string name):
+     x(x), y(y), health(health),max_health(max_health), damage(damage), inventory(inventory), level(level), name(name) {}
     
     char player_movement(){
         show_player_coord();

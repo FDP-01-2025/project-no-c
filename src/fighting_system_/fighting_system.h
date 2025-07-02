@@ -1129,8 +1129,7 @@ void player_level(int level){
     key_animation.unlock();
 }
 
-void player_health(int health){
-    const int max_health = health;
+void player_health(int health, int max_health){
     int width, height, x, y;
     window_size(width, height);
     x = ((width / 4) + 30);
@@ -1145,10 +1144,10 @@ void player_health(int health){
 }
 
 
-void player_(std::string name,int level, int health){
+void player_(std::string name,int level, int health, int max_health){
     player_name(name);
     player_level(level);
-    player_health(health);
+    player_health(health, max_health);
 }
 
 void show_enemy(std::string enemy_skin){
@@ -1165,7 +1164,7 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int& level, int& health, int& damage, int& inventory,std::string inventory_item[], int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
+char show_options(std::string name, int& level, int& health, int max_health, int& damage, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -1175,7 +1174,7 @@ char show_options(std::string name, int& level, int& health, int& damage, int& i
     Sleep(1000);
     std::thread thread_line(square_line);
     std::thread thread_square1(show_square_option);
-    player_(name, level, health);
+    player_(name, level, health, max_health);
     show_options_fighting();
     thread_square1.join();
     thread_line.join();
@@ -1200,19 +1199,17 @@ char show_options(std::string name, int& level, int& health, int& damage, int& i
         //enemy_attack(id, health, e_damage);
         break;
     case 'b':
-        use_item(item_used,health,damage);
+        use_item(item_used,health,max_health,damage);
         break;
     case 'c':
-
         break;
     case 'd':
-
         return 's';
         break;
     default:
         break;
     }
-    
+    enemy_attack(health, e_damage);
     return 'o';
 }
 

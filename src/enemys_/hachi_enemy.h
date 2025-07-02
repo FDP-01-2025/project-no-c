@@ -11,14 +11,15 @@ struct hachi_enemy
     int x;
     int y;
     int id;
+    int experience;
     std::string name;
     std::string character_skin;
     std::string description1;
     std::string description2;
     std::string description3;
 
-hachi_enemy(int health, int damage, int x, int y, int id, std::string name, std::string character_skin, std::string description1, std::string description2, std::string description3)
-        : healht(health), damage(damage), x(x), y(y), id(id), name(name), character_skin(character_skin), description1(description1), description2(description2), description3(description3) {}
+hachi_enemy(int health, int damage, int x, int y, int id, int experience, std::string name, std::string character_skin, std::string description1, std::string description2, std::string description3)
+        : healht(health), damage(damage), x(x), y(y), id(id), experience(experience), name(name), character_skin(character_skin), description1(description1), description2(description2), description3(description3) {}
 
     void show_hachi() {
         key_animation.lock();

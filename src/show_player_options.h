@@ -5,13 +5,14 @@
 #include <conio.h>
 #include "inf_window.h"
 
-
 struct X_menu_player_option
 {
     int x;
     int y;
-    X_menu_player_option(int x, int y):
-    x(x), y(y) {}
+    int& inventory;
+    std::string* inventory_items;
+    X_menu_player_option(int x, int y, int& inventory, std::string* inventory_items):
+    x(x), y(y), inventory(inventory), inventory_items(inventory_items) {}
 
     char movement_x(){
         show_x();
@@ -37,7 +38,13 @@ struct X_menu_player_option
         }
         else if (move == '\r' && x == (width / 4) + 40)
         {
-            return 'b';
+            delete_x(x, y);
+            x = (width / 2) - 13;
+            y = 16;
+            show_square_items_menu();
+            if (movement_x_menu_items() == 'a'){
+                return 'a';
+            }
         }
         else if (move == '\r' && x == (width / 4) + 80){
             return 'c';
@@ -81,6 +88,337 @@ struct X_menu_player_option
         std::cout << " ";
         key_animation.unlock();
     }
+
+    ///////////Items menu//////////////////////////////
+
+void item_name() {
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 11;
+    y = 16;
+    COORD coord;
+    for (int a = 0; a < inventory; a++) { 
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << inventory_items[a];
+        key_animation.unlock();
+        y += 2; // Espacio entre items
+    }
+}
+
+void delete_item_name() {
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 11;
+    y = 16;
+    COORD coord;
+    for (int a = 0; a < inventory; a++) {
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        for (size_t i = 0; i < inventory_items[a].length(); i++) {
+            std::cout << " ";
+        }
+        key_animation.unlock();
+        y += 2;
+    }
+}
+
+void show_return_menu_options(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 11;
+    y = 26;
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << "RETURN"; 
+    key_animation.unlock();
+}
+
+void delete_show_return_menu_options(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 11;
+    y = 26;
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << "       "; 
+    key_animation.unlock();
+}
+
+    char movement_x_menu_items(){
+        show_x_items();
+        item_name();
+        show_return_menu_options();
+        int width, height;
+        window_size(width, height);
+        char move;
+        move = getch();
+        move =std::tolower(move);
+        switch (move)
+        {
+        case   'w':
+            y -= 2;
+            break;
+        case 's':
+            y += 2;
+            break;
+        case 'e':
+            delete_show_return_menu_options();
+            delete_item_name();
+            delete_show_square_items();
+            delete_x(x, y);
+            x = width / 4;
+            y = 7;
+            return 'm';
+            break;
+        default:
+            break;
+        }
+        if (move == '\r' && y == (16))
+        {
+            return 'a';
+        }
+        else if (move == '\r' && y == (16) + 2)
+        {
+            return 'a';
+        }
+        else if (move == '\r' && y == (16) + 4){
+            return 'a';
+        }
+        else if (move == '\r' && y == (16) + 6){
+            return 'a';
+        }
+        else if (move == '\r' && y == (16) + 8){
+            return 'a';
+        }
+        else if (move == '\r' && y == (16) + 10){
+            delete_show_return_menu_options();
+            delete_item_name();
+            delete_show_square_items();
+            delete_x(x, y);
+            x = width / 4;
+            y = 7;
+            return 'm';
+        }
+        show_x_items();
+        return movement_x_menu_items();
+    }
+
+        void show_x_items(){
+        int static prev_x, prev_y;
+        delete_x(prev_x, prev_y);
+        int width, height;
+        window_size(width, height);
+
+        if (y > ((16)) + 10)
+        {
+            y -= 2;
+        }
+        if(y < (16)){
+            y += 2;
+        }
+        COORD coord;
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "X"; 
+        key_animation.unlock();
+        prev_x = x;
+        prev_y = y;
+    }
+
+    void show_square_items_top(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 15;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 20; i++)
+    {
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+void show_square_items_bottom(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 15;
+    y = (height / 2) + 5;
+    COORD coord;
+    for (int i = 0; i < 20; i++)
+    {
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "-";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+void show_square_items_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 16;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+
+}
+
+void show_square_items_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) + 5;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << "|";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void square_item_background(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) -15;
+    y = 14;
+    COORD coord;
+    for (int i = 0; i < 17; i++)
+    {
+        for (int a = 0; a < 19; a++)
+        {
+            coord.X = x;
+            coord.Y = y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << " ";
+            x++;
+        }
+        x = (width / 2) - 15;
+        y++;
+    }
+}
+
+    void show_square_items_menu(){
+    square_item_background();
+    show_square_items_bottom();
+    show_square_items_top();
+    show_square_items_right_side();
+    show_square_items_left_side();
+
+    }
+
+    //////////////////DELETES////////////////
+
+    void delete_show_square_items_top(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 15;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 20; i++)
+    {
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+void delete_show_square_items_bottom(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 15;
+    y = (height / 2) + 5;
+    COORD coord;
+    for (int i = 0; i < 20; i++)
+    {
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        x++;
+    }
+}
+
+void delete_show_square_items_left_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) - 16;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        y++;
+    }
+
+}
+
+void delete_show_square_items_right_side(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 2) + 5;
+    y = 13;
+    COORD coord;
+    for (int i = 0; i < 17; i++){
+        key_animation.lock();
+        coord.X = x;
+        coord.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << " ";
+        key_animation.unlock();
+        y++;
+    }
+}
+
+void delete_show_square_items(){
+    delete_show_square_items_bottom();
+    delete_show_square_items_top();
+    delete_show_square_items_left_side();
+    delete_show_square_items_right_side();
+}
+
 };
 
 
@@ -391,7 +729,7 @@ void delete_options_(){
 
 ///////////////////////////////////////////
 
-char show_player_options(){
+char show_player_options(int& inventory, std::string inventory_items[]){
     int width, height, x, y;
     window_size(width, height);
     x = width / 4;
@@ -405,7 +743,7 @@ char show_player_options(){
     show_options_items_();
     show_options_save();
     show_options_principal_menu();
-    X_menu_player_option x_player_option(x, y);
+    X_menu_player_option x_player_option(x, y, inventory, inventory_items);
     switch (x_player_option.movement_x())
     {
     case 'a':

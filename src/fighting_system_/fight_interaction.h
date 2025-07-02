@@ -51,6 +51,10 @@ void player_attack2(int damage, int& e_health){
     std::thread thread_attack(player_Attack1, this);
     attack = getch();
     attack = std::tolower(attack);
+    if (x == width - 42){
+        attack = '\r';
+        e_health = e_health;
+    }
     if (attack == '\r' && x > (width / 2) - 10 && x < (width / 2) + 10)
     {
         e_health = e_health - damage;
@@ -62,8 +66,9 @@ void player_attack2(int damage, int& e_health){
     else if (attack == '\r' && x > (width / 2) + 10 && x < width - 30){
         e_health = e_health - (damage -5); 
     }
-    thread_attack.join();
 
+
+    thread_attack.join();
     int x_, y_;
     x_ = (width / 2) + 2;
     y_ = (height / 2) - 1;

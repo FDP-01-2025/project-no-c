@@ -58,7 +58,7 @@ void delete_item_inventory(int& inventory, std::string inventory_[], std::string
     }
 }
 
-void use_item(std::string item_name, int& health, int& damage){
+void use_item(std::string item_name, int& health, int max_health, int& damage){
     std::string initial;
     initial = "You use: " + item_name;
     text(initial);
@@ -71,6 +71,9 @@ void use_item(std::string item_name, int& health, int& damage){
     if (item_name == "Cookie")
     {
         health += 10;
+        if (health > max_health){
+        health = max_health;
+        }
         text("Very tasty! You recovered +10 health! ");
         move = getch();
         while (move != '\r')
@@ -82,6 +85,9 @@ void use_item(std::string item_name, int& health, int& damage){
     if (item_name == "Apple")
     {
         health += 5;
+        if (health > max_health){
+        health = max_health;
+        }
     }
     if (item_name == "Knife")
     {
@@ -89,10 +95,14 @@ void use_item(std::string item_name, int& health, int& damage){
     }
     if (item_name == "Cake")
     {
+        if (health > max_health){
+        health = max_health;
+        }
         health += 20;
     }
     if (item_name == "Feeling sucesfully")
     {
+        
     }
     
 }

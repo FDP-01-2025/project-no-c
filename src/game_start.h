@@ -24,13 +24,10 @@
 #include "rain_menu_animation.h"
 #include "maps_/mapLimits.h"
 #include "maps_/river.h"
-<<<<<<< HEAD
 #include "../saves/save_system.h"
 #include "show_player_options.h"
 
-=======
-#include "saves_/save_system.h"
->>>>>>> d85c5beae7bb7adebef4a42d82d3f87660c739a9
+extern bool verify_music;
 
 int show_menu();
 
@@ -74,24 +71,32 @@ void game_start(){ //inicio papu game
     t_health = 30;
     t_damage = 7;
     t_id = 1;
+    int t_ex = 2;
     window_size(width, height);
     x = (width / 12);
     y = (height / 4);
     health = 20;
+    int max_health = 20;
     damage = 10;
     int inventory = 0;
-    player player_1(x, y, health, damage, inventory,player_level,player_name); // da las coordenadas de player
+    player player_1(x, y, health, max_health, damage, inventory,player_level,player_name); // da las coordenadas de player
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
     std::string t_skin = "L";
     std::string t_description_1 = "Toilet wanna fight!";
-    toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
+    //toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
 
     int left_limit   = 5;                     
     int right_limit  = width - 6;      
     int top_limit    = 3;                     
     int bottom_limit = height - 4;     
+
+    int room_left = width / 4;
+    int room_top = height / 4;
+    int room_right = room_left + 20;
+    int room_bottom = room_top + 8;
+    int door_y = (room_top + room_bottom) / 2;
 
     //Cow stats
 
@@ -100,12 +105,13 @@ void game_start(){ //inicio papu game
     int c_health = 30;
     int c_damage = 7;
     int c_id = 2;
+    int c_ex = 7;
     std::string c_name = "Cow";
     std::string c_skin = "C";
     std::string c_description_1 = "The cow is cowing you!"; 
     std::string c_description_2 = "The cow is exhausted :c ";
     std::string c_description_3 = "Moo i'm a cow!"; 
-    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
+    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id,c_ex, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
 
     //Cat stats
 
@@ -114,12 +120,13 @@ void game_start(){ //inicio papu game
     int ca_health = 15;
     int ca_damage = 5;
     int ca_id = 3;
+    int ca_ex = 3;
     std::string ca_name = "Cat";
     std::string ca_skin = "G";
     std::string ca_description_1 = "The cat scratches at you!";
     std::string ca_description_2 = "Meow! The cat is angry.";
     std::string ca_description_3 = "Nyaaaaa";
-    cat_enemy cat_1(ca_health, ca_damage, ca_x, ca_y, ca_id, ca_name, ca_skin, ca_description_1, ca_description_2, ca_description_3);
+    cat_enemy cat_1(ca_health, ca_damage, ca_x, ca_y, ca_id, ca_ex, ca_name, ca_skin, ca_description_1, ca_description_2, ca_description_3);
 
     //Horse stats
 
@@ -137,8 +144,8 @@ void game_start(){ //inicio papu game
 
     //Iguana stats
 
-    int i_x = (width / 2) + 20;
-    int i_y = (height / 2) + 4;
+    int i_x = 25;
+    int i_y = 10;
     int i_health = 15;
     int i_damage = 5;
     int i_id = 5;
@@ -212,12 +219,13 @@ void game_start(){ //inicio papu game
     int ha_health = 50;
     int ha_damage = 15;
     int ha_id = 10;
+    int ha_ex = 30;
     std::string ha_name = "Hachi";
     std::string ha_skin = "H";
     std::string ha_description_1 = "Hachi growls with loyalty.";
     std::string ha_description_2 = "He prepares to defend his master!";
     std::string ha_description_3 = "Hachi watches you silently and farts.";
-    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, h_y, ha_id, ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
+    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, h_y, ha_id, ha_ex,ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
 
     //Oscar stats
 
@@ -235,7 +243,7 @@ void game_start(){ //inicio papu game
 
     //show enemys 
     Sleep(1000);
-    toilet_1.show_toilet(); //show toilet in the game
+    //toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();
     cat_1.show_cat();
     horse_1.show_horse();
@@ -258,6 +266,7 @@ void game_start(){ //inicio papu game
         int prev_x = player_1.x; //Coordenadas anteriores de player
         int prev_y = player_1.y; 
         
+
         char move = player_1.player_movement(); //Movimiento player
 
         if (player_1.x < left_limit || player_1.x > right_limit || player_1.y < top_limit || player_1.y > bottom_limit ){
@@ -267,34 +276,163 @@ void game_start(){ //inicio papu game
         drawMapBorders(width, height);
         }
 
-        if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
-        {
+        // if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
+        // {
+        //     player_1.x = prev_x;
+        //     player_1.y = prev_y;
+        //     player_1.show_player_coord();
+        // }
+        
+        bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
+        bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
+        bool is_door = player_1.x == room_left && player_1.y == door_y;
+
+    if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+             player_1.show_player_coord();
+        }
+    if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
             player_1.x = prev_x;
             player_1.y = prev_y;
             player_1.show_player_coord();
         }
+
+
+        // if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1) // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
+        // {
+        //     PlaySound(NULL, 0, 0);
+        //     PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
+        //     PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+        //     //Sleep(800);
+        //     player = false; // se detiene el ciclo player
+        //     toilet_1.health = 30; // vida base de toilet
+        //     bool fight = true; // inicio ciclo pelea
+        //      while (toilet_1.health > 0 && fight == true)
+        //      {  
+        //         if (show_options(player_1.name,player_1.level,player_1.health, player_1.max_health, player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
+        //             fight = false;
+        //             PlaySound(NULL, 0, 0);
+        //         }
+        //      }
+        //     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+        //     system("cls");
+        //     drawMapBorders(width, height);
+        // }
         
-        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1) // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
+        //Cow
+
+        if (player_1.x == cow_1.x && player_1.y == cow_1.y) 
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+            cow_1.show_cow();
+        }
+
+
+        if (std::abs(player_1.x - cow_1.x) <= 1 && std::abs(player_1.y - cow_1.y) <= 1) // Si player esta a 1 coordenada de cow, entonces pelearan
         {
             PlaySound(NULL, 0, 0);
             PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
             PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
             //Sleep(800);
             player = false; // se detiene el ciclo player
-            toilet_1.health = 30; // vida base de toilet
             bool fight = true; // inicio ciclo pelea
-             while (toilet_1.health > 0 && fight == true)
+             while (cow_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, cow_1.id, cow_1.experience, cow_1.healht,cow_1.damage, cow_1.name, cow_1.character_skin, cow_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
              }
+
             PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
             system("cls");
+            if (cow_1.healht <= 0)
+            {
+                cow_1.x = 0;
+                cow_1.y = 0;
+            }
             drawMapBorders(width, height);
         }
-        
+
+        //Cat
+
+        if (player_1.x == cat_1.x && player_1.y == cat_1.y) 
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+            cat_1.show_cat();
+        }
+
+
+        if (std::abs(player_1.x - cat_1.x) <= 1 && std::abs(player_1.y - cat_1.y) <= 1) // Si player esta a 1 coordenada de cow, entonces pelearan
+        {
+            PlaySound(NULL, 0, 0);
+            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
+            PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            //Sleep(800);
+            player = false; // se detiene el ciclo player
+            bool fight = true; // inicio ciclo pelea
+             while (cat_1.healht > 0 && fight == true)
+             {  
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, cat_1.id,cat_1.experience, cat_1.healht,cat_1.damage, cat_1.name, cat_1.character_skin, cat_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                    fight = false;
+                    PlaySound(NULL, 0, 0);
+                }
+             }
+
+            PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            system("cls");
+            if (cat_1.healht <= 0)
+            {
+                cat_1.x = 0;
+                cat_1.y = 0;
+            }
+            drawMapBorders(width, height);
+        }
+
+        // Hachi
+
+        if (player_1.x == hachi_1.x && player_1.y == hachi_1.y) 
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+            hachi_1.show_hachi();
+        }
+
+
+        if (std::abs(player_1.x - hachi_1.x) <= 1 && std::abs(player_1.y - hachi_1.y) <= 1) // Si player esta a 1 coordenada de cow, entonces pelearan
+        {
+            PlaySound(NULL, 0, 0);
+            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
+            PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            //Sleep(800);
+            player = false; // se detiene el ciclo player
+            bool fight = true; // inicio ciclo pelea
+             while (hachi_1.healht > 0 && fight == true)
+             {  
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, hachi_1.id, hachi_1.experience,hachi_1.healht,hachi_1.damage, hachi_1.name, hachi_1.character_skin, hachi_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                    fight = false;
+                    PlaySound(NULL, 0, 0);
+                }
+             }
+
+            PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            system("cls");
+            if (hachi_1.healht <= 0)
+            {
+                hachi_1.x = 0;
+                hachi_1.y = 0;
+            }
+            drawMapBorders(width, height);
+        }
+
+        //Chest
+
         if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1) //Si ´player quiere pisar alguna coordenada de chest retrocedera
         {
              player_1.x = prev_x;
@@ -333,12 +471,13 @@ void game_start(){ //inicio papu game
         if (move == 'e') //Si player presiona e, regresara al menu principal
         //TEST! si player presiona e saldra cuadro de SAVES
         {
-<<<<<<< HEAD
             player = false;
-            char player_options = show_player_options();
+            char player_options = show_player_options(player_1.inventory, player_1.inventory_item);
             switch (player_options)
             {
             case 'a':
+                delete_square_show_options();
+                delete_options_();
                 drawMapBorders(width, height);
                 continue;
                 break;
@@ -350,19 +489,17 @@ void game_start(){ //inicio papu game
                 break;
             case 'd':
                 system("cls");
+                PlaySound(NULL, 0, 0);
+                verify_music = true;
+                verify_raining = true;
                 show_menu();
                 break;
             default:
                 break;
             }
-=======
-            
-            system("cls");
-            
->>>>>>> d85c5beae7bb7adebef4a42d82d3f87660c739a9
         }
 
-        toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
+        //toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
         river();
