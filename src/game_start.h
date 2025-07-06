@@ -480,6 +480,223 @@ void game_start(){ //inicio papu game
             drawMapBorders(width, height);
         }
 
+        //horse
+
+        if (player_1.x == horse_1.x && player_1.y == horse_1.y)  
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    horse_1.show_horse();
+}
+
+if (std::abs(player_1.x - horse_1.x) <= 1 && std::abs(player_1.y - horse_1.y) <= 1) // If player is 1 tile away from horse, they will fight
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+
+    player = false; // stop player loop
+    bool fight = true; // start fight loop
+
+    while (horse_1.healht > 0 && fight == true)
+    {  
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, horse_1.id, horse_1.experience, horse_1.healht, horse_1.damage, horse_1.name, horse_1.character_skin, horse_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+
+    if (horse_1.healht <= 0)
+    {
+        level_up(player_1);
+        horse_1.x = 0;
+        horse_1.y = 0;
+    }
+
+    drawMapBorders(width, height);
+}
+        //iguana
+
+if (player_1.x == iguana_1.x && player_1.y == iguana_1.y)
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    iguana_1.show_iguana();
+}
+
+if (std::abs(player_1.x - iguana_1.x) <= 1 && std::abs(player_1.y - iguana_1.y) <= 1)
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    player = false;
+    bool fight = true;
+    while (iguana_1.healht > 0 && fight == true)
+    {
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, iguana_1.id, iguana_1.experience, iguana_1.healht, iguana_1.damage, iguana_1.name, iguana_1.character_skin, iguana_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+    if (iguana_1.healht <= 0)
+    {
+        level_up(player_1);
+        iguana_1.x = 0;
+        iguana_1.y = 0;
+    }
+    drawMapBorders(width, height);
+}
+
+// PIG
+if (player_1.x == pig_1.x && player_1.y == pig_1.y)
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    pig_1.show_pig();
+}
+
+if (std::abs(player_1.x - pig_1.x) <= 1 && std::abs(player_1.y - pig_1.y) <= 1)
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    player = false;
+    bool fight = true;
+    while (pig_1.healht > 0 && fight == true)
+    {
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, pig_1.id, pig_1.experience, pig_1.healht, pig_1.damage, pig_1.name, pig_1.character_skin, pig_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+    if (pig_1.healht <= 0)
+    {
+        level_up(player_1);
+        pig_1.x = 0;
+        pig_1.y = 0;
+    }
+    drawMapBorders(width, height);
+}
+
+// SHEEP
+if (player_1.x == sheep_1.x && player_1.y == sheep_1.y)
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    sheep_1.show_sheep();
+}
+
+if (std::abs(player_1.x - sheep_1.x) <= 1 && std::abs(player_1.y - sheep_1.y) <= 1)
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    player = false;
+    bool fight = true;
+    while (sheep_1.healht > 0 && fight == true)
+    {
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, sheep_1.id, sheep_1.experience, sheep_1.healht, sheep_1.damage, sheep_1.name, sheep_1.character_skin, sheep_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+    if (sheep_1.healht <= 0)
+    {
+        level_up(player_1);
+        sheep_1.x = 0;
+        sheep_1.y = 0;
+    }
+    drawMapBorders(width, height);
+}
+
+// SNAIL
+if (player_1.x == snail_1.x && player_1.y == snail_1.y)
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    snail_1.show_snail();
+}
+
+if (std::abs(player_1.x - snail_1.x) <= 1 && std::abs(player_1.y - snail_1.y) <= 1)
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    player = false;
+    bool fight = true;
+    while (snail_1.healht > 0 && fight == true)
+    {
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, snail_1.id, snail_1.experience, snail_1.healht, snail_1.damage, snail_1.name, snail_1.character_skin, snail_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+    if (snail_1.healht <= 0)
+    {
+        level_up(player_1);
+        snail_1.x = 0;
+        snail_1.y = 0;
+    }
+    drawMapBorders(width, height);
+}
+
+// OSCAR
+
+if (player_1.x == oscar_1.x && player_1.y == oscar_1.y)
+{
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    oscar_1.show_oscar();
+}
+
+if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <= 1)
+{
+    PlaySound(NULL, 0, 0);
+    PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"), NULL, SND_SYNC | SND_FILENAME);
+    PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    player = false;
+    bool fight = true;
+    while (oscar_1.healht > 0 && fight == true)
+    {
+        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, oscar_1.id, oscar_1.experience, oscar_1.healht, oscar_1.damage, oscar_1.name, oscar_1.character_skin, oscar_1.description1) == 's')
+        {
+            fight = false;
+            PlaySound(NULL, 0, 0);
+        }
+    }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    system("cls");
+    if (oscar_1.healht <= 0)
+    {
+        level_up(player_1);
+        oscar_1.x = 0;
+        oscar_1.y = 0;
+    }
+    drawMapBorders(width, height);
+}
+
         //Chest
 
         if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1) //Si ´player quiere pisar alguna coordenada de chest retrocedera
