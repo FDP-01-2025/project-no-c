@@ -12,7 +12,7 @@ using namespace std;
         string nombre;
     };
 
-    const int MAX_SAVES = 5;
+    const int MAX_SAVES = 3;
 
         Savegame savegame[MAX_SAVES];
 
@@ -40,8 +40,6 @@ using namespace std;
     }
         cout << "File saved! \n";
     }
-
-  
 
     void mostrar()
     {
@@ -80,8 +78,8 @@ using namespace std;
         archivo >> e.nombre;
     }
     archivo.close();
-}
 
+}
   void eliminar(){
     ifstream archivo("savefile.txt");
     ofstream temp("temp.txt");
@@ -95,7 +93,7 @@ using namespace std;
     if (archivo.is_open() && temp.is_open()) {
         while (archivo >> e.nombre) {
             if (e.nombre == buscado) {
-                eliminado = true;               // No se copia: se “borra”
+                eliminado = true;                       // No se copia: se “borra”
                 total--;
               } else {
                 temp << e.nombre << endl;
