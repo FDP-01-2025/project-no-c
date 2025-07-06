@@ -26,6 +26,7 @@
 #include "maps_/river.h"
 #include "../saves/save_system.h"
 #include "show_player_options.h"
+#include "fighting_system_/experience_system.h"
 
 extern bool verify_music;
 
@@ -79,7 +80,8 @@ void game_start(){ //inicio papu game
     int max_health = 20;
     damage = 10;
     int inventory = 0;
-    player player_1(x, y, health, max_health, damage, inventory,player_level,player_name); // da las coordenadas de player
+    int experience = 0;
+    player player_1(x, y, health, max_health, damage, inventory,player_level, experience, player_name); // da las coordenadas de player
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
@@ -105,7 +107,7 @@ void game_start(){ //inicio papu game
     int c_health = 30;
     int c_damage = 7;
     int c_id = 2;
-    int c_ex = 7;
+    int c_ex = 10;
     std::string c_name = "Cow";
     std::string c_skin = "C";
     std::string c_description_1 = "The cow is cowing you!"; 
@@ -120,7 +122,7 @@ void game_start(){ //inicio papu game
     int ca_health = 15;
     int ca_damage = 5;
     int ca_id = 3;
-    int ca_ex = 3;
+    int ca_ex = 5;
     std::string ca_name = "Cat";
     std::string ca_skin = "G";
     std::string ca_description_1 = "The cat scratches at you!";
@@ -231,7 +233,7 @@ void game_start(){ //inicio papu game
 
     int o_x = (width / 2) + 15;
     int o_y = (height / 2) + 6;
-    int o_health = 80;
+    int o_health = 120;
     int o_damage = 30;
     int o_id = 11;
     std::string o_name = "Oscar";
@@ -341,16 +343,16 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (cow_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, cow_1.id, cow_1.experience, cow_1.healht,cow_1.damage, cow_1.name, cow_1.character_skin, cow_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cow_1.id, cow_1.experience, cow_1.healht,cow_1.damage, cow_1.name, cow_1.character_skin, cow_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
              }
-
             PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
             system("cls");
             if (cow_1.healht <= 0)
             {
+                level_up(player_1);
                 cow_1.x = 0;
                 cow_1.y = 0;
             }
@@ -378,7 +380,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (cat_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, cat_1.id,cat_1.experience, cat_1.healht,cat_1.damage, cat_1.name, cat_1.character_skin, cat_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cat_1.id,cat_1.experience, cat_1.healht,cat_1.damage, cat_1.name, cat_1.character_skin, cat_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -388,6 +390,7 @@ void game_start(){ //inicio papu game
             system("cls");
             if (cat_1.healht <= 0)
             {
+                level_up(player_1);
                 cat_1.x = 0;
                 cat_1.y = 0;
             }
@@ -415,7 +418,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (hachi_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage, player_1.inventory,player_1.inventory_item, hachi_1.id, hachi_1.experience,hachi_1.healht,hachi_1.damage, hachi_1.name, hachi_1.character_skin, hachi_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, hachi_1.id, hachi_1.experience,hachi_1.healht,hachi_1.damage, hachi_1.name, hachi_1.character_skin, hachi_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -425,6 +428,7 @@ void game_start(){ //inicio papu game
             system("cls");
             if (hachi_1.healht <= 0)
             {
+                level_up(player_1);
                 hachi_1.x = 0;
                 hachi_1.y = 0;
             }
@@ -472,7 +476,7 @@ void game_start(){ //inicio papu game
         //TEST! si player presiona e saldra cuadro de SAVES
         {
             player = false;
-            char player_options = show_player_options(player_1.inventory, player_1.inventory_item);
+            char player_options = show_player_options(player_1,player_1.inventory, player_1.inventory_item);
             switch (player_options)
             {
             case 'a':
@@ -482,7 +486,10 @@ void game_start(){ //inicio papu game
                 continue;
                 break;
             case 'b':
-                
+                delete_square_show_options();
+                delete_options_();
+                drawMapBorders(width, height);   
+                continue;  
                 break;
             case 'c':
                 //Codigo calles de guardar partida

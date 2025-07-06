@@ -9,6 +9,7 @@
 #include "enemy_attack.h"
 #include "items_system.h"
 #include "enemy_description.h"
+#include "experience_system.h"
 
 std::string item_used;
 
@@ -1164,7 +1165,7 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int& level, int& health, int max_health, int& damage, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
+char show_options(std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -1200,6 +1201,7 @@ char show_options(std::string name, int& level, int& health, int max_health, int
         break;
     case 'b':
         use_item(item_used,health,max_health,damage);
+        player_(name, level, health, max_health);
         break;
     case 'c':
         break;
@@ -1209,7 +1211,35 @@ char show_options(std::string name, int& level, int& health, int max_health, int
     default:
         break;
     }
-    enemy_attack(health, e_damage);
+    if (e_health > 0)
+    {
+        std::string enemy_attack_ = "The enemy is attacking you!";
+        COORD coord1;
+        x = 14;
+        y = (height - 15);
+        for (int i = 0; i < enemy_attack_.length(); i++)
+        {
+            key_animation.lock();
+            coord1.X = x;
+            coord1.Y = y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord1);
+            std::cout << enemy_attack_[i];
+            key_animation.unlock();
+            x++;
+            Sleep(10);
+        }
+        enemy_attack(health, e_damage);
+        char fin;
+        fin = getch();
+        while (fin != '\r')
+        {
+            fin = getch();
+        }
+    }
+    else if (e_health <= 0){
+    add_experience(level, player_experience, e_experience);
+    }
+
     return 'o';
 }
 
