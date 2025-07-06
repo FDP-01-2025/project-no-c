@@ -229,7 +229,7 @@ void game_start(){ //inicio papu game
     int ha_id = 10;
     int ha_ex = 5;
     std::string ha_name = "Hachi";
-    std::string ha_skin = "H";
+    std::string ha_skin = "HA";
     std::string ha_description_1 = "Hachi growls with loyalty.";
     std::string ha_description_2 = "He prepares to defend his master!";
     std::string ha_description_3 = "Hachi watches you silently and farts.";
