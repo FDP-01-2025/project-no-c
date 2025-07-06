@@ -137,12 +137,13 @@ void game_start(){ //inicio papu game
     int h_health = 25;
     int h_damage = 8;
     int h_id = 4;
+    int h_ex = 15;
     std::string h_name = "Horse";
     std::string h_skin = "H";
     std::string h_description_1 = "The horse gallops toward you!";
     std::string h_description_2 = "Its hooves thunder on the ground.";
     std::string h_description_3 = "The horse looks ready to charge.";
-    horse_enemy horse_1(h_health, h_damage, h_x, h_y, h_id, h_name, h_skin, h_description_1, h_description_2, h_description_3);
+    horse_enemy horse_1(h_health, h_damage, h_x, h_y, h_id, h_ex, h_name, h_skin, h_description_1, h_description_2, h_description_3);
 
     //Iguana stats
 
@@ -151,12 +152,13 @@ void game_start(){ //inicio papu game
     int i_health = 15;
     int i_damage = 5;
     int i_id = 5;
+    int i_ex = 8;
     std::string i_name = "Iguana";
     std::string i_skin = "I";
     std::string i_description_1 = "The iguana eyes you suspiciously.";
     std::string i_description_2 = "It flicks its tongue.";
     std::string i_description_3 = "The iguana scurries away quickly.";
-    iguana_enemy iguana_1(i_health, i_damage, i_x, i_y, i_id, i_name, i_skin, i_description_1, i_description_2, i_description_3);
+    iguana_enemy iguana_1(i_health, i_damage, i_x, i_y, i_id, i_ex, i_name, i_skin, i_description_1, i_description_2, i_description_3);
 
     //Pig stats
 
@@ -165,12 +167,13 @@ void game_start(){ //inicio papu game
     int p_health = 20;
     int p_damage = 9;
     int p_id = 6;
+    int p_ex = 12;
     std::string p_name = "Pig";
     std::string p_skin = "P";
     std::string p_description_1 = "The pig charges at you!";
     std::string p_description_2 = "Oink oink!";
     std::string p_description_3 = "The pig is hungry";
-    pig_enemy pig_1(p_health, p_damage, p_x, p_y, p_id, p_name, p_skin, p_description_1, p_description_2, p_description_3);
+    pig_enemy pig_1(p_health, p_damage, p_x, p_y, p_id, p_ex, p_name, p_skin, p_description_1, p_description_2, p_description_3);
 
     //Sheep stats
 
@@ -179,12 +182,13 @@ void game_start(){ //inicio papu game
     int s_health = 40;
     int s_damage = 5;
     int s_id = 7;
+    int s_ex = 10;
     std::string s_name = "Sheep";
     std::string s_skin = "S";
     std::string s_description_1 = "The sheep jumps at you!";
     std::string s_description_2 = "Meeeee Meeeeee";
     std::string s_description_3 = "The sheep seems confused.";
-    sheep_enemy sheep_1(s_health, s_damage, s_x, s_y, s_id, s_name, s_skin, s_description_1, s_description_2, s_description_3);
+    sheep_enemy sheep_1(s_health, s_damage, s_x, s_y, s_id, s_ex, s_name, s_skin, s_description_1, s_description_2, s_description_3);
 
     //Snail stats
 
@@ -193,12 +197,13 @@ void game_start(){ //inicio papu game
     int sn_health = 12;
     int sn_damage = 6;
     int sn_id = 8;
+    int sn_ex = 5;
     std::string sn_name = "Snail";
     std::string sn_skin = "@";
     std::string sn_description_1 = "The snail is slowly approaching...";
     std::string sn_description_2 = "Slime trails everywhere!";
     std::string sn_description_3 = "Snail is dizzy from spinning.";
-    snail_enemy snail_1(sn_health, sn_damage, sn_x, sn_y, sn_id, sn_name, sn_skin, sn_description_1, sn_description_2, sn_description_3);
+    snail_enemy snail_1(sn_health, sn_damage, sn_x, sn_y, sn_id, sn_ex, sn_name, sn_skin, sn_description_1, sn_description_2, sn_description_3);
 
     //Thief stats
 
@@ -207,12 +212,13 @@ void game_start(){ //inicio papu game
     int th_health = 35;
     int th_damage = 12;
     int th_id = 9;
+    int th_ex = 20;
     std::string th_name = "Thief";
     std::string th_skin = "T";
     std::string th_description_1 = "The thief sneaks behind you! whit a knife";
     std::string th_description_2 = "He tries to steal you";
     std::string th_description_3 = "The thief vanishes in smoke!";
-    thief_enemy thief_1(th_health, th_damage, th_x, th_y, th_id, th_name, th_skin, th_description_1, th_description_2, th_description_3);
+    thief_enemy thief_1(th_health, th_damage, th_x, th_y, th_id, th_ex, th_name, th_skin, th_description_1, th_description_2, th_description_3);
 
     //Hachi stats
 
@@ -236,12 +242,13 @@ void game_start(){ //inicio papu game
     int o_health = 120;
     int o_damage = 30;
     int o_id = 11;
+    int o_ex = 50;
     std::string o_name = "Oscar";
     std::string o_skin = "O";
     std::string o_description_1 = "Oscar flexes his muscles!";
     std::string o_description_2 = "You feel intimidated...";
     std::string o_description_3 = "Oscar takes a deep breath.";
-    oscar_enemy oscar_1(o_health, o_damage, o_x, o_y, o_id, o_name, o_skin, o_description_1, o_description_2, o_description_3);
+    oscar_enemy oscar_1(o_health, o_damage, o_x, o_y, o_id, o_ex, o_name, o_skin, o_description_1, o_description_2, o_description_3);
 
     //show enemys 
     Sleep(1000);
@@ -431,6 +438,44 @@ void game_start(){ //inicio papu game
                 level_up(player_1);
                 hachi_1.x = 0;
                 hachi_1.y = 0;
+            }
+            drawMapBorders(width, height);
+        }
+
+        //thief
+
+        if (player_1.x == thief_1.x && player_1.y == thief_1.y) 
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+            thief_1.show_thief();
+        }
+
+
+        if (std::abs(player_1.x - thief_1.x) <= 1 && std::abs(player_1.y - thief_1.y) <= 1) // Si player esta a 1 coordenada de cow, entonces pelearan
+        {
+            PlaySound(NULL, 0, 0);
+            PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
+            PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            //Sleep(800);
+            player = false; // se detiene el ciclo player
+            bool fight = true; // inicio ciclo pelea
+             while (thief_1.healht > 0 && fight == true)
+             {  
+                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, thief_1.id,thief_1.experience, thief_1.healht,thief_1.damage, thief_1.name, thief_1.character_skin, thief_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                    fight = false;
+                    PlaySound(NULL, 0, 0);
+                }
+             }
+
+            PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+            system("cls");
+            if (thief_1.healht <= 0)
+            {
+                level_up(player_1);
+                thief_1.x = 0;
+                thief_1.y = 0;
             }
             drawMapBorders(width, height);
         }
