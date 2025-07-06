@@ -10,6 +10,7 @@
 #include "items_system.h"
 #include "enemy_description.h"
 #include "experience_system.h"
+#include "dead_system.h"
 
 std::string item_used;
 
@@ -1171,6 +1172,17 @@ char show_options(std::string name, int& level, int& health, int& max_health, in
     x = ((width / 4) - 8);
     y = (height - 3);
     X_menu_options x_options(x, y, inventory,e_health, e_damage,inventory_item, e_name, description1);
+    if (health <= 0)
+    {
+        system("cls");
+        PlaySound(NULL, 0, 0);
+        Sleep(1000);
+        x_options.show_x();
+        PlaySound(TEXT("assets//music//Undertale-Death-Sound-Effect-Canned-Sound-Collection.wav"),NULL, SND_SYNC | SND_FILENAME);
+        x_options.delete_x(x, y);
+        Sleep(1000);
+        show_player_dead_menu();
+    }
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);

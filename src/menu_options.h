@@ -131,6 +131,7 @@ int show_menu(){
     thread_rain5.join();
     thread_rain6.join();
     system("cls");
+    //Nueva partida codigo calles
     game_start();
         break;
     case 'b':
@@ -143,7 +144,6 @@ int show_menu(){
         thread_rain6.join();
         system("cls");  
         show_menu_principal_options_Save();
-        // code continue game
         break;
     case 'c':
     system("cls");
