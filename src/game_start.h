@@ -107,7 +107,7 @@ void game_start(){ //inicio papu game
     int c_health = 30;
     int c_damage = 7;
     int c_id = 2;
-    int c_ex = 10;
+    int c_ex = 5;
     std::string c_name = "Cow";
     std::string c_skin = "C";
     std::string c_description_1 = "The cow is cowing you!"; 
@@ -122,7 +122,7 @@ void game_start(){ //inicio papu game
     int ca_health = 15;
     int ca_damage = 5;
     int ca_id = 3;
-    int ca_ex = 5;
+    int ca_ex = 3;
     std::string ca_name = "Cat";
     std::string ca_skin = "G";
     std::string ca_description_1 = "The cat scratches at you!";
@@ -137,7 +137,7 @@ void game_start(){ //inicio papu game
     int h_health = 25;
     int h_damage = 8;
     int h_id = 4;
-    int h_ex = 15;
+    int h_ex = 6;
     std::string h_name = "Horse";
     std::string h_skin = "H";
     std::string h_description_1 = "The horse gallops toward you!";
@@ -152,7 +152,7 @@ void game_start(){ //inicio papu game
     int i_health = 15;
     int i_damage = 5;
     int i_id = 5;
-    int i_ex = 8;
+    int i_ex = 3;
     std::string i_name = "Iguana";
     std::string i_skin = "I";
     std::string i_description_1 = "The iguana eyes you suspiciously.";
@@ -167,7 +167,7 @@ void game_start(){ //inicio papu game
     int p_health = 20;
     int p_damage = 9;
     int p_id = 6;
-    int p_ex = 12;
+    int p_ex = 4;
     std::string p_name = "Pig";
     std::string p_skin = "P";
     std::string p_description_1 = "The pig charges at you!";
@@ -182,7 +182,7 @@ void game_start(){ //inicio papu game
     int s_health = 40;
     int s_damage = 5;
     int s_id = 7;
-    int s_ex = 10;
+    int s_ex = 5;
     std::string s_name = "Sheep";
     std::string s_skin = "S";
     std::string s_description_1 = "The sheep jumps at you!";
@@ -197,7 +197,7 @@ void game_start(){ //inicio papu game
     int sn_health = 12;
     int sn_damage = 6;
     int sn_id = 8;
-    int sn_ex = 5;
+    int sn_ex = 2;
     std::string sn_name = "Snail";
     std::string sn_skin = "@";
     std::string sn_description_1 = "The snail is slowly approaching...";
@@ -212,7 +212,7 @@ void game_start(){ //inicio papu game
     int th_health = 35;
     int th_damage = 12;
     int th_id = 9;
-    int th_ex = 20;
+    int th_ex = 6;
     std::string th_name = "Thief";
     std::string th_skin = "T";
     std::string th_description_1 = "The thief sneaks behind you! whit a knife";
@@ -227,7 +227,7 @@ void game_start(){ //inicio papu game
     int ha_health = 50;
     int ha_damage = 15;
     int ha_id = 10;
-    int ha_ex = 30;
+    int ha_ex = 5;
     std::string ha_name = "Hachi";
     std::string ha_skin = "H";
     std::string ha_description_1 = "Hachi growls with loyalty.";
