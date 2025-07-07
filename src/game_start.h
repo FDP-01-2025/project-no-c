@@ -111,49 +111,9 @@ void drawRoomDynamic(int room_left, int room_right, int room_top, int room_botto
 
 void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '*') {
     int room_left   = 2;
-    int room_right  = room_left + 12;               
-    int room_bottom = screen_height - 4;            
-    int room_top    = room_bottom - 4;              
-    int door_y      = (room_top + room_bottom) / 2;
-
-    COORD coord;
-    for (int x = room_left; x <= room_right; x++) {
-        coord.X = x;
-        coord.Y = room_top;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-
-        coord.Y = room_bottom;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-    for (int y = room_top; y <= room_bottom; y++) {
-        coord.Y = y;
-        if (y != door_y) {
-            coord.X = room_left;
-            key_animation.lock();
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            std::cout << wallSymbol;
-            key_animation.unlock();
-        }
-        coord.X = room_right;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-}
-
-
-void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = '#') {
-    int room_right  = screen_width - 4;
-    int room_left   = room_right - 12;              
+    int room_right  = room_left + 12;
     int room_bottom = screen_height - 4;
-    int room_top    = room_bottom - 4;              
+    int room_top    = room_bottom - 4;
     int door_y      = (room_top + room_bottom) / 2;
 
     COORD coord;
@@ -189,11 +149,12 @@ void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = 
 }
 
 
-void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '#') {
+
+void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = '*') {
     int room_right  = screen_width - 4;
-    int room_left   = room_right - 12;              
-    int room_top    = 2;
-    int room_bottom = room_top + 4;                 
+    int room_left   = room_right - 12;
+    int room_bottom = screen_height - 4;
+    int room_top    = room_bottom - 4;
     int door_y      = (room_top + room_bottom) / 2;
 
     COORD coord;
@@ -226,8 +187,112 @@ void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '#'
         std::cout << wallSymbol;
         key_animation.unlock();
     }
-    }
+}
 
+
+void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '*') {
+    int room_right  = screen_width - 4;
+    int room_left   = room_right - 12;
+    int room_top    = 2;
+    int room_bottom = room_top + 4;
+    int door_y      = (room_top + room_bottom) / 2;
+
+    COORD coord;
+    for (int x = room_left; x <= room_right; x++) {
+        coord.X = x;
+        coord.Y = room_top;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.Y = room_bottom;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+    for (int y = room_top; y <= room_bottom; y++) {
+        coord.Y = y;
+        if (y != door_y) {
+            coord.X = room_left;
+            key_animation.lock();
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << wallSymbol;
+            key_animation.unlock();
+        }
+        coord.X = room_right;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+}
+
+//////Rooms limits//////////
+
+void limitRoomBottomLeft(int &player_x, int &player_y, int prev_x, int prev_y, int screen_height) {
+    int room_left   = 2;
+    int room_right  = room_left + 12;
+    int room_bottom = screen_height - 4;
+    int room_top    = room_bottom - 4;
+    int door_y      = (room_top + room_bottom) / 2;
+
+    bool is_inside_room_x = player_x > room_left && player_x < room_right;
+    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
+    bool is_door = player_x == room_left && player_y == door_y;
+
+    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+}
+
+void limitRoomBottomRight(int &player_x, int &player_y, int prev_x, int prev_y, int screen_width, int screen_height) {
+    int room_right  = screen_width - 4;
+    int room_left   = room_right - 12;
+    int room_bottom = screen_height - 4;
+    int room_top    = room_bottom - 4;
+    int door_y      = (room_top + room_bottom) / 2;
+
+    bool is_inside_room_x = player_x > room_left && player_x < room_right;
+    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
+    bool is_door = player_x == room_left && player_y == door_y;
+
+    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+}
+
+void limitRoomTopRight(int &player_x, int &player_y, int prev_x, int prev_y, int screen_width) {
+    int room_right  = screen_width - 4;
+    int room_left   = room_right - 12;
+    int room_top    = 2;
+    int room_bottom = room_top + 4;
+    int door_y      = (room_top + room_bottom) / 2;
+
+    bool is_inside_room_x = player_x > room_left && player_x < room_right;
+    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
+    bool is_door = player_x == room_left && player_y == door_y;
+
+    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
+        player_x = prev_x;
+        player_y = prev_y;
+    }
+}
 
 
 void game_start(bool new_game,int x, int y, int health, int max_health, int damage, int level, std::string creator_name, std::string player_name, std::string* inventory_item, int inventory, int experience, int cow_health, int cat_health, int hachi_health, int iguana_health, int thief_health, int snail_health, int horse_health, int sheep_health, int pig_health){ //inicio papu game
@@ -238,8 +303,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     t_id = 1;
     int t_ex = 2;
     window_size(width, height);
-    t_x = (width / 2) + 10;
-    t_y = (height / 2) - 3;
+    t_x = (width / 12);
+    t_y = (height / 4) + 1;
     std::string t_name = "Toilet";
     std::string t_skin = "Q";
     std::string t_description_1 = "Toilet wanna fight!";
@@ -399,7 +464,7 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //show enemys 
     Sleep(1000);
-    //toilet_1.show_toilet(); //show toilet in the game
+    toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();
     cat_1.show_cat();
     horse_1.show_horse();
@@ -479,7 +544,7 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     }
     delete_center_dialogue("Also, you interact with Q, and open the menu with E");
     Sleep(1000);
-    center_dialogue("If you need health, come interact with me! i'll help you!");
+    center_dialogue("Good luck skibidi!");
     finish_dialogue();
     Sleep(100);
     player_1.new_game = true;
@@ -502,7 +567,7 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     finish_dialogue();
     Sleep(100);
     }
-
+    toilet_1.show_toilet(); //show toilet in the game
     cow_1.show_cow();
     cat_1.show_cat();
     horse_1.show_horse();
@@ -542,6 +607,7 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
             player_1.x = prev_x;
             player_1.y = prev_y;
             player_1.show_player_coord();
+            toilet_1.show_toilet(); //show toilet in the game
         }
         
 bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
@@ -565,16 +631,18 @@ if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y &&
     drawRoomTopRight(width, height);
     drawRoomBottomRight(width, height);
     drawRoomBottomLeft(width, height);
+    limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
+    limitRoomBottomRight(player_1.x, player_1.y, prev_x, prev_y, width, height);
+    limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
 
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
-            center_dialogue("Hi,");
-            char next = getch();
-            while(next != '\r'){
-                next = getch();
-            }
-            delete_center_dialogue("Also, you interact with Q, and open the menu with E");
-            Sleep(1000);
+            dialogue_square();
+            show_dialogue_character("Q",6);
+            center_dialogue("Hi skibidi!, go and become the final sigma male!");
+            finish_dialogue();
+            Sleep(100);
+            drawMapBorders(width, height);
         }
         
         //Cow
@@ -953,33 +1021,44 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
              player_1.y = prev_y;
             player_1.show_player_coord();
         }
-        
+
         if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
+            static bool open_chest = false;
+            if (open_chest == false){
             dialogue_square();
-            bool search_item = false;
-            for (int i = 0; i < player_1.inventory + 1; i++){
-                if (player_1.inventory_item[i] == "Cookie"){
-                player_1.add_item("Apple"); 
-                center_dialogue("You got a Apple!");
-                finish_dialogue();
-                search_item = true; 
-                break;
-                }
+            open_chest = true;
+            center_dialogue("You got a Cake");
+            player_1.add_item("Cake"); 
+            finish_dialogue();
             }
-            if (search_item == false)
-            {
-             for (int i = 0; i < player_1.inventory + 1; i++)
-                {
-                if (player_1.inventory_item[i] != "Cookie"){
-                    player_1.add_item("Feeling sucesfully");
-                    center_dialogue("You got a Cookie!");
-                    finish_dialogue();
-                    break;
-                    }                
-                }
-            }
-            drawMapBorders(width, height);
         }
+
+        // if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
+        //     dialogue_square();
+        //     bool search_item = false;
+        //     for (int i = 0; i < player_1.inventory + 1; i++){
+        //         if (player_1.inventory_item[i] == "Cookie"){
+        //         player_1.add_item("Apple"); 
+        //         center_dialogue("You got a Apple!");
+        //         finish_dialogue();
+        //         search_item = true; 
+        //         break;
+        //         }
+        //     }
+        //     if (search_item == false)
+        //     {
+        //      for (int i = 0; i < player_1.inventory + 1; i++)
+        //         {
+        //         if (player_1.inventory_item[i] != "Cookie"){
+        //             player_1.add_item("Cookie");
+        //             center_dialogue("You got a Cookie!");
+        //             finish_dialogue();
+        //             break;
+        //             }                
+        //         }
+        //     }
+        //     drawMapBorders(width, height);
+        // }
 
 
         if (move == 'e') //Si player presiona e, regresara al menu principal

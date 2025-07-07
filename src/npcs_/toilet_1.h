@@ -22,7 +22,9 @@ struct toilet{
         coord.X = x;
         coord.Y = y;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
-        std::cout << "L";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+        std::cout << "Q";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         key_animation.unlock();
     }
 };

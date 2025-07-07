@@ -48,9 +48,6 @@ struct player
         case 'e':
             return 'e';
             break;
-        case 'g':
-            show_inventory();
-            break;
         default:
             break;
         }

@@ -161,13 +161,14 @@ void create_player(){
     PlaySound(TEXT("assets//music//ANOTHER-HIM-Toby-Fox.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     Player_Start Player1(x_center, y_center);
     Player_Start Player2(x_center, y_center);
+    Sleep(2000);
     animated_text("Oh...", y_center);
     Sleep(3000);
     delete_text("Oh...", y_center);
     Sleep(2000);
-    animated_text("There is someone there?", y_center);
+    animated_text("Is someone there?", y_center);
     Sleep(3000);
-    delete_text("There is someone there?", y_center);
+    delete_text("Is someone there?", y_center);
     Sleep(2000);
     Sleep(3000);
     animated_text("WHO ARE YOU?", y_center - 3);
@@ -257,9 +258,9 @@ void create_player(){
     Sleep(3000);
     delete_text("DESTROYED", y_center);
     Sleep(2000);
-    animated_text("Nobody in this world, can decide who he is.", y_center);
+    animated_text("No one in this world, can decide who he is.", y_center);
     Sleep(4000);
-    delete_text("Nobody in this world, can decide who he is.", y_center);
+    delete_text("No one in this world, can decide who he is.", y_center);
     Sleep(2000);
     animated_text_slower("Your name is...", y_center);
     Sleep(1000);
