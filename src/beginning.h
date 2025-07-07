@@ -169,27 +169,36 @@ void create_player(){
     Sleep(3000);
     delete_text("Is someone there?", y_center);
     Sleep(2000);
+<<<<<<< HEAD
     Sleep(1000);
     animated_text("WHO ARE YOU, WHAT IS YOUR NAME?", y_center - 3);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+=======
+    Sleep(3000);
+    animated_text("WHO ARE YOU?", y_center - 3);
+>>>>>>> f20ad1a48c61113a1609b7e0fa15b03167505bd0
     COORD coord1;
     coord1.X = x_center - 5;
     coord1.Y = y_center;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord1);
     std::cin >> player_name;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
     Sleep(2000);
     animated_text("Good...", y_center);
     Sleep(3000);
     delete_text("Good...", y_center);
     Sleep(2000);
+<<<<<<< HEAD
     animated_text("NOW, what is your vessel's name?", y_center - 3);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+=======
+    animated_text("NOW, HOW IS YOUR VESSEL'S NAME?", y_center - 3);
+>>>>>>> f20ad1a48c61113a1609b7e0fa15b03167505bd0
     COORD coord2;
     coord2.X = x_center - 5;
     coord2.Y = y_center;
@@ -267,7 +276,9 @@ void create_player(){
     Sleep(1000);
     animated_text_slower("Have fun...", y_center);
     Sleep(1000);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
+    //crear archivo codigo calles
     game_start();
 
 

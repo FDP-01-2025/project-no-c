@@ -264,11 +264,94 @@ void game_start(){ //inicio papu game
     thief_1.show_thief();
     hachi_1.show_hachi();
     oscar_1.show_oscar();
+    player_1.show_player_coord();
     show_chest();
     drawMapBorders(width, height);
     river();
     
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+        
+    while (_kbhit()){ getch();} // limpia las teclas pendientes 
+
+    dialogue_square();
+    show_dialogue_character("Q",6);
+    center_dialogue("Skibidi pomni!");
+    char next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Skibidi pomni!");
+    Sleep(1000);
+    center_dialogue("Are you okey?, i hope you haven't forget, what we came for");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Are you okey?, i hope you haven't forget, what we came for");
+    Sleep(1000);
+    center_dialogue("......");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("......");
+    Sleep(1000);
+    center_dialogue("xd");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("xd");
+    Sleep(1000);
+    center_dialogue("We came, to defeat oscar because...");
+    Sleep(3000);
+    delete_center_dialogue("We came, to defeat oscar because...");
+    Sleep(1000);
+    while (_kbhit()){ getch();} // limpia las teclas pendientes 
+    center_dialogue("Why not? xd");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Why not? xd");
+    Sleep(1000);
+    center_dialogue("Just to remind you, you move with WASD");
+    while (_kbhit()){ getch();} // limpia las teclas pendientes 
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Just to remind you, you move with WASD");
+    Sleep(1000);
+    center_dialogue("Also, you interact with Q, and open the menu with E");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Also, you interact with Q, and open the menu with E");
+    Sleep(1000);
+    center_dialogue("If you need health, come interact with me! i'll help you!");
+    next = getch();
+    while(next != '\r'){
+        next = getch();
+    }
+    finish_dialogue();
+    Sleep(100);
+
+    cow_1.show_cow();
+    cat_1.show_cat();
+    horse_1.show_horse();
+    iguana_1.show_iguana();
+    pig_1.show_pig();
+    sheep_1.show_sheep();
+    snail_1.show_snail();
+    thief_1.show_thief();
+    hachi_1.show_hachi();
+    oscar_1.show_oscar();
+    player_1.show_player_coord();
+    show_chest();
+    river();
+    drawMapBorders(width, height);
 
     while (bool player = true) //Bucle para mover a player
     {

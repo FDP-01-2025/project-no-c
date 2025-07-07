@@ -106,6 +106,36 @@ void dialogue_square(){
     dialogue_square_right_side();
 }
 
+void show_dialogue_character(const std::string character, int color){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 10);
+    y = (height / 2) + 14;    
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),color);
+    std::cout << character;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
+    key_animation.unlock();
+}
+
+void delete_show_dialogue_character(){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width / 10);
+    y = (height / 2) + 14;    
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    std::cout << " ";
+    key_animation.unlock();
+}
+
 void center_dialogue(const std::string dialogue){
     int width, height, x, y;
     window_size(width, height);
@@ -120,6 +150,23 @@ void center_dialogue(const std::string dialogue){
     {
         std::cout << dialogue[i];
         Sleep(15);
+    }
+    key_animation.unlock();
+}
+
+void delete_center_dialogue(const std::string dialogue){
+    int width, height, x, y;
+    window_size(width, height);
+    x = (width - dialogue.length()) / 2;
+    y = (height / 2) + 14;    
+    COORD coord;
+    key_animation.lock();
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    for (int i = 0; i < dialogue.length() + 1; i++)
+    {
+        std::cout << " ";
     }
     key_animation.unlock();
 }
@@ -218,16 +265,8 @@ void delete_square(){
     delete_dialogue_square_right_side();
     delete_dialogue_square_left_side();
     delete_center_dialogue();
+    delete_show_dialogue_character();
 }
-
-
-
-
-
-
-
-
-
 
 void finish_dialogue(){
     char move = getch();
