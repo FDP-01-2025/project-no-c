@@ -21,7 +21,7 @@ horse_enemy(int health, int damage, int x, int y, int id, int experience, std::s
         : healht(health), damage(damage), x(x), y(y), id(id), experience(experience), name(name), character_skin(character_skin), description1(description1), description2(description2), description3(description3) {}
 
 void show_horse() {
-    std::string horse_skin = "H";
+    std::string horse_skin = "J";
     if (healht <= 0) {
         horse_skin = "";
     }

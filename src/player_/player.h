@@ -130,28 +130,28 @@ struct player
     }
 };
 
-void level_up(player& player_){
-    switch (player_.level)
+void level_up(int& player_level, int& player_maxhealth, int& player_damage){
+    switch (player_level)
     {
-    case 1:
-        player_.max_health += 10;
-        player_.damage += 2;
-        break;
     case 2:
-        player_.max_health += 10;
-        player_.damage += 2;
+        player_maxhealth += 10;
+        player_damage += 2;
         break;
     case 3:
-        player_.max_health += 10;
-        player_.damage += 2;
+        player_maxhealth += 10;
+        player_damage += 2;
         break;
     case 4:
-        player_.max_health += 15;
-        player_.damage += 5;
+        player_maxhealth += 10;
+        player_damage += 2;
         break;
     case 5:
-        player_.max_health += 15;
-        player_.damage += 5;
+        player_maxhealth += 15;
+        player_damage += 5;
+        break;
+    case 6:
+        player_maxhealth += 15;
+        player_damage += 5;
     default:
         break;
     }

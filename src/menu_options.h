@@ -10,6 +10,7 @@
 #include <thread>
 #include <mutex>
 #include "player_games.h"
+#include "beginning.h"
 
 extern bool verify_music;
 
@@ -132,7 +133,7 @@ int show_menu(){
     thread_rain6.join();
     system("cls");
     //Nueva partida codigo calles
-    game_start();
+    create_player();
         break;
     case 'b':
         verify_raining = false;

@@ -11,10 +11,11 @@ struct X_menu_player_option
 {
     int x;
     int y;
+    int& id;
     int& inventory;
     std::string* inventory_items;
-    X_menu_player_option(int x, int y, int& inventory, std::string* inventory_items):
-    x(x), y(y), inventory(inventory), inventory_items(inventory_items) {}
+    X_menu_player_option(int x, int y, int& id, int& inventory, std::string* inventory_items):
+    x(x), y(y), id(id), inventory(inventory), inventory_items(inventory_items) {}
 
     char movement_x(){
         show_x();
@@ -194,7 +195,18 @@ void delete_show_return_menu_options(){
             delete_item_name();
             delete_show_square_items();
             delete_x(x, y);
-            delete_item_inventory(inventory, inventory_items, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_items, item_used);
+            }
             return 'b';
         }
         else if (move == '\r' && y == (16) + 2 && inventory != 0)
@@ -205,7 +217,19 @@ void delete_show_return_menu_options(){
             delete_item_name();
             delete_show_square_items();
             delete_x(x, y);
-            delete_item_inventory(inventory, inventory_items, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }
             return 'b';
         }
         else if (move == '\r' && y == (16) + 4 && inventory != 0){
@@ -215,7 +239,19 @@ void delete_show_return_menu_options(){
             delete_item_name();
             delete_show_square_items();
             delete_x(x, y);
-            delete_item_inventory(inventory, inventory_items, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }
             return 'b';
         }
         else if (move == '\r' && y == (16) + 6 && inventory != 0){
@@ -225,7 +261,19 @@ void delete_show_return_menu_options(){
             delete_item_name();
             delete_show_square_items();
             delete_x(x, y);
-            delete_item_inventory(inventory, inventory_items, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }
             return 'b';
         }
         else if (move == '\r' && y == (16) + 8 && inventory != 0){
@@ -235,7 +283,19 @@ void delete_show_return_menu_options(){
             delete_item_name();
             delete_show_square_items();
             delete_x(x, y);
-            delete_item_inventory(inventory, inventory_items, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_items, item_used);
+                return 'b';
+            }
             return 'b';
         }
         else if (move == '\r' && y == (16) + 10){
@@ -801,7 +861,7 @@ void delete_show_player_stadistics(player& player_1){
     }
     coord.X = x;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    std::cout << "        " ;
+    std::cout << "           " ;
     key_animation.unlock();
     y += 2;
     x = (width / 10) - 5;
@@ -809,13 +869,13 @@ void delete_show_player_stadistics(player& player_1){
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    std::cout << "               ";
+    std::cout << "                  ";
     key_animation.unlock();
     y += 2;
     key_animation.lock();
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    std::cout << "          ";
+    std::cout << "             ";
     key_animation.unlock();
 }
 
@@ -829,6 +889,7 @@ void delete_options_(){
 ///////////////////////////////////////////
 
 char show_player_options(player& player_1, int& inventory, std::string inventory_items[]){
+    int id = 0;
     int width, height, x, y;
     window_size(width, height);
     x = width / 4;
@@ -843,7 +904,7 @@ char show_player_options(player& player_1, int& inventory, std::string inventory
     show_options_save();
     show_options_principal_menu();
     show_player_stadistics(player_1);
-    X_menu_player_option x_player_option(x, y, inventory, inventory_items);
+    X_menu_player_option x_player_option(x, y, id, inventory, inventory_items);
     switch (x_player_option.movement_x())
     {
     case 'a':
@@ -857,7 +918,7 @@ char show_player_options(player& player_1, int& inventory, std::string inventory
         delete_show_player_stadistics(player_1);
         delete_options_();
         delete_square_show_options();
-        use_item(item_used, player_1.health, player_1.max_health, player_1.damage);
+        use_item(item_used, player_1.health, player_1.max_health, player_1.damage, id);
         return 'b';
         break;
     case 'c':

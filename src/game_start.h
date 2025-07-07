@@ -27,6 +27,7 @@
 #include "../saves/save_system.h"
 #include "show_player_options.h"
 #include "fighting_system_/experience_system.h"
+#include "end.h"
 
 extern bool verify_music;
 
@@ -76,8 +77,8 @@ void game_start(){ //inicio papu game
     window_size(width, height);
     x = (width / 12);
     y = (height / 4);
-    health = 20;
-    int max_health = 20;
+    health = 10;
+    int max_health = 10;
     damage = 10;
     int inventory = 0;
     int experience = 0;
@@ -102,7 +103,7 @@ void game_start(){ //inicio papu game
 
     //Cow stats
 
-    int c_x = (width / 2) - 30;
+    int c_x = (width / 5) + 10;
     int c_y = (height / 2) + 10;
     int c_health = 30;
     int c_damage = 7;
@@ -117,8 +118,8 @@ void game_start(){ //inicio papu game
 
     //Cat stats
 
-    int ca_x = (width / 2) - 35;
-    int ca_y = (height / 2) - 10;
+    int ca_x = (width / 5) - 10;
+    int ca_y = (height / 2) ;
     int ca_health = 15;
     int ca_damage = 5;
     int ca_id = 3;
@@ -132,8 +133,8 @@ void game_start(){ //inicio papu game
 
     //Horse stats
 
-    int h_x = (width / 2) + 10;
-    int h_y = (height / 2) - 6;
+    int h_x = (width / 4);
+    int h_y = (height / 2) - 8;
     int h_health = 25;
     int h_damage = 8;
     int h_id = 4;
@@ -147,7 +148,7 @@ void game_start(){ //inicio papu game
 
     //Iguana stats
 
-    int i_x = 25;
+    int i_x = 25 + 6;
     int i_y = 10;
     int i_health = 15;
     int i_damage = 5;
@@ -162,7 +163,7 @@ void game_start(){ //inicio papu game
 
     //Pig stats
 
-    int p_x = (width / 2) - 25;
+    int p_x = (width / 2) + 15;
     int p_y = (height / 2) + 5;
     int p_health = 20;
     int p_damage = 9;
@@ -177,8 +178,8 @@ void game_start(){ //inicio papu game
 
     //Sheep stats
 
-    int s_x = (width / 2) - 20;
-    int s_y = (height / 2) + 8;
+    int s_x = (width / 2) + 20;
+    int s_y = (height / 4);
     int s_health = 40;
     int s_damage = 5;
     int s_id = 7;
@@ -192,7 +193,7 @@ void game_start(){ //inicio papu game
 
     //Snail stats
 
-    int sn_x = (width / 2) - 15;
+    int sn_x = (width / 2) + 5;
     int sn_y = (height / 2) + 11;
     int sn_health = 12;
     int sn_damage = 6;
@@ -207,8 +208,8 @@ void game_start(){ //inicio papu game
 
     //Thief stats
 
-    int th_x = (width / 2) + 10;
-    int th_y = (height / 2) - 6;
+    int th_x = (width / 4) + 15;
+    int th_y = (height / 2) + 8;
     int th_health = 35;
     int th_damage = 12;
     int th_id = 9;
@@ -222,8 +223,8 @@ void game_start(){ //inicio papu game
 
     //Hachi stats
 
-    int ha_x = (width / 2) + 18;
-    int ha_y = (height / 2) - 10;
+    int ha_x = width - 50;
+    int ha_y = (height / 2) + 3;
     int ha_health = 50;
     int ha_damage = 15;
     int ha_id = 10;
@@ -233,12 +234,12 @@ void game_start(){ //inicio papu game
     std::string ha_description_1 = "Hachi growls with loyalty.";
     std::string ha_description_2 = "He prepares to defend his master!";
     std::string ha_description_3 = "Hachi watches you silently and farts.";
-    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, h_y, ha_id, ha_ex,ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
+    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, ha_y, ha_id, ha_ex,ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
 
     //Oscar stats
 
-    int o_x = (width / 2) + 15;
-    int o_y = (height / 2) + 6;
+    int o_x = width - 20;
+    int o_y = (height / 2) + 4;
     int o_health = 120;
     int o_damage = 30;
     int o_id = 11;
@@ -359,9 +360,9 @@ void game_start(){ //inicio papu game
             system("cls");
             if (cow_1.healht <= 0)
             {
-                level_up(player_1);
                 cow_1.x = 0;
                 cow_1.y = 0;
+                player_1.add_item("Cookie");
             }
             drawMapBorders(width, height);
         }
@@ -397,7 +398,7 @@ void game_start(){ //inicio papu game
             system("cls");
             if (cat_1.healht <= 0)
             {
-                level_up(player_1);
+                player_1.add_item("Apple");
                 cat_1.x = 0;
                 cat_1.y = 0;
             }
@@ -435,9 +436,9 @@ void game_start(){ //inicio papu game
             system("cls");
             if (hachi_1.healht <= 0)
             {
-                level_up(player_1);
                 hachi_1.x = 0;
                 hachi_1.y = 0;
+                player_1.add_item("Feeling sucesfully");
             }
             drawMapBorders(width, height);
         }
@@ -473,9 +474,9 @@ void game_start(){ //inicio papu game
             system("cls");
             if (thief_1.healht <= 0)
             {
-                level_up(player_1);
                 thief_1.x = 0;
                 thief_1.y = 0;
+                player_1.add_item("Knife");
             }
             drawMapBorders(width, height);
         }
@@ -513,9 +514,10 @@ if (std::abs(player_1.x - horse_1.x) <= 1 && std::abs(player_1.y - horse_1.y) <=
 
     if (horse_1.healht <= 0)
     {
-        level_up(player_1);
         horse_1.x = 0;
         horse_1.y = 0;
+        player_1.add_item("Apple");
+        player_1.add_item("Apple");
     }
 
     drawMapBorders(width, height);
@@ -549,9 +551,9 @@ if (std::abs(player_1.x - iguana_1.x) <= 1 && std::abs(player_1.y - iguana_1.y) 
     system("cls");
     if (iguana_1.healht <= 0)
     {
-        level_up(player_1);
         iguana_1.x = 0;
         iguana_1.y = 0;
+        player_1.add_item("Apple");
     }
     drawMapBorders(width, height);
 }
@@ -584,9 +586,9 @@ if (std::abs(player_1.x - pig_1.x) <= 1 && std::abs(player_1.y - pig_1.y) <= 1)
     system("cls");
     if (pig_1.healht <= 0)
     {
-        level_up(player_1);
         pig_1.x = 0;
         pig_1.y = 0;
+        player_1.add_item("Cake");
     }
     drawMapBorders(width, height);
 }
@@ -619,9 +621,9 @@ if (std::abs(player_1.x - sheep_1.x) <= 1 && std::abs(player_1.y - sheep_1.y) <=
     system("cls");
     if (sheep_1.healht <= 0)
     {
-        level_up(player_1);
         sheep_1.x = 0;
         sheep_1.y = 0;
+        player_1.add_item("Cake");
     }
     drawMapBorders(width, height);
 }
@@ -654,9 +656,9 @@ if (std::abs(player_1.x - snail_1.x) <= 1 && std::abs(player_1.y - snail_1.y) <=
     system("cls");
     if (snail_1.healht <= 0)
     {
-        level_up(player_1);
         snail_1.x = 0;
         snail_1.y = 0;
+        player_1.add_item("Cake");
     }
     drawMapBorders(width, height);
 }
@@ -683,17 +685,16 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
         if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, oscar_1.id, oscar_1.experience, oscar_1.healht, oscar_1.damage, oscar_1.name, oscar_1.character_skin, oscar_1.description1) == 's')
         {
             fight = false;
-            PlaySound(NULL, 0, 0);
         }
     }
-    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     system("cls");
     if (oscar_1.healht <= 0)
     {
-        level_up(player_1);
         oscar_1.x = 0;
         oscar_1.y = 0;
+        show_player_end_menu();
     }
+    PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     drawMapBorders(width, height);
 }
 
@@ -723,7 +724,7 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
              for (int i = 0; i < player_1.inventory + 1; i++)
                 {
                 if (player_1.inventory_item[i] != "Cookie"){
-                    player_1.add_item("Cookie");
+                    player_1.add_item("Feeling sucesfully");
                     center_dialogue("You got a Cookie!");
                     finish_dialogue();
                     break;
