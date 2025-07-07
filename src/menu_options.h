@@ -10,6 +10,7 @@
 #include <thread>
 #include <mutex>
 #include "player_games.h"
+#include "beginning.h"
 
 extern bool verify_music;
 
@@ -90,16 +91,13 @@ struct X_menu
     }
 };
 
+
 int show_menu(){
-    PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    if (verify_music == true)
+    {
+        PlaySound(TEXT("assets//music//Undertale-OST-063-It_s-Raining-Somewhere-Else-Misaki-pruebasonido.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+    }
     int width, height;
-    // static bool rain = false;
-    // static std::thread rain1;
-    // if (rain == false)
-    // {
-    //     rain1 = std::thread(rain_main);
-    //     rain = true;
-    // }
     window_size(width, height);
     int y_center = (height) / 2;
     std::thread thread_rain1(rain_main);
@@ -134,12 +132,19 @@ int show_menu(){
     thread_rain5.join();
     thread_rain6.join();
     system("cls");
-    game_start();
+    //Nueva partida codigo calles
+    create_player();
         break;
     case 'b':
+        verify_raining = false;
+        thread_rain1.join();
+        thread_rain2.join();
+        thread_rain3.join();
+        thread_rain4.join();
+        thread_rain5.join();
+        thread_rain6.join();
         system("cls");  
         show_menu_principal_options_Save();
-        // code continue game
         break;
     case 'c':
     system("cls");

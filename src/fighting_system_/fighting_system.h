@@ -9,6 +9,8 @@
 #include "enemy_attack.h"
 #include "items_system.h"
 #include "enemy_description.h"
+#include "experience_system.h"
+#include "dead_system.h"
 
 std::string item_used;
 
@@ -16,14 +18,15 @@ struct X_menu_options
 {
     int x;
     int y;
+    int& id;
     int& inventory;
     int& e_health;
     int& e_damage;
     std::string* inventory_item; // Asterisco para señalar que el puntero es array
     std::string e_name;
     std::string description1;
-    X_menu_options(int x, int y,int& inventory, int& e_health, int& e_damage,std::string* inventory_item, std::string e_name, std::string description1):
-    x(x), y(y),inventory(inventory),e_health(e_health), e_damage(e_damage), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
+    X_menu_options(int x, int y,int& id, int& inventory, int& e_health, int& e_damage,std::string* inventory_item, std::string e_name, std::string description1):
+    x(x), y(y), id(id),inventory(inventory),e_health(e_health), e_damage(e_damage), inventory_item(inventory_item),e_name(e_name), description1(description1) {}
 
     char movement_x(){
         static bool description_start = false; //static inicializa una sola vez la variable, y si se vuelve a llamar la funcion la variable sigue con un mismo valor
@@ -404,7 +407,19 @@ char x_menu_Item(){
         delete_x(x,y);
         int choose = 0;
         item_used = inventory_item[choose];
-        delete_item_inventory(inventory, inventory_item, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }
         return 'b';
     }
     if (choose == '\r' && y == (height - 13) && x == (12) && inventory != 0){
@@ -417,7 +432,19 @@ char x_menu_Item(){
         delete_x(x,y);
         int choose = 1;
         item_used = inventory_item[choose];
-        delete_item_inventory(inventory, inventory_item, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }
         return 'b';
     }
     if (choose == '\r' && y == (height - 11) && x == (12) && inventory != 0){
@@ -430,7 +457,19 @@ char x_menu_Item(){
         delete_x(x,y);
         int choose = 2;
         item_used = inventory_item[choose];
-        delete_item_inventory(inventory, inventory_item, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }
         return 'b';
     }
     if (choose == '\r' && y == (height - 15) && x == (24) && inventory != 0){
@@ -443,7 +482,19 @@ char x_menu_Item(){
         delete_x(x,y);
         int choose = 3;
         item_used = inventory_item[choose];
-        delete_item_inventory(inventory, inventory_item, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }
         return 'b';
     }
     if (choose == '\r' && y == (height - 13) && x == (24) && inventory != 0){
@@ -456,7 +507,19 @@ char x_menu_Item(){
         delete_x(x,y);
         int choose = 4;
         item_used = inventory_item[choose];
-        delete_item_inventory(inventory, inventory_item, item_used);
+            if (item_used == "Feeling sucesfully" && id == 11)
+            {
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }   
+            else if (item_used == "Feeling sucesfully" && id != 11)
+            {
+                return 'b';
+            }
+            else if (item_used != "Feeling sucesfully"){
+                delete_item_inventory(inventory, inventory_item, item_used);
+                return 'b';
+            }
         return 'b';
     }
     show_x_Item();
@@ -1129,8 +1192,7 @@ void player_level(int level){
     key_animation.unlock();
 }
 
-void player_health(int health){
-    const int max_health = health;
+void player_health(int health, int max_health){
     int width, height, x, y;
     window_size(width, height);
     x = ((width / 4) + 30);
@@ -1145,10 +1207,10 @@ void player_health(int health){
 }
 
 
-void player_(std::string name,int level, int health){
+void player_(std::string name,int level, int health, int max_health){
     player_name(name);
     player_level(level);
-    player_health(health);
+    player_health(health, max_health);
 }
 
 void show_enemy(std::string enemy_skin){
@@ -1165,17 +1227,28 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int& level, int& health, int& damage, int& inventory,std::string inventory_item[], int id,int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
+char show_options(std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
     y = (height - 3);
-    X_menu_options x_options(x, y, inventory,e_health, e_damage,inventory_item, e_name, description1);
+    X_menu_options x_options(x, y,id, inventory,e_health, e_damage,inventory_item, e_name, description1);
+    if (health <= 0)
+    {
+        system("cls");
+        PlaySound(NULL, 0, 0);
+        Sleep(1000);
+        x_options.show_x();
+        PlaySound(TEXT("assets//music//Undertale-Death-Sound-Effect-Canned-Sound-Collection.wav"),NULL, SND_SYNC | SND_FILENAME);
+        x_options.delete_x(x, y);
+        Sleep(1000);
+        show_player_dead_menu();
+    }
     system("cls");
     Sleep(1000);
     std::thread thread_line(square_line);
     std::thread thread_square1(show_square_option);
-    player_(name, level, health);
+    player_(name, level, health, max_health);
     show_options_fighting();
     thread_square1.join();
     thread_line.join();
@@ -1200,19 +1273,46 @@ char show_options(std::string name, int& level, int& health, int& damage, int& i
         //enemy_attack(id, health, e_damage);
         break;
     case 'b':
-        use_item(item_used,health,damage);
+        use_item(item_used,health,max_health,damage, id);
+        player_(name, level, health, max_health);
         break;
     case 'c':
-
         break;
     case 'd':
-
         return 's';
         break;
     default:
         break;
     }
-    
+    if (e_health > 0)
+    {
+        std::string enemy_attack_ = "The enemy is attacking you!";
+        COORD coord1;
+        x = 14;
+        y = (height - 15);
+        for (int i = 0; i < enemy_attack_.length(); i++)
+        {
+            key_animation.lock();
+            coord1.X = x;
+            coord1.Y = y;
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord1);
+            std::cout << enemy_attack_[i];
+            key_animation.unlock();
+            x++;
+            Sleep(10);
+        }
+        enemy_attack(health, e_damage);
+        char fin;
+        fin = getch();
+        while (fin != '\r')
+        {
+            fin = getch();
+        }
+    }
+    else if (e_health <= 0){
+    add_experience(level, player_experience, e_experience, max_health, damage);
+    }
+
     return 'o';
 }
 

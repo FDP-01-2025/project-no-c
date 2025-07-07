@@ -14,7 +14,7 @@ void rain_main(){
     window_size(width, height);
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, ((width / 2) - 9));
+    std::uniform_int_distribution<> dis(1, ((width / 2) - 10));
     COORD coord;
     x = dis(gen);   
     coord.X = x;  
@@ -57,7 +57,7 @@ void rain_main2(){
     window_size(width, height);
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis((width / 2) + 6, (width - 3));
+    std::uniform_int_distribution<> dis((width / 2) + 7, (width - 3));
     COORD coord;
     x = dis(gen);   
     coord.X = x;  

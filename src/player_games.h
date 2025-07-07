@@ -5,6 +5,10 @@
 #include <windows.h>
 #include "inf_window.h"
 #include "menu_options.h"
+#include "rain_menu_animation.h"
+
+extern bool verify_music;
+extern bool verify_raining;
 
 struct X_menu_principal_option
 {
@@ -84,16 +88,24 @@ struct X_menu_principal_option
 };
 
 void show_menu_principal_options_Save(){
+    verify_raining = true;
+    verify_music = true;
     Sleep(1000);
+    std::thread rain_animation1(rain_main);
     int width, height;
     window_size(width, height);
     int y_center = (height) / 2;
     center_text("Games:", y_center - 7);
+    std::thread rain_animation2(rain_main2);
     Sleep(1000);
     center_text("Game 1:", y_center - 4);
+    std::thread rain_animation3(rain_main);
     Sleep(1000);
+    std::thread rain_animation4(rain_main2);
     center_text("Game 2:", y_center - 1);
+    std::thread rain_animation5(rain_main);
     Sleep(1000);
+    std::thread rain_animation6(rain_main2);
     center_text("Game 3:", y_center + 2);
     Sleep(1000);
     center_text("Return", y_center + 5);
@@ -104,15 +116,24 @@ void show_menu_principal_options_Save(){
     switch (x_option.movement_x())
     {
     case 'a':
-        //Cargar archivo 1
+        //Cargar archivo 1 parte calles
         break;
     case 'b':
-        //Cargar archivo 2
+        //Cargar archivo 2 parte calles
         break;
     case 'c':
-        //Cargar archivo 3
+        //Cargar archivo 3 parte calles
         break;
     case 'd':
+        verify_music = false;
+        verify_raining = false;
+        rain_animation1.join();
+        rain_animation2.join();
+        rain_animation3.join();
+        rain_animation4.join();
+        rain_animation5.join();
+        rain_animation6.join();
+        verify_raining = true;
         system("cls");
         show_menu();
         break;
