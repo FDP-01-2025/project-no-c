@@ -6,6 +6,7 @@
 #include "inf_window.h"
 #include "menu_options.h"
 #include "fighting_system_/dead_system.h"
+#include "rain_end_animation.h"
 
 int show_menu();
 
@@ -58,25 +59,20 @@ void show_player_end_menu(){
     int x = (width / 2) - 9;
     int y = (height / 2) - 4;
     int y_center = height / 2;
-    std::thread thread_rain(rain_main2);
+    std::thread thread_rain(rain_main4);
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    std::thread thread_rain1(rain_main);
+    std::thread thread_rain1(rain_main3);
     show_win();
-    std::thread thread_rain2(rain_main2);
+    std::thread thread_rain2(rain_main4);
     show_principal_menu();
-    std::thread thread_rain3(rain_main);
+    std::thread thread_rain3(rain_main3);
     show_continue_option();
-    std::thread thread_rain4(rain_main2);
+    std::thread thread_rain4(rain_main4);
     Sleep(1000);
-    std::thread thread_rain5(rain_main);
+    std::thread thread_rain5(rain_main3);
     show_final_dialogue();
     X_menu_player_dead player_dead(x, y);
-    char final_choose = player_dead.movement_x();
-    while (final_choose != 'a' && final_choose != 'b')
-    {
-        show_final_dialogue();
-    }
-    switch (final_choose)
+    switch (player_dead.movement_x())
     {
     case 'a':
         verify_raining = false;
