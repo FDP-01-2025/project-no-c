@@ -110,9 +110,9 @@ void drawRoomDynamic(int room_left, int room_right, int room_top, int room_botto
 }
 
 void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_left   = 2;
+    int room_left   = 7; 
     int room_right  = room_left + 12;
-    int room_bottom = screen_height - 4;
+    int room_bottom = screen_height - 7; 
     int room_top    = room_bottom - 4;
     int door_y      = (room_top + room_bottom) / 2;
 
@@ -151,9 +151,9 @@ void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '
 
 
 void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_right  = screen_width - 4;
+    int room_right  = screen_width - 9; 
     int room_left   = room_right - 12;
-    int room_bottom = screen_height - 4;
+    int room_bottom = screen_height - 7; 
     int room_top    = room_bottom - 4;
     int door_y      = (room_top + room_bottom) / 2;
 
@@ -190,10 +190,11 @@ void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = 
 }
 
 
+
 void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_right  = screen_width - 4;
+    int room_right  = screen_width - 9; 
     int room_left   = room_right - 12;
-    int room_top    = 2;
+    int room_top    = 5; 
     int room_bottom = room_top + 4;
     int door_y      = (room_top + room_bottom) / 2;
 
