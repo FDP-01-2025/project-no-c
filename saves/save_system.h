@@ -12,7 +12,7 @@ using namespace std;
         string nombre;
     };
 
-    const int MAX_SAVES = 5;
+    const int MAX_SAVES = 3;
 
         Savegame savegame[MAX_SAVES];
 

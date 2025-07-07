@@ -86,9 +86,9 @@ void game_start(){ //inicio papu game
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
-    std::string t_skin = "L";
+    std::string t_skin = "Q";
     std::string t_description_1 = "Toilet wanna fight!";
-    //toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
+    toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
 
     int left_limit   = 5;                     
     int right_limit  = width - 6;      
@@ -369,12 +369,12 @@ void game_start(){ //inicio papu game
         drawMapBorders(width, height);
         }
 
-        // if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
-        // {
-        //     player_1.x = prev_x;
-        //     player_1.y = prev_y;
-        //     player_1.show_player_coord();
-        // }
+        if (player_1.x == toilet_1.x && player_1.y == toilet_1.y) //Si el jugador llega a las mismas coordendas de toilet retrocedera
+        {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+        }
         
         bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
         bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
@@ -392,26 +392,16 @@ void game_start(){ //inicio papu game
         }
 
 
-        // if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1) // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
-        // {
-        //     PlaySound(NULL, 0, 0);
-        //     PlaySound(TEXT("assets//music//Undertale-Sound-Effect-Battle-Encounter-_wMfDRVsiuTs_.wav"),NULL, SND_SYNC | SND_FILENAME);
-        //     PlaySound(TEXT("assets//music//Undertale-Papyrus-Theme-Song-Bonetrousle-_FezNgPThD3M_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-        //     //Sleep(800);
-        //     player = false; // se detiene el ciclo player
-        //     toilet_1.health = 30; // vida base de toilet
-        //     bool fight = true; // inicio ciclo pelea
-        //      while (toilet_1.health > 0 && fight == true)
-        //      {  
-        //         if (show_options(player_1.name,player_1.level,player_1.health, player_1.max_health, player_1.damage, player_1.inventory,player_1.inventory_item, toilet_1.id, toilet_1.health,toilet_1.damage, toilet_1.name, t_skin, t_description_1) == 's'){ //No importa si es array se debe poner sin []
-        //             fight = false;
-        //             PlaySound(NULL, 0, 0);
-        //         }
-        //      }
-        //     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-        //     system("cls");
-        //     drawMapBorders(width, height);
-        // }
+        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
+        {
+            center_dialogue("Hi,");
+            next = getch();
+            while(next != '\r'){
+                next = getch();
+            }
+            delete_center_dialogue("Also, you interact with Q, and open the menu with E");
+            Sleep(1000);
+        }
         
         //Cow
 
