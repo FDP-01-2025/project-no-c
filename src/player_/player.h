@@ -17,8 +17,9 @@ struct player
     std::string name;
     std::string inventory_item[6];
     int inventory;
-    player(int x, int y, int health, int max_health, int damage, int inventory, int level,std::string name):
-     x(x), y(y), health(health),max_health(max_health), damage(damage), inventory(inventory), level(level), name(name) {}
+    int experience;
+    player(int x, int y, int health, int max_health, int damage, int inventory, int level,int experience,std::string name):
+     x(x), y(y), health(health),max_health(max_health), damage(damage), inventory(inventory), level(level), experience(experience), name(name) {}
     
     char player_movement(){
         show_player_coord();
@@ -129,7 +130,33 @@ struct player
     }
 };
 
-
+void level_up(int& player_level, int& player_maxhealth, int& player_damage){
+    switch (player_level)
+    {
+    case 2:
+        player_maxhealth += 10;
+        player_damage += 2;
+        break;
+    case 3:
+        player_maxhealth += 10;
+        player_damage += 2;
+        break;
+    case 4:
+        player_maxhealth += 10;
+        player_damage += 2;
+        break;
+    case 5:
+        player_maxhealth += 15;
+        player_damage += 5;
+        break;
+    case 6:
+        player_maxhealth += 15;
+        player_damage += 5;
+    default:
+        break;
+    }
+    
+}
 
 
 

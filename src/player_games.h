@@ -116,13 +116,13 @@ void show_menu_principal_options_Save(){
     switch (x_option.movement_x())
     {
     case 'a':
-        //Cargar archivo 1
+        //Cargar archivo 1 parte calles
         break;
     case 'b':
-        //Cargar archivo 2
+        //Cargar archivo 2 parte calles
         break;
     case 'c':
-        //Cargar archivo 3
+        //Cargar archivo 3 parte calles
         break;
     case 'd':
         verify_music = false;
