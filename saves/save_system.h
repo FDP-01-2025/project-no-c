@@ -31,6 +31,7 @@ using namespace std;
         }
     }
 
+<<<<<<< HEAD
     void add_player_stadistic(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience){
       ofstream archivo(player_name + ".txt", ios::app);
       archivo << name << std::endl;
@@ -39,6 +40,8 @@ using namespace std;
     }
 
 
+=======
+>>>>>>> fc0ffa0cde5701229d8c003d17b9b83bc9052d21
     void mostrar()
     {
       ifstream archivo("savefile.txt");
@@ -81,8 +84,8 @@ using namespace std;
         archivo >> e.nombre;
     }
     archivo.close();
-}
 
+}
   void eliminar(){
     ifstream archivo("savefile.txt");
     ofstream temp("temp.txt");
@@ -96,7 +99,7 @@ using namespace std;
     if (archivo.is_open() && temp.is_open()) {
         while (archivo >> e.nombre) {
             if (e.nombre == buscado) {
-                eliminado = true;               // No se copia: se “borra”
+                eliminado = true;                       // No se copia: se “borra”
                 total--;
               } else {
                 temp << e.nombre << endl;

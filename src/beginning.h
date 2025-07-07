@@ -165,12 +165,20 @@ void create_player(){
     Sleep(3000);
     delete_text("Oh...", y_center);
     Sleep(2000);
-    animated_text("There is someone there?", y_center);
+    animated_text("Is someone there?", y_center);
     Sleep(3000);
-    delete_text("There is someone there?", y_center);
+    delete_text("Is someone there?", y_center);
     Sleep(2000);
+<<<<<<< HEAD
+    Sleep(1000);
+    animated_text("WHO ARE YOU, WHAT IS YOUR NAME?", y_center - 3);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+=======
     Sleep(3000);
     animated_text("WHO ARE YOU?", y_center - 3);
+>>>>>>> f20ad1a48c61113a1609b7e0fa15b03167505bd0
     COORD coord1;
     coord1.X = x_center - 5;
     coord1.Y = y_center;
@@ -179,11 +187,18 @@ void create_player(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
     Sleep(2000);
-    animated_text("GOOD", y_center);
+    animated_text("Good...", y_center);
     Sleep(3000);
-    delete_text("GOOD", y_center);
+    delete_text("Good...", y_center);
     Sleep(2000);
+<<<<<<< HEAD
+    animated_text("NOW, what is your vessel's name?", y_center - 3);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+=======
     animated_text("NOW, HOW IS YOUR VESSEL'S NAME?", y_center - 3);
+>>>>>>> f20ad1a48c61113a1609b7e0fa15b03167505bd0
     COORD coord2;
     coord2.X = x_center - 5;
     coord2.Y = y_center;
@@ -192,11 +207,11 @@ void create_player(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
     Sleep(2000);
-    animated_text("GOOD", y_center);
+    animated_text("Weird name but ok... ", y_center);
     Sleep(3000);
-    delete_text("GOOD", y_center);
+    delete_text("Weird name but ok... ", y_center);
     Sleep(2000);
-    animated_text("NOW, HOW IS YOUR VESSEL?", y_center - 3);
+    animated_text("Choose your character: ", y_center - 3);
     Sleep(1000);
     show_things("X", y_center +2, x_center - 3);
     Sleep(1000);
@@ -209,11 +224,11 @@ void create_player(){
     Player1.movement_x();
     system("cls");
     Sleep(2000);
-    animated_text("GOOD", y_center);
+    animated_text("...", y_center);
     Sleep(3000);
-    delete_text("GOOD", y_center);
+    delete_text("...", y_center);
     Sleep(2000);
-    animated_text("WHAT IS HIS COLOR?", y_center - 3);
+    animated_text("Select his color: ", y_center - 3);
     Sleep(1000);
     show_things_with_color("■", y_center +2, x_center - 3, 15);
     Sleep(1000);
@@ -226,40 +241,40 @@ void create_player(){
     Player2.movement_x();
     system("cls");
     Sleep(2000);
-    animated_text("GOOD", y_center);
-    Sleep(4000);
-    delete_text("GOOD", y_center);
+    animated_text("Out of every color you chose that?", y_center);
     Sleep(2000);
-    animated_text("Wonderful", y_center);
-    Sleep(4000);
-    delete_text("Wonderful", y_center);
+    delete_text("Out of every color you chose that?", y_center);
     Sleep(2000);
-    animated_text("Really wonderful", y_center);
-    Sleep(4000);
-    delete_text("Really wonderful", y_center);
+    animated_text("Wonderful, I don't care at all, I'll choose what you'll be.", y_center);
     Sleep(2000);
-    animated_text("Now, your...", y_center);
-    Sleep(1500);
-    delete_text("Now, your...", y_center);
+    delete_text("Wonderful, I don't care at all, I'll choose what you'll be.", y_center);
+    Sleep(2000);
+    animated_text("HAHAHAHA", y_center);
+    Sleep(2000);
+    delete_text("HAHAHAHA", y_center);
+    Sleep(2000);
+    animated_text("Now ", y_center);
     Sleep(1000);
-    animated_text("Creation", y_center);
-    Sleep(3000);
-    delete_text("Creation", y_center);
-    Sleep(2000);
+    delete_text("Now ", y_center);
+    Sleep(1000);
+    animated_text("Your creation", y_center);
+    Sleep(1000);
+    delete_text("Your creation", y_center);
+    Sleep(1000);
     animated_text("Will be...", y_center);
-    Sleep(3000);
+    Sleep(1000);
     delete_text("Will be...", y_center);
-    Sleep(3000);
+    Sleep(1000);
     PlaySound(NULL, 0,0);
-    animated_text_slower("DESTROYED", y_center);
-    Sleep(3000);
-    delete_text("DESTROYED", y_center);
-    Sleep(2000);
-    animated_text("Nobody in this world, can decide who he is.", y_center);
-    Sleep(4000);
-    delete_text("Nobody in this world, can decide who he is.", y_center);
-    Sleep(2000);
-    animated_text_slower("Your name is...", y_center);
+    animated_text_slower("Destroyed.", y_center);
+    Sleep(1000);
+    delete_text("Destroyed.", y_center);
+    Sleep(1000);
+    animated_text("Noone in this world deserves to be free.", y_center);
+    Sleep(1000);
+    delete_text("Noone in this world deserves to be free.", y_center);
+    Sleep(1000);
+    animated_text_slower("Have fun...", y_center);
     Sleep(1000);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
