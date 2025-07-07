@@ -3,26 +3,10 @@
 
 #include <windows.h>
 #include <iostream>
+#include "../inf_window.h"
 using namespace std;
 
-void draw_line(int x1, int y1, int x2, int y2, char symbol) {
-    COORD coord;
-    if (x1 == x2) {
-        for (int y = y1; y <= y2; y++) {
-            coord.X = x1;
-            coord.Y = y;
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            cout << symbol;
-        }
-    } else {
-        for (int x = x1; x <= x2; x++) {
-            coord.X = x;
-            coord.Y = y1;
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            cout << symbol;
-        }
-    }
-}
+
 
 void drawMapBorders(int screen_width, int screen_height) {
     int left_limit   = 4;
@@ -32,7 +16,7 @@ void drawMapBorders(int screen_width, int screen_height) {
 
     COORD coord;
 
-
+    
     coord.X = left_limit; coord.Y = top_limit;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); cout << "┌";
 
@@ -66,11 +50,6 @@ void drawMapBorders(int screen_width, int screen_height) {
     }
 
 
-    // Sala 1
-    draw_line(10, 5, 30, 5, '#');   
-    draw_line(10, 10, 30, 10, '#'); 
-    draw_line(10, 5, 10, 10, '#');  
-    draw_line(30, 5, 30, 10, '#');  
 
     
 }
@@ -97,8 +76,12 @@ void restrictMapBorders(int &player_x, int &player_y, int screen_width, int scre
         player_y = previous_y;
         return;
     }
+    
 
 
 }
 
 #endif
+
+
+
