@@ -29,6 +29,7 @@ using namespace std;
 
             return;
         }
+<<<<<<< HEAD
         ofstream archivo(player_name + ".txt", ios::app);
         archivo.close();
     }
@@ -54,6 +55,21 @@ using namespace std;
     }
 
 
+=======
+    }
+
+<<<<<<< HEAD
+    void add_player_stadistic(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience){
+      ofstream archivo(player_name + ".txt", ios::app);
+      archivo << name << std::endl;
+      archivo << level;
+      archivo.close();
+    }
+
+
+=======
+>>>>>>> fc0ffa0cde5701229d8c003d17b9b83bc9052d21
+>>>>>>> be478df7d2d35e3535bcb39445fdc98602ba2733
     void mostrar()
     {
       ifstream archivo("savefile.txt");
@@ -71,18 +87,26 @@ using namespace std;
     if (total == 0)
         {
             cout << "No games saved.\n";
-
             return;
         }
     }
 
     
+<<<<<<< HEAD
     void cargar_player(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience) {
     ifstream archivo(player_name + ".txt", ios::app); //cambiar por player_name + ".txt"
+=======
+    void cargar() {
+    ifstream archivo("savefile.txt"); //cambiar por player_name + ".txt"
+>>>>>>> be478df7d2d35e3535bcb39445fdc98602ba2733
     Savegame e;
+    int level;
+    int health;
+
 
     if (!archivo) return;
 
+<<<<<<< HEAD
     archivo >> name;
     archivo >> level;
     archivo >> health;
@@ -99,6 +123,11 @@ using namespace std;
       archivo >> e_experience;
 
       archivo.close();
+=======
+    archivo >> total;
+    archivo >> level;
+    archivo >> health; 
+>>>>>>> be478df7d2d35e3535bcb39445fdc98602ba2733
       //con todo lo demas
 
     if (total >= MAX_SAVES) total = MAX_SAVES;
@@ -146,6 +175,7 @@ using namespace std;
 
   }
 int save_menu() {
+
   cargar();
   int op;
 

@@ -82,7 +82,7 @@ void game_start(){ //inicio papu game
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
-    std::string t_skin = "L";
+    std::string t_skin = "Q";
     std::string t_description_1 = "Toilet wanna fight!";
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
 
@@ -292,6 +292,26 @@ void game_start(){ //inicio papu game
             system("cls");
             drawMapBorders(width, height);
         }
+<<<<<<< HEAD
+=======
+    if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
+            player_1.x = prev_x;
+            player_1.y = prev_y;
+            player_1.show_player_coord();
+        }
+
+
+        if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
+        {
+            center_dialogue("Hi,");
+            next = getch();
+            while(next != '\r'){
+                next = getch();
+            }
+            delete_center_dialogue("Also, you interact with Q, and open the menu with E");
+            Sleep(1000);
+        }
+>>>>>>> be478df7d2d35e3535bcb39445fdc98602ba2733
         
         if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1) //Si ´player quiere pisar alguna coordenada de chest retrocedera
         {
