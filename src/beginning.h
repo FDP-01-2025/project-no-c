@@ -150,7 +150,7 @@ void show_things_with_color(std::string thing, int y, int x, int color){
 }
 
 void create_player(){
-    int width, height, x, y;
+    int width, height;
     window_size(width, height);
     int y_center = height / 2;
     int x_center = width / 2;
@@ -206,6 +206,7 @@ void create_player(){
     Sleep(1000);
     show_things("+", y_center +2, x_center + 6);
     Sleep(1000);
+    while (_kbhit()){ getch();} // limpia las teclas pendientes 
     Player1.movement_x();
     system("cls");
     Sleep(2000);
@@ -223,6 +224,7 @@ void create_player(){
     Sleep(1000);
     show_things_with_color("■", y_center +2, x_center + 6, 3);
     Sleep(1000);
+    while (_kbhit()){ getch();} // limpia las teclas pendientes 
     Player2.movement_x();
     system("cls");
     Sleep(2000);
@@ -261,10 +263,35 @@ void create_player(){
     Sleep(2000);
     animated_text_slower("Your name is...", y_center);
     Sleep(1000);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // limpia el buffer
     system("cls");
     //crear archivo codigo calles
-    game_start();
+
+    //New game
+    bool new_game = false;
+    //Player creation
+    int x = (width / 12);
+    int y = (height / 4);
+    int health = 10;
+    int max_health = 10;
+    int damage = 10;
+    int level = 1;
+    int inventory = 0;
+    int experience = 0;
+    std::string player_name_1 = "Skibidi pomni";
+    std::string inventory_item[6] = {""};
+
+    //Enemys stats
+    int c_health = 30;
+    int ca_health = 15;
+    int ha_health = 50;
+    int i_health = 15;
+    int th_health = 35;
+    int sn_health = 12;
+    int h_health = 25;
+    int s_health = 40;
+    int p_health = 20;
+
+    game_start(new_game,x, y, health, max_health, damage, level, player_name, player_name_1,inventory_item,inventory, experience, c_health, ca_health, ha_health,i_health, th_health, sn_health, h_health, s_health,p_health );
 
 
 }

@@ -6,7 +6,7 @@
 #include "inf_window.h"
 #include "menu_options.h"
 #include "rain_menu_animation.h"
-
+#include "../saves/savepls.h"
 extern bool verify_music;
 extern bool verify_raining;
 
@@ -116,14 +116,14 @@ void show_menu_principal_options_Save(){
     switch (x_option.movement_x())
     {
     case 'a':
-        //Cargar archivo 1 parte calles
+
         break;
     case 'b':
-        //Cargar archivo 2 parte calles
+    
         break;
     case 'c':
-        //Cargar archivo 3 parte calles
-        break;
+
+    break;
     case 'd':
         verify_music = false;
         verify_raining = false;

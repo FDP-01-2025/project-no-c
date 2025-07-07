@@ -7,6 +7,7 @@
 #include "../rain_menu_animation.h"
 #include "../menu_options.h"
 #include <chrono>
+#include "../../saves/savepls.h"
 
 int show_menu();
 
@@ -141,7 +142,7 @@ void show_continue_option(){
     }
 }
 
-void show_player_dead_menu(){
+void show_player_dead_menu(std::string creator_name){
     verify_raining = true;
     system("cls");
     PlaySound(TEXT("assets//music//Determination-Toby-Fox.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
@@ -187,6 +188,7 @@ void show_player_dead_menu(){
         thread_rain5.join();
         system("cls");
         PlaySound(NULL, 0, 0);
+        loadGame(creator_name);
         //codigo calles cargar partida
         break;
     default:

@@ -8,18 +8,20 @@
 
 struct player
 {
+    bool new_game;
     int x;
     int y;
     int health;
     int max_health = 20;
     int damage;
     int level;
-    std::string name;
-    std::string inventory_item[6];
     int inventory;
     int experience;
-    player(int x, int y, int health, int max_health, int damage, int inventory, int level,int experience,std::string name):
-     x(x), y(y), health(health),max_health(max_health), damage(damage), inventory(inventory), level(level), experience(experience), name(name) {}
+    std::string creator_name;
+    std::string name;
+    std::string* inventory_item;
+    player(bool new_game, int x, int y, int health, int max_health, int damage, int inventory, int level,int experience,std::string creator_name, std::string name, std::string* inventory_item):
+     new_game(new_game), x(x), y(y), health(health),max_health(max_health), damage(damage), inventory(inventory), level(level), experience(experience), creator_name(creator_name), name(name), inventory_item(inventory_item) {}
     
     char player_movement(){
         show_player_coord();

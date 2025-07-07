@@ -1227,7 +1227,7 @@ void show_enemy(std::string enemy_skin){
     key_animation.unlock();
 }
 
-char show_options(std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
+char show_options(std::string creator_name,std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience, int& e_health, int& e_damage, std::string e_name, std::string character_skin, std::string description1){ //Cuando se pide un array seutiliza [] sin nada dentro
     int x, y, width, height;
     window_size(width, height);
     x = ((width / 4) - 8);
@@ -1242,7 +1242,7 @@ char show_options(std::string name, int& level, int& health, int& max_health, in
         PlaySound(TEXT("assets//music//Undertale-Death-Sound-Effect-Canned-Sound-Collection.wav"),NULL, SND_SYNC | SND_FILENAME);
         x_options.delete_x(x, y);
         Sleep(1000);
-        show_player_dead_menu();
+        show_player_dead_menu(creator_name);
     }
     system("cls");
     Sleep(1000);
@@ -1277,6 +1277,7 @@ char show_options(std::string name, int& level, int& health, int& max_health, in
         player_(name, level, health, max_health);
         break;
     case 'c':
+        return 'm';
         break;
     case 'd':
         return 's';

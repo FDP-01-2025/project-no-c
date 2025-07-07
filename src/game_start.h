@@ -28,6 +28,7 @@
 #include "show_player_options.h"
 #include "fighting_system_/experience_system.h"
 #include "end.h"
+#include "player_games.h"
 
 extern bool verify_music;
 
@@ -65,47 +66,200 @@ void show_chest(){
     show_chest_bottom();
 }
 
-void game_start(){ //inicio papu game
-    int width, height, x, y, health, damage, player_level, t_x, t_y,t_id, t_health, t_damage;
-    std::string player_name;
-    player_level = 1;
-    player_name = "skibidi pomni";
+void drawRoomDynamic(int room_left, int room_right, int room_top, int room_bottom,int door_y,int screen_width, int screen_height, char wallSymbol = '#') {
+    int x1 = room_left;
+    int x2 = room_right;
+    int y1 = room_top;
+    int y2 = room_bottom;
+
+    COORD coord;
+
+    for (int x = x1; x <= x2; x++) {
+        coord.X = x;
+
+        coord.Y = y1;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.Y = y2;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+
+    for (int y = y1; y <= y2; y++) {
+        if (y == door_y) continue;
+
+        coord.Y = y;
+
+        coord.X = x1;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.X = x2;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+}
+
+void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '*') {
+    int room_left   = 2;
+    int room_right  = room_left + 12;               
+    int room_bottom = screen_height - 4;            
+    int room_top    = room_bottom - 4;              
+    int door_y      = (room_top + room_bottom) / 2;
+
+    COORD coord;
+    for (int x = room_left; x <= room_right; x++) {
+        coord.X = x;
+        coord.Y = room_top;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.Y = room_bottom;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+    for (int y = room_top; y <= room_bottom; y++) {
+        coord.Y = y;
+        if (y != door_y) {
+            coord.X = room_left;
+            key_animation.lock();
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << wallSymbol;
+            key_animation.unlock();
+        }
+        coord.X = room_right;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+}
+
+
+void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = '#') {
+    int room_right  = screen_width - 4;
+    int room_left   = room_right - 12;              
+    int room_bottom = screen_height - 4;
+    int room_top    = room_bottom - 4;              
+    int door_y      = (room_top + room_bottom) / 2;
+
+    COORD coord;
+    for (int x = room_left; x <= room_right; x++) {
+        coord.X = x;
+        coord.Y = room_top;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.Y = room_bottom;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+    for (int y = room_top; y <= room_bottom; y++) {
+        coord.Y = y;
+        if (y != door_y) {
+            coord.X = room_left;
+            key_animation.lock();
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << wallSymbol;
+            key_animation.unlock();
+        }
+        coord.X = room_right;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+}
+
+
+void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '#') {
+    int room_right  = screen_width - 4;
+    int room_left   = room_right - 12;              
+    int room_top    = 2;
+    int room_bottom = room_top + 4;                 
+    int door_y      = (room_top + room_bottom) / 2;
+
+    COORD coord;
+    for (int x = room_left; x <= room_right; x++) {
+        coord.X = x;
+        coord.Y = room_top;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
+        coord.Y = room_bottom;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+    for (int y = room_top; y <= room_bottom; y++) {
+        coord.Y = y;
+        if (y != door_y) {
+            coord.X = room_left;
+            key_animation.lock();
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+            std::cout << wallSymbol;
+            key_animation.unlock();
+        }
+        coord.X = room_right;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+    }
+    }
+
+
+
+void game_start(bool new_game,int x, int y, int health, int max_health, int damage, int level, std::string creator_name, std::string player_name, std::string* inventory_item, int inventory, int experience, int cow_health, int cat_health, int hachi_health, int iguana_health, int thief_health, int snail_health, int horse_health, int sheep_health, int pig_health){ //inicio papu game
+    player player_1(new_game,x, y, health, max_health, damage, inventory, level, experience,creator_name, player_name, inventory_item); // da las coordenadas de player
+    int width, height, t_x, t_y,t_id, t_health, t_damage;
     t_health = 30;
     t_damage = 7;
     t_id = 1;
     int t_ex = 2;
     window_size(width, height);
-    x = (width / 12);
-    y = (height / 4);
-    health = 10;
-    int max_health = 10;
-    damage = 10;
-    int inventory = 0;
-    int experience = 0;
-    player player_1(x, y, health, max_health, damage, inventory,player_level, experience, player_name); // da las coordenadas de player
     t_x = (width / 2) + 10;
     t_y = (height / 2) - 3;
     std::string t_name = "Toilet";
     std::string t_skin = "Q";
     std::string t_description_1 = "Toilet wanna fight!";
     toilet toilet_1(t_x, t_y, t_health, t_damage, t_id, t_name,t_skin, t_description_1); // da las coordenadas de toilet
-
+    //Map limits
     int left_limit   = 5;                     
     int right_limit  = width - 6;      
     int top_limit    = 3;                     
     int bottom_limit = height - 4;     
-
-    int room_left = width / 4;
-    int room_top = height / 4;
-    int room_right = room_left + 20;
-    int room_bottom = room_top + 8;
-    int door_y = (room_top + room_bottom) / 2;
+    //Room 1 limits
+    int room_left   = width / 2 - 10;   
+    int room_right  = width / 2 + 10;   
+    int room_top    = height / 2 - 3;   
+    int room_bottom = height / 2 + 3;   
+    int door_y      = (room_top + room_bottom) / 2;
 
     //Cow stats
 
     int c_x = (width / 5) + 10;
     int c_y = (height / 2) + 10;
-    int c_health = 30;
     int c_damage = 7;
     int c_id = 2;
     int c_ex = 5;
@@ -114,13 +268,12 @@ void game_start(){ //inicio papu game
     std::string c_description_1 = "The cow is cowing you!"; 
     std::string c_description_2 = "The cow is exhausted :c ";
     std::string c_description_3 = "Moo i'm a cow!"; 
-    cow_enemy cow_1(c_health, c_damage,c_x, c_y, c_id,c_ex, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
+    cow_enemy cow_1(cow_health, c_damage,c_x, c_y, c_id,c_ex, c_name, c_skin, c_description_1, c_description_2, c_description_3);// Coordenadas de cow  
 
     //Cat stats
 
     int ca_x = (width / 5) - 10;
     int ca_y = (height / 2) ;
-    int ca_health = 15;
     int ca_damage = 5;
     int ca_id = 3;
     int ca_ex = 3;
@@ -129,13 +282,12 @@ void game_start(){ //inicio papu game
     std::string ca_description_1 = "The cat scratches at you!";
     std::string ca_description_2 = "Meow! The cat is angry.";
     std::string ca_description_3 = "Nyaaaaa";
-    cat_enemy cat_1(ca_health, ca_damage, ca_x, ca_y, ca_id, ca_ex, ca_name, ca_skin, ca_description_1, ca_description_2, ca_description_3);
+    cat_enemy cat_1(cat_health, ca_damage, ca_x, ca_y, ca_id, ca_ex, ca_name, ca_skin, ca_description_1, ca_description_2, ca_description_3);
 
     //Horse stats
 
     int h_x = (width / 4);
     int h_y = (height / 2) - 8;
-    int h_health = 25;
     int h_damage = 8;
     int h_id = 4;
     int h_ex = 6;
@@ -144,13 +296,12 @@ void game_start(){ //inicio papu game
     std::string h_description_1 = "The horse gallops toward you!";
     std::string h_description_2 = "Its hooves thunder on the ground.";
     std::string h_description_3 = "The horse looks ready to charge.";
-    horse_enemy horse_1(h_health, h_damage, h_x, h_y, h_id, h_ex, h_name, h_skin, h_description_1, h_description_2, h_description_3);
+    horse_enemy horse_1(horse_health, h_damage, h_x, h_y, h_id, h_ex, h_name, h_skin, h_description_1, h_description_2, h_description_3);
 
     //Iguana stats
 
     int i_x = 25 + 6;
     int i_y = 10;
-    int i_health = 15;
     int i_damage = 5;
     int i_id = 5;
     int i_ex = 3;
@@ -159,13 +310,12 @@ void game_start(){ //inicio papu game
     std::string i_description_1 = "The iguana eyes you suspiciously.";
     std::string i_description_2 = "It flicks its tongue.";
     std::string i_description_3 = "The iguana scurries away quickly.";
-    iguana_enemy iguana_1(i_health, i_damage, i_x, i_y, i_id, i_ex, i_name, i_skin, i_description_1, i_description_2, i_description_3);
+    iguana_enemy iguana_1(iguana_health, i_damage, i_x, i_y, i_id, i_ex, i_name, i_skin, i_description_1, i_description_2, i_description_3);
 
     //Pig stats
 
     int p_x = (width / 2) + 15;
     int p_y = (height / 2) + 5;
-    int p_health = 20;
     int p_damage = 9;
     int p_id = 6;
     int p_ex = 4;
@@ -174,13 +324,12 @@ void game_start(){ //inicio papu game
     std::string p_description_1 = "The pig charges at you!";
     std::string p_description_2 = "Oink oink!";
     std::string p_description_3 = "The pig is hungry";
-    pig_enemy pig_1(p_health, p_damage, p_x, p_y, p_id, p_ex, p_name, p_skin, p_description_1, p_description_2, p_description_3);
+    pig_enemy pig_1(pig_health, p_damage, p_x, p_y, p_id, p_ex, p_name, p_skin, p_description_1, p_description_2, p_description_3);
 
     //Sheep stats
 
     int s_x = (width / 2) + 20;
     int s_y = (height / 4);
-    int s_health = 40;
     int s_damage = 5;
     int s_id = 7;
     int s_ex = 5;
@@ -189,13 +338,12 @@ void game_start(){ //inicio papu game
     std::string s_description_1 = "The sheep jumps at you!";
     std::string s_description_2 = "Meeeee Meeeeee";
     std::string s_description_3 = "The sheep seems confused.";
-    sheep_enemy sheep_1(s_health, s_damage, s_x, s_y, s_id, s_ex, s_name, s_skin, s_description_1, s_description_2, s_description_3);
+    sheep_enemy sheep_1(sheep_health, s_damage, s_x, s_y, s_id, s_ex, s_name, s_skin, s_description_1, s_description_2, s_description_3);
 
     //Snail stats
 
     int sn_x = (width / 2) + 5;
     int sn_y = (height / 2) + 11;
-    int sn_health = 12;
     int sn_damage = 6;
     int sn_id = 8;
     int sn_ex = 2;
@@ -204,13 +352,12 @@ void game_start(){ //inicio papu game
     std::string sn_description_1 = "The snail is slowly approaching...";
     std::string sn_description_2 = "Slime trails everywhere!";
     std::string sn_description_3 = "Snail is dizzy from spinning.";
-    snail_enemy snail_1(sn_health, sn_damage, sn_x, sn_y, sn_id, sn_ex, sn_name, sn_skin, sn_description_1, sn_description_2, sn_description_3);
+    snail_enemy snail_1(snail_health, sn_damage, sn_x, sn_y, sn_id, sn_ex, sn_name, sn_skin, sn_description_1, sn_description_2, sn_description_3);
 
     //Thief stats
 
     int th_x = (width / 4) + 15;
     int th_y = (height / 2) + 8;
-    int th_health = 35;
     int th_damage = 12;
     int th_id = 9;
     int th_ex = 6;
@@ -219,13 +366,12 @@ void game_start(){ //inicio papu game
     std::string th_description_1 = "The thief sneaks behind you! whit a knife";
     std::string th_description_2 = "He tries to steal you";
     std::string th_description_3 = "The thief vanishes in smoke!";
-    thief_enemy thief_1(th_health, th_damage, th_x, th_y, th_id, th_ex, th_name, th_skin, th_description_1, th_description_2, th_description_3);
+    thief_enemy thief_1(thief_health, th_damage, th_x, th_y, th_id, th_ex, th_name, th_skin, th_description_1, th_description_2, th_description_3);
 
     //Hachi stats
 
     int ha_x = width - 50;
     int ha_y = (height / 2) + 3;
-    int ha_health = 50;
     int ha_damage = 15;
     int ha_id = 10;
     int ha_ex = 5;
@@ -234,7 +380,7 @@ void game_start(){ //inicio papu game
     std::string ha_description_1 = "Hachi growls with loyalty.";
     std::string ha_description_2 = "He prepares to defend his master!";
     std::string ha_description_3 = "Hachi watches you silently and farts.";
-    hachi_enemy hachi_1(ha_health, ha_damage, ha_x, ha_y, ha_id, ha_ex,ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
+    hachi_enemy hachi_1(hachi_health, ha_damage, ha_x, ha_y, ha_id, ha_ex,ha_name, ha_skin, ha_description_1, ha_description_2, ha_description_3);
 
     //Oscar stats
 
@@ -268,12 +414,15 @@ void game_start(){ //inicio papu game
     show_chest();
     drawMapBorders(width, height);
     river();
-    
+    drawRoomTopRight(width, height);
+
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
         
     while (_kbhit()){ getch();} // limpia las teclas pendientes 
 
-    dialogue_square();
+    if (player_1.new_game == false)
+    {
+            dialogue_square();
     show_dialogue_character("Q",6);
     center_dialogue("Skibidi pomni!");
     char next = getch();
@@ -304,7 +453,7 @@ void game_start(){ //inicio papu game
     delete_center_dialogue("xd");
     Sleep(1000);
     center_dialogue("We came, to defeat oscar because...");
-    Sleep(3000);
+    Sleep(1500);
     delete_center_dialogue("We came, to defeat oscar because...");
     Sleep(1000);
     while (_kbhit()){ getch();} // limpia las teclas pendientes 
@@ -331,12 +480,28 @@ void game_start(){ //inicio papu game
     delete_center_dialogue("Also, you interact with Q, and open the menu with E");
     Sleep(1000);
     center_dialogue("If you need health, come interact with me! i'll help you!");
-    next = getch();
-    while(next != '\r'){
+    finish_dialogue();
+    Sleep(100);
+    player_1.new_game = true;
+    }
+    else if (player_1.new_game == true){
+        dialogue_square();
+        show_dialogue_character("Q",6);
+        center_dialogue("Hi again, skibidi");
+        char next = getch();
+        while(next != '\r'){
+        next = getch();
+    }
+    delete_center_dialogue("Hi again, skibidi");
+    Sleep(1000);
+    center_dialogue("Remember you move with AWSD, E menu and Q interact!");
+        next = getch();
+        while(next != '\r'){
         next = getch();
     }
     finish_dialogue();
     Sleep(100);
+    }
 
     cow_1.show_cow();
     cat_1.show_cat();
@@ -352,7 +517,10 @@ void game_start(){ //inicio papu game
     show_chest();
     river();
     drawMapBorders(width, height);
-
+    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+    drawRoomTopRight(width, height);
+    drawRoomBottomRight(width, height);
+    drawRoomBottomLeft(width, height);
     while (bool player = true) //Bucle para mover a player
     {
         
@@ -376,26 +544,32 @@ void game_start(){ //inicio papu game
             player_1.show_player_coord();
         }
         
-        bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
-        bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
-        bool is_door = player_1.x == room_left && player_1.y == door_y;
+bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
+bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
+bool is_door = player_1.x == room_left && player_1.y == door_y;
 
-    if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
-            player_1.x = prev_x;
-            player_1.y = prev_y;
-             player_1.show_player_coord();
-        }
-    if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
-            player_1.x = prev_x;
-            player_1.y = prev_y;
-            player_1.show_player_coord();
-        }
+if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+}
 
+if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+
+}
+    drawRoomTopRight(width, height);
+    drawRoomBottomRight(width, height);
+    drawRoomBottomLeft(width, height);
 
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
             center_dialogue("Hi,");
-            next = getch();
+            char next = getch();
             while(next != '\r'){
                 next = getch();
             }
@@ -424,7 +598,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (cow_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cow_1.id, cow_1.experience, cow_1.healht,cow_1.damage, cow_1.name, cow_1.character_skin, cow_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.creator_name, player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cow_1.id, cow_1.experience, cow_1.healht,cow_1.damage, cow_1.name, cow_1.character_skin, cow_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -461,7 +635,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (cat_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cat_1.id,cat_1.experience, cat_1.healht,cat_1.damage, cat_1.name, cat_1.character_skin, cat_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.creator_name, player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, cat_1.id,cat_1.experience, cat_1.healht,cat_1.damage, cat_1.name, cat_1.character_skin, cat_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -499,7 +673,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (hachi_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, hachi_1.id, hachi_1.experience,hachi_1.healht,hachi_1.damage, hachi_1.name, hachi_1.character_skin, hachi_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.creator_name, player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, hachi_1.id, hachi_1.experience,hachi_1.healht,hachi_1.damage, hachi_1.name, hachi_1.character_skin, hachi_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -537,7 +711,7 @@ void game_start(){ //inicio papu game
             bool fight = true; // inicio ciclo pelea
              while (thief_1.healht > 0 && fight == true)
              {  
-                if (show_options(player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, thief_1.id,thief_1.experience, thief_1.healht,thief_1.damage, thief_1.name, thief_1.character_skin, thief_1.description1) == 's'){ //No importa si es array se debe poner sin []
+                if (show_options(player_1.creator_name, player_1.name,player_1.level,player_1.health,player_1.max_health,player_1.damage,player_1.experience, player_1.inventory,player_1.inventory_item, thief_1.id,thief_1.experience, thief_1.healht,thief_1.damage, thief_1.name, thief_1.character_skin, thief_1.description1) == 's'){ //No importa si es array se debe poner sin []
                     fight = false;
                     PlaySound(NULL, 0, 0);
                 }
@@ -575,7 +749,7 @@ if (std::abs(player_1.x - horse_1.x) <= 1 && std::abs(player_1.y - horse_1.y) <=
 
     while (horse_1.healht > 0 && fight == true)
     {  
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, horse_1.id, horse_1.experience, horse_1.healht, horse_1.damage, horse_1.name, horse_1.character_skin, horse_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, horse_1.id, horse_1.experience, horse_1.healht, horse_1.damage, horse_1.name, horse_1.character_skin, horse_1.description1) == 's')
         {
             fight = false;
             PlaySound(NULL, 0, 0);
@@ -614,7 +788,7 @@ if (std::abs(player_1.x - iguana_1.x) <= 1 && std::abs(player_1.y - iguana_1.y) 
     bool fight = true;
     while (iguana_1.healht > 0 && fight == true)
     {
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, iguana_1.id, iguana_1.experience, iguana_1.healht, iguana_1.damage, iguana_1.name, iguana_1.character_skin, iguana_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, iguana_1.id, iguana_1.experience, iguana_1.healht, iguana_1.damage, iguana_1.name, iguana_1.character_skin, iguana_1.description1) == 's')
         {
             fight = false;
             PlaySound(NULL, 0, 0);
@@ -649,7 +823,7 @@ if (std::abs(player_1.x - pig_1.x) <= 1 && std::abs(player_1.y - pig_1.y) <= 1)
     bool fight = true;
     while (pig_1.healht > 0 && fight == true)
     {
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, pig_1.id, pig_1.experience, pig_1.healht, pig_1.damage, pig_1.name, pig_1.character_skin, pig_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, pig_1.id, pig_1.experience, pig_1.healht, pig_1.damage, pig_1.name, pig_1.character_skin, pig_1.description1) == 's')
         {
             fight = false;
             PlaySound(NULL, 0, 0);
@@ -684,7 +858,7 @@ if (std::abs(player_1.x - sheep_1.x) <= 1 && std::abs(player_1.y - sheep_1.y) <=
     bool fight = true;
     while (sheep_1.healht > 0 && fight == true)
     {
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, sheep_1.id, sheep_1.experience, sheep_1.healht, sheep_1.damage, sheep_1.name, sheep_1.character_skin, sheep_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, sheep_1.id, sheep_1.experience, sheep_1.healht, sheep_1.damage, sheep_1.name, sheep_1.character_skin, sheep_1.description1) == 's')
         {
             fight = false;
             PlaySound(NULL, 0, 0);
@@ -719,7 +893,7 @@ if (std::abs(player_1.x - snail_1.x) <= 1 && std::abs(player_1.y - snail_1.y) <=
     bool fight = true;
     while (snail_1.healht > 0 && fight == true)
     {
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, snail_1.id, snail_1.experience, snail_1.healht, snail_1.damage, snail_1.name, snail_1.character_skin, snail_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, snail_1.id, snail_1.experience, snail_1.healht, snail_1.damage, snail_1.name, snail_1.character_skin, snail_1.description1) == 's')
         {
             fight = false;
             PlaySound(NULL, 0, 0);
@@ -755,7 +929,7 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
     bool fight = true;
     while (oscar_1.healht > 0 && fight == true)
     {
-        if (show_options(player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, oscar_1.id, oscar_1.experience, oscar_1.healht, oscar_1.damage, oscar_1.name, oscar_1.character_skin, oscar_1.description1) == 's')
+        if (show_options(player_1.creator_name, player_1.name, player_1.level, player_1.health, player_1.max_health, player_1.damage, player_1.experience, player_1.inventory, player_1.inventory_item, oscar_1.id, oscar_1.experience, oscar_1.healht, oscar_1.damage, oscar_1.name, oscar_1.character_skin, oscar_1.description1) == 's')
         {
             fight = false;
         }
@@ -765,7 +939,7 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
     {
         oscar_1.x = 0;
         oscar_1.y = 0;
-        show_player_end_menu();
+        show_player_end_menu(player_1.creator_name);
     }
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
     drawMapBorders(width, height);
@@ -828,7 +1002,13 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
                 continue;  
                 break;
             case 'c':
-                //Codigo calles de guardar partida
+                use_save(player_1, cow_1.healht, cat_1.healht,hachi_1.healht, iguana_1.healht, horse_1.healht, thief_1.healht, pig_1.healht, snail_1.healht, sheep_1.healht);
+                dialogue_square();
+                center_dialogue("Saved game, You feel so sigma!");
+                finish_dialogue();
+                delete_square_show_options();
+                delete_options_();
+                drawMapBorders(width, height);   
                 break;
             case 'd':
                 system("cls");
@@ -857,7 +1037,7 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
         oscar_1.show_oscar();
         //drawRoomWalls();
     }
-
+    
 }  // El array empieza siempre en 0, cuando se utiliza el 1 aparece el objeto 2;
 
     // try dialogue system later
