@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include "../src/game_start.h"
+
 using namespace std;
     struct Savegame
     {
@@ -27,21 +29,15 @@ using namespace std;
 
             return;
         }
-        cout << "Insert name of save file: ";
-        cin.ignore();
-        getline(cin, e.nombre);
-        total++;
-        ofstream archivo("savefile.txt", ios::app);
-    if (archivo.is_open()) {
-        archivo << e.nombre << endl;
-        archivo.close();
-    } else {
-        cout << "error opening savefile.txt.\n";
-    }
-        cout << "File saved! \n";
     }
 
-  
+    void add_player_stadistic(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience){
+      ofstream archivo(player_name + ".txt", ios::app);
+      archivo << name << std::endl;
+      archivo << level;
+      archivo.close();
+    }
+
 
     void mostrar()
     {
@@ -60,19 +56,24 @@ using namespace std;
     if (total == 0)
         {
             cout << "No games saved.\n";
-
             return;
         }
     }
 
     
     void cargar() {
-    ifstream archivo("savefile.txt");
+    ifstream archivo("savefile.txt"); //cambiar por player_name + ".txt"
     Savegame e;
+    int level;
+    int health;
+
 
     if (!archivo) return;
 
     archivo >> total;
+    archivo >> level;
+    archivo >> health; 
+      //con todo lo demas
 
     if (total >= MAX_SAVES) total = MAX_SAVES;
 
@@ -117,6 +118,7 @@ using namespace std;
 
   }
 int save_menu() {
+
   cargar();
   int op;
 
