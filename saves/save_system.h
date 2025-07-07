@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include "../src/game_start.h"
+
 using namespace std;
     struct Savegame
     {
@@ -18,7 +20,7 @@ using namespace std;
 
         int total = 0;
 
-    void agregar()
+    void agregar(std::string player_name)
     {
       Savegame e;
         if (total >= MAX_SAVES)
@@ -27,19 +29,30 @@ using namespace std;
 
             return;
         }
-        cout << "Insert name of save file: ";
-        cin.ignore();
-        getline(cin, e.nombre);
-        total++;
-        ofstream archivo("savefile.txt", ios::app);
-    if (archivo.is_open()) {
-        archivo << e.nombre << endl;
+        ofstream archivo(player_name + ".txt", ios::app);
         archivo.close();
-    } else {
-        cout << "error opening savefile.txt.\n";
     }
-        cout << "File saved! \n";
+
+    void add_player(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience){
+      ofstream archivo(player_name + ".txt", ios::app);
+      archivo << name << std::endl;
+      archivo << level << std::endl;
+      archivo << health << std::endl;
+      archivo << max_health << std::endl;
+      archivo << damage << std::endl;
+      archivo << player_experience << std::endl;
+      archivo << inventory << std::endl;
+
+      for (int i = 0; i < inventory; i++) {
+          archivo << inventory_item[i] << std::endl;
+      }
+
+      archivo << id << std::endl;
+      archivo << e_experience << std::endl;
+
+      archivo.close();
     }
+
 
     void mostrar()
     {
@@ -64,13 +77,29 @@ using namespace std;
     }
 
     
-    void cargar() {
-    ifstream archivo("savefile.txt");
+    void cargar_player(std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience) {
+    ifstream archivo(player_name + ".txt", ios::app); //cambiar por player_name + ".txt"
     Savegame e;
 
     if (!archivo) return;
 
-    archivo >> total;
+    archivo >> name;
+    archivo >> level;
+    archivo >> health;
+    archivo >> max_health;
+    archivo >> damage;
+    archivo >> player_experience;
+      archivo >> inventory;
+
+    for (int i = 0; i < inventory; i++) {
+        archivo >> inventory_item[i];
+    }
+
+      archivo >> id;
+      archivo >> e_experience;
+
+      archivo.close();
+      //con todo lo demas
 
     if (total >= MAX_SAVES) total = MAX_SAVES;
 
@@ -79,7 +108,9 @@ using namespace std;
     }
     archivo.close();
 
+    game_start(); //dentro de game_Start std::string player_name, std::string name, int& level, int& health, int& max_health, int& damage, int& player_experience, int& inventory,std::string inventory_item[], int id, int e_experience
 }
+
   void eliminar(){
     ifstream archivo("savefile.txt");
     ofstream temp("temp.txt");
@@ -93,7 +124,7 @@ using namespace std;
     if (archivo.is_open() && temp.is_open()) {
         while (archivo >> e.nombre) {
             if (e.nombre == buscado) {
-                eliminado = true;                       // No se copia: se “borra”
+                eliminado = true;               // No se copia: se “borra”
                 total--;
               } else {
                 temp << e.nombre << endl;
@@ -148,6 +179,5 @@ int save_menu() {
 
   } while (op != 4);
 
-  return 0;
+  return 0;
 }
-
