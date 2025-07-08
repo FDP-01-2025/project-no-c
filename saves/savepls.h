@@ -133,8 +133,6 @@ int cow_health, cat_health, hachi_health, iguana_health, horse_health, thief_hea
         std::getline(saveFile, player.inventory_item[i]);
     }
     
-    saveFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Limpiar debuffer
-
     saveFile >> cow_health;
     saveFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Limpiar debuffer
 
