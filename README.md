@@ -3,7 +3,7 @@
 
 ## Descripción del Proyecto
 
-Breve descripción del juego, su propósito, cómo se juega y cualquier otro detalle importante que describa la idea general del proyecto.
+Un pequeño juego inspirado en deltarune y undertale!
 
 **Por ejemplo:**
 Este proyecto consiste en un juego de aventuras donde el jugador debe explorar un mundo virtual, recoger objetos, resolver acertijos y enfrentar enemigos. El juego utiliza estructuras de control como `if`, `switch`, y bucles `while` y `for` para generar interacciones dinámicas.
@@ -26,10 +26,14 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 4. **Nombre completo:**  Jose Andres Calles Ramirez
    **Carnet:**  00054525
 
-(Agregar más integrantes si es necesario)
-
 ## Instrucciones de Ejecución
+
+Para ejecutar Toncatale, unicamente debes abrir el .exe con administrador! //Es normal que windows lo trate como un virus pero es seguro, puedes comprobarlo viendo el codigo
+Cuando inicie el juego no cambies el tamaño de la ventana, si lo haces el juego se bugueara graficamente y lo mejor seria reiniciarlo!
 
 1. Clona este repositorio en tu máquina local:
    ```bash
    git clone https://github.com/FDP-01-2025/project-no-c.git
+2. Si quieres actualizar y o cambiar el codigo, para compilar como requisito se debe tener una version de mingw superior a las 8
+3. Para compilar pon en la termina: g++ main.cpp -lwinmm y presiona enter y listo!
+
