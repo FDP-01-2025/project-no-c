@@ -109,10 +109,10 @@ void use_item(std::string item_name, int& health, int max_health, int& damage, i
     }
     if (item_name == "Cake")
     {
+        health += 20;
         if (health > max_health){
         health = max_health;
         }
-        health += 20;
         text("You enjoy the cake! +20 health");
         move = getch();
         while (move != '\r')

@@ -565,7 +565,7 @@ if ((player_1.x == room3_left || player_1.x == room3_right) && is_inside_room3_y
             system("cls");
             if (cat_1.healht <= 0)
             {
-                player_1.add_item("Apple");
+                player_1.add_item("Cookie");
                 cat_1.x = 0;
                 cat_1.y = 0;
             }
@@ -867,14 +867,14 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
 
         //Chest
 
-        if (player_1.x >= (width - 30) && player_1.x <= (width - 26) && player_1.y >= (height / 5) && player_1.y <= (height / 5) + 1) //Si ´player quiere pisar alguna coordenada de chest retrocedera
+        if (player_1.x >= (width - 18) && player_1.x <= (width - 14) && player_1.y >= (height / 5) - 3 && player_1.y <= (height / 5) - 2) //Si ´player quiere pisar alguna coordenada de chest retrocedera
         {
              player_1.x = prev_x;
              player_1.y = prev_y;
             player_1.show_player_coord();
         }
 
-        if (player_1.x >= (width - 31) && player_1.x <= (width - 25) && player_1.y >= (height / 5) -1 && player_1.y <= (height / 5) + 2 && move == 'q'){
+        if (player_1.x >= (width - 19) && player_1.x <= (width - 15) && player_1.y >= (height / 5) - 4 && player_1.y <= (height / 5) - 1 && move == 'q'){
             static bool open_chest = false;
             if (open_chest == false){
             dialogue_square();

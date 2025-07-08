@@ -13,7 +13,7 @@ int show_menu();
 void show_win(){
     int width, height, x, y;
     window_size(width, height);
-    std::string game_over = "YOU WIN!!! :D";
+    std::string game_over = "YOU WON!!! :D";
     x = ((width - game_over.length()) / 2) - 1;
     y = (height / 2) - 7;
     COORD coord;
