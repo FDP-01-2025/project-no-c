@@ -78,7 +78,7 @@ Ej. manejo de archivos para guardar y leer los saves del juego.
 - Consideraciones técnicas del desarrollo
 - El juego fue desarrollado en Lenguaje C++
 - Compatible con Windows 10 y 11
-- (siempre y cuando tener MingW actualizado a la ultima version)
+- Para su compilacion es requisito el tener el mingw mayor su version 8.0
 - Se priorizo la jugabilidad, sistema de combate e items del juego
 - Para el audio se utilizó la biblioteca mmsystem.h (Windows Multimedia API), que permite reproducir sonidos en formato WAV    de forma sencilla.
 
