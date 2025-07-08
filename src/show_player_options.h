@@ -588,7 +588,7 @@ void show_options_save(){
 void show_options_principal_menu(){
     int width, height, x, y;
     std::string principal_menu;
-    principal_menu = "PRINCIPAL MENU";
+    principal_menu = "MENU";
     window_size(width, height);
     x = (width / 4) + 123;
     y = 7;

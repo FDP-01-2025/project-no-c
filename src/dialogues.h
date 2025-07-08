@@ -29,7 +29,7 @@ void dialogue_square_bottom(){
     int width, height, x, y;
     window_size(width, height);
     x = 8;
-    y = height - 1;
+    y = ((height / 2) + 8) + 11;
     COORD coord;
     coord.Y = y;
     while (x < width - 10)
@@ -49,7 +49,7 @@ void dialogue_square_right_side(){
     x = width - 10;
     y = ((height / 2) + 8);
     COORD coord;
-    for (int i = 0; i < 17; i++){
+    for (int i = 0; i < 12; i++){
         key_animation.lock();
         coord.X = x;
         coord.Y = y;
@@ -66,7 +66,7 @@ void dialogue_square_left_side(){
     x = 8;
     y = ((height / 2) + 8);
     COORD coord;
-    for (int i = 0; i < 17; i++){
+    for (int i = 0; i < 12; i++){
         key_animation.lock();
         coord.X = x;
         coord.Y = y;
@@ -83,7 +83,7 @@ void dialogue_background(){
     x = 9;
     y = (height / 2) + 9;
     COORD coord;
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < 12; i++)
     {
         for (int a = 0; a < width - 19; a++)
         {
@@ -193,7 +193,7 @@ void delete_dialogue_square_bottom(){
     int width, height, x, y;
     window_size(width, height);
     x = 8;
-    y = height - 1;
+    y = ((height / 2) + 8) + 11;
     COORD coord;
     coord.Y = y;
     while (x < width - 10)
@@ -213,7 +213,7 @@ void delete_dialogue_square_right_side(){
     x = width - 10;
     y = ((height / 2) + 8);
     COORD coord;
-    for (int i = 0; i < 17; i++){
+    for (int i = 0; i < 11; i++){
         key_animation.lock();
         coord.X = x;
         coord.Y = y;
@@ -230,7 +230,7 @@ void delete_dialogue_square_left_side(){
     x = 8;
     y = ((height / 2) + 8);
     COORD coord;
-    for (int i = 0; i < 17; i++){
+    for (int i = 0; i < 11; i++){
         key_animation.lock();
         coord.X = x;
         coord.Y = y;

@@ -480,7 +480,7 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     show_chest();
     drawMapBorders(width, height);
     river();
-    drawRoomTopRight(width, height);
+    // drawRoomTopRight(width, height);
 
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
         
@@ -583,13 +583,12 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     show_chest();
     river();
     drawMapBorders(width, height);
-    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
-    drawRoomTopRight(width, height);
-    drawRoomBottomRight(width, height);
-    drawRoomBottomLeft(width, height);
+    // drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+    // drawRoomTopRight(width, height);
+    // drawRoomBottomRight(width, height);
+    // drawRoomBottomLeft(width, height);
     while (bool player = true) //Bucle para mover a player
     {
-        
         int prev_x = player_1.x; //Coordenadas anteriores de player
         int prev_y = player_1.y; 
         
@@ -611,30 +610,30 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
             toilet_1.show_toilet(); //show toilet in the game
         }
         
-bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
-bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
-bool is_door = player_1.x == room_left && player_1.y == door_y;
+// bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
+// bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
+// bool is_door = player_1.x == room_left && player_1.y == door_y;
 
-if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
-    player_1.x = prev_x;
-    player_1.y = prev_y;
-    player_1.show_player_coord();
-    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
-}
+// if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
+//     player_1.x = prev_x;
+//     player_1.y = prev_y;
+//     player_1.show_player_coord();
+//     drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+//}
 
-if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
-    player_1.x = prev_x;
-    player_1.y = prev_y;
-    player_1.show_player_coord();
-    drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+// if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
+//     player_1.x = prev_x;
+//     player_1.y = prev_y;
+//     player_1.show_player_coord();
+//     drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
 
-}
-    drawRoomTopRight(width, height);
-    drawRoomBottomRight(width, height);
-    drawRoomBottomLeft(width, height);
-    limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
-    limitRoomBottomRight(player_1.x, player_1.y, prev_x, prev_y, width, height);
-    limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
+//}
+    // drawRoomTopRight(width, height);
+    // drawRoomBottomRight(width, height);
+    // drawRoomBottomLeft(width, height);
+    // limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
+    // limitRoomBottomRight(player_1.x, player_1.y, prev_x, prev_y, width, height);
+    // limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
 
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
@@ -1102,7 +1101,7 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
             }
         }
 
-        //toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
+        toilet_1.show_toilet(); //Se volvera a mostrar toilet por si fue pisado por player
         cow_1.show_cow(); //Se volvera a mostrar cow por si fue pisado por player
         show_chest();
         river();
