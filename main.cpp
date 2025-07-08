@@ -22,4 +22,4 @@ int main(){
     Sleep(1000);
 }
 
-//g++ main.cpp -lwinmm 
+//g++ main.cpp -o Tonacatale.exe -lwinmm 

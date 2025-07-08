@@ -37,8 +37,8 @@ int show_menu();
 void show_chest_top(){
     int x, y, width, height;
     window_size(width, height);
-    x = (width - 29);
-    y = (height / 5); 
+    x = (width - 17);
+    y = (height / 5) - 3; 
     COORD coord;
     key_animation.lock();
     coord.X = x;
@@ -50,8 +50,8 @@ void show_chest_top(){
 void show_chest_bottom(){
     int x, y, width, height;
     window_size(width, height);
-    x = (width - 30);
-    y = (height / 5) + 1; 
+    x = (width - 18);
+    y = (height / 5) - 2; 
     COORD coord;
     key_animation.lock();
     coord.X = x;
@@ -65,57 +65,7 @@ void show_chest(){
     show_chest_top();
     show_chest_bottom();
 }
-
-void drawRoomDynamic(int room_left, int room_right, int room_top, int room_bottom,int door_y,int screen_width, int screen_height, char wallSymbol = '#') {
-    int x1 = room_left;
-    int x2 = room_right;
-    int y1 = room_top;
-    int y2 = room_bottom;
-
-    COORD coord;
-
-    for (int x = x1; x <= x2; x++) {
-        coord.X = x;
-
-        coord.Y = y1;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-
-        coord.Y = y2;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-
-    for (int y = y1; y <= y2; y++) {
-        if (y == door_y) continue;
-
-        coord.Y = y;
-
-        coord.X = x1;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-
-        coord.X = x2;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-}
-
-void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_left   = 7; 
-    int room_right  = room_left + 12;
-    int room_bottom = screen_height - 7; 
-    int room_top    = room_bottom - 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
+void drawRoomDynamic(int room_left, int room_right, int room_top, int room_bottom, int door_y, char wallSymbol = '*') {
     COORD coord;
     for (int x = room_left; x <= room_right; x++) {
         coord.X = x;
@@ -132,14 +82,15 @@ void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '
         key_animation.unlock();
     }
     for (int y = room_top; y <= room_bottom; y++) {
+        if (y == door_y) continue; 
         coord.Y = y;
-        if (y != door_y) {
-            coord.X = room_left;
-            key_animation.lock();
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            std::cout << wallSymbol;
-            key_animation.unlock();
-        }
+
+        coord.X = room_left;
+        key_animation.lock();
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        std::cout << wallSymbol;
+        key_animation.unlock();
+
         coord.X = room_right;
         key_animation.lock();
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -147,154 +98,6 @@ void drawRoomBottomLeft(int screen_width, int screen_height, char wallSymbol = '
         key_animation.unlock();
     }
 }
-
-
-
-void drawRoomBottomRight(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_right  = screen_width - 9; 
-    int room_left   = room_right - 12;
-    int room_bottom = screen_height - 7; 
-    int room_top    = room_bottom - 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
-    COORD coord;
-    for (int x = room_left; x <= room_right; x++) {
-        coord.X = x;
-        coord.Y = room_top;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-
-        coord.Y = room_bottom;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-    for (int y = room_top; y <= room_bottom; y++) {
-        coord.Y = y;
-        if (y != door_y) {
-            coord.X = room_left;
-            key_animation.lock();
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            std::cout << wallSymbol;
-            key_animation.unlock();
-        }
-        coord.X = room_right;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-}
-
-
-
-void drawRoomTopRight(int screen_width, int screen_height, char wallSymbol = '*') {
-    int room_right  = screen_width - 9; 
-    int room_left   = room_right - 12;
-    int room_top    = 5; 
-    int room_bottom = room_top + 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
-    COORD coord;
-    for (int x = room_left; x <= room_right; x++) {
-        coord.X = x;
-        coord.Y = room_top;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-
-        coord.Y = room_bottom;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-    for (int y = room_top; y <= room_bottom; y++) {
-        coord.Y = y;
-        if (y != door_y) {
-            coord.X = room_left;
-            key_animation.lock();
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            std::cout << wallSymbol;
-            key_animation.unlock();
-        }
-        coord.X = room_right;
-        key_animation.lock();
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        std::cout << wallSymbol;
-        key_animation.unlock();
-    }
-}
-
-//////Rooms limits//////////
-
-void limitRoomBottomLeft(int &player_x, int &player_y, int prev_x, int prev_y, int screen_height) {
-    int room_left   = 2;
-    int room_right  = room_left + 12;
-    int room_bottom = screen_height - 4;
-    int room_top    = room_bottom - 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
-    bool is_inside_room_x = player_x > room_left && player_x < room_right;
-    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
-    bool is_door = player_x == room_left && player_y == door_y;
-
-    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-}
-
-void limitRoomBottomRight(int &player_x, int &player_y, int prev_x, int prev_y, int screen_width, int screen_height) {
-    int room_right  = screen_width - 4;
-    int room_left   = room_right - 12;
-    int room_bottom = screen_height - 4;
-    int room_top    = room_bottom - 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
-    bool is_inside_room_x = player_x > room_left && player_x < room_right;
-    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
-    bool is_door = player_x == room_left && player_y == door_y;
-
-    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-}
-
-void limitRoomTopRight(int &player_x, int &player_y, int prev_x, int prev_y, int screen_width) {
-    int room_right  = screen_width - 4;
-    int room_left   = room_right - 12;
-    int room_top    = 2;
-    int room_bottom = room_top + 4;
-    int door_y      = (room_top + room_bottom) / 2;
-
-    bool is_inside_room_x = player_x > room_left && player_x < room_right;
-    bool is_inside_room_y = player_y > room_top && player_y < room_bottom;
-    bool is_door = player_x == room_left && player_y == door_y;
-
-    if ((player_y == room_top || player_y == room_bottom) && is_inside_room_x) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-    if ((player_x == room_left || player_x == room_right) && is_inside_room_y && !is_door) {
-        player_x = prev_x;
-        player_y = prev_y;
-    }
-}
-
 
 void game_start(bool new_game,int x, int y, int health, int max_health, int damage, int level, std::string creator_name, std::string player_name, std::string* inventory_item, int inventory, int experience, int cow_health, int cat_health, int hachi_health, int iguana_health, int thief_health, int snail_health, int horse_health, int sheep_health, int pig_health){ //inicio papu game
     player player_1(new_game,x, y, health, max_health, damage, inventory, level, experience,creator_name, player_name, inventory_item); // da las coordenadas de player
@@ -394,8 +197,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //Sheep stats
 
-    int s_x = (width / 2) + 20;
-    int s_y = (height / 4);
+    int s_x = 6;
+    int s_y = height - 9;
     int s_damage = 5;
     int s_id = 7;
     int s_ex = 5;
@@ -408,8 +211,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //Snail stats
 
-    int sn_x = (width / 2) + 5;
-    int sn_y = (height / 2) + 11;
+    int sn_x = 15;
+    int sn_y = height - 9;
     int sn_damage = 6;
     int sn_id = 8;
     int sn_ex = 2;
@@ -422,8 +225,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //Thief stats
 
-    int th_x = (width / 4) + 15;
-    int th_y = (height / 2) + 8;
+    int th_x = width - 22;
+    int th_y = 7;
     int th_damage = 12;
     int th_id = 9;
     int th_ex = 6;
@@ -436,8 +239,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //Hachi stats
 
-    int ha_x = width - 50;
-    int ha_y = (height / 2) + 3;
+    int ha_x = width - 22;
+    int ha_y = height - 9;
     int ha_damage = 15;
     int ha_id = 10;
     int ha_ex = 5;
@@ -450,8 +253,8 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
 
     //Oscar stats
 
-    int o_x = width - 20;
-    int o_y = (height / 2) + 4;
+    int o_x = width - 15;
+    int o_y = height - 9;
     int o_health = 120;
     int o_damage = 30;
     int o_id = 11;
@@ -463,6 +266,25 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     std::string o_description_3 = "Oscar takes a deep breath.";
     oscar_enemy oscar_1(o_health, o_damage, o_x, o_y, o_id, o_ex, o_name, o_skin, o_description_1, o_description_2, o_description_3);
 
+    //Rooms
+            int room1_left   = 7;
+int room1_right  = room1_left + 12;
+int room1_bottom = height - 7;
+int room1_top    = room1_bottom - 4;
+int door1_y      = (room1_top + room1_bottom) / 2;
+
+
+int room2_right  = width - 9;
+int room2_left   = room2_right - 12;
+int room2_bottom = height - 7;
+int room2_top    = room2_bottom - 4;
+int door2_y      = (room2_top + room2_bottom) / 2;
+
+int room3_right  = width - 9;
+int room3_left   = room3_right - 12;
+int room3_top    = 5;
+int room3_bottom = room3_top + 4;
+int door3_y      = (room3_top + room3_bottom) / 2;
     //show enemys 
     Sleep(1000);
     toilet_1.show_toilet(); //show toilet in the game
@@ -480,6 +302,9 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     show_chest();
     drawMapBorders(width, height);
     river();
+    drawRoomDynamic(room1_left, room1_right, room1_top, room1_bottom, door1_y);
+    drawRoomDynamic(room2_left, room2_right, room2_top, room2_bottom, door2_y);
+    drawRoomDynamic(room3_left, room3_right, room3_top, room3_bottom, door3_y);
     // drawRoomTopRight(width, height);
 
     PlaySound(TEXT("assets//music//Snowy-_BJEqdto_uGw_.wav"),NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
@@ -582,6 +407,9 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
     player_1.show_player_coord();
     show_chest();
     river();
+    drawRoomDynamic(room1_left, room1_right, room1_top, room1_bottom, door1_y);
+    drawRoomDynamic(room2_left, room2_right, room2_top, room2_bottom, door2_y);
+    drawRoomDynamic(room3_left, room3_right, room3_top, room3_bottom, door3_y);
     drawMapBorders(width, height);
     // drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
     // drawRoomTopRight(width, height);
@@ -609,31 +437,55 @@ void game_start(bool new_game,int x, int y, int health, int max_health, int dama
             player_1.show_player_coord();
             toilet_1.show_toilet(); //show toilet in the game
         }
-        
-// bool is_inside_room_x = player_1.x > room_left && player_1.x < room_right;
-// bool is_inside_room_y = player_1.y > room_top && player_1.y < room_bottom;
-// bool is_door = player_1.x == room_left && player_1.y == door_y;
 
-// if ((player_1.y == room_top || player_1.y == room_bottom) && is_inside_room_x) {
-//     player_1.x = prev_x;
-//     player_1.y = prev_y;
-//     player_1.show_player_coord();
-//     drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
-//}
+drawRoomDynamic(room1_left, room1_right, room1_top, room1_bottom, door1_y);
+drawRoomDynamic(room2_left, room2_right, room2_top, room2_bottom, door2_y);
+drawRoomDynamic(room3_left, room3_right, room3_top, room3_bottom, door3_y);
 
-// if ((player_1.x == room_left || player_1.x == room_right) && is_inside_room_y && !is_door) {
-//     player_1.x = prev_x;
-//     player_1.y = prev_y;
-//     player_1.show_player_coord();
-//     drawRoomDynamic(room_left,room_right,room_top,room_bottom,door_y ,width, height); 
+bool is_inside_room1_x = player_1.x > room1_left && player_1.x < room1_right;
+bool is_inside_room1_y = player_1.y > room1_top && player_1.y < room1_bottom;
+bool is_door1 = player_1.x == room1_left && player_1.y == door1_y;
 
-//}
-    // drawRoomTopRight(width, height);
-    // drawRoomBottomRight(width, height);
-    // drawRoomBottomLeft(width, height);
-    // limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
-    // limitRoomBottomRight(player_1.x, player_1.y, prev_x, prev_y, width, height);
-    // limitRoomTopRight(player_1.x, player_1.y, prev_x, prev_y, width);
+if ((player_1.y == room1_top || player_1.y == room1_bottom) && is_inside_room1_x) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
+if ((player_1.x == room1_left || player_1.x == room1_right) && is_inside_room1_y && !is_door1) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
+
+bool is_inside_room2_x = player_1.x > room2_left && player_1.x < room2_right;
+bool is_inside_room2_y = player_1.y > room2_top && player_1.y < room2_bottom;
+bool is_door2 = player_1.x == room2_left && player_1.y == door2_y;
+
+if ((player_1.y == room2_top || player_1.y == room2_bottom) && is_inside_room2_x) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
+if ((player_1.x == room2_left || player_1.x == room2_right) && is_inside_room2_y && !is_door2) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
+
+bool is_inside_room3_x = player_1.x > room3_left && player_1.x < room3_right;
+bool is_inside_room3_y = player_1.y > room3_top && player_1.y < room3_bottom;
+bool is_door3 = player_1.x == room3_left && player_1.y == door3_y;
+
+if ((player_1.y == room3_top || player_1.y == room3_bottom) && is_inside_room3_x) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
+if ((player_1.x == room3_left || player_1.x == room3_right) && is_inside_room3_y && !is_door3) {
+    player_1.x = prev_x;
+    player_1.y = prev_y;
+    player_1.show_player_coord();
+}
 
         if (std::abs(player_1.x - toilet_1.x) <= 1 && std::abs(player_1.y - toilet_1.y) <= 1 && move == 'q') // Si player esta a 1 coordenada de toilet y presiona q, entonces pelearan
         {
@@ -1027,8 +879,9 @@ if (std::abs(player_1.x - oscar_1.x) <= 1 && std::abs(player_1.y - oscar_1.y) <=
             if (open_chest == false){
             dialogue_square();
             open_chest = true;
-            center_dialogue("You got a Cake");
+            center_dialogue("You fin a Cake and a Cookie!");
             player_1.add_item("Cake"); 
+            player_1.add_item("Cookie"); 
             finish_dialogue();
             }
         }

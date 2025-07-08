@@ -70,31 +70,31 @@ void use_item(std::string item_name, int& health, int max_health, int& damage, i
     delete_text(initial);
     if (item_name == "Cookie")
     {
-        health += 20;
-        if (health > max_health){
-        health = max_health;
-        }
-        text("You feel the Cookie power! You recovered +20 health! ");
-        move = getch();
-        while (move != '\r')
-        {
-            move = getch();
-        }
-        delete_text("You feel the Cookie power! You recovered +20 health! ");
-    }
-    if (item_name == "Apple")
-    {
         health += 10;
         if (health > max_health){
         health = max_health;
         }
-        text("Healthy! You recovered +10 health! ");
+        text("You feel the Cookie power! You recovered +10 health! ");
         move = getch();
         while (move != '\r')
         {
             move = getch();
         }
         delete_text("You feel the Cookie power! You recovered +10 health! ");
+    }
+    if (item_name == "Apple")
+    {
+        health += 5;
+        if (health > max_health){
+        health = max_health;
+        }
+        text("Healthy! You recovered +5 health! ");
+        move = getch();
+        while (move != '\r')
+        {
+            move = getch();
+        }
+        delete_text("You feel the Cookie power! You recovered +5 health! ");
     }
     if (item_name == "Knife")
     {
@@ -112,14 +112,14 @@ void use_item(std::string item_name, int& health, int max_health, int& damage, i
         if (health > max_health){
         health = max_health;
         }
-        health += 30;
-        text("You enjoy the cake! +30 health");
+        health += 20;
+        text("You enjoy the cake! +20 health");
         move = getch();
         while (move != '\r')
         {
             move = getch();
         }
-        delete_text("You enjoy the cake! +30 health");
+        delete_text("You enjoy the cake! +20 health");
     }
     if (item_name == "Feeling sucesfully" && id == 11)
     {

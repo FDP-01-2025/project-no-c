@@ -192,11 +192,11 @@ void delete_dialogue_square_top(){
 void delete_dialogue_square_bottom(){
     int width, height, x, y;
     window_size(width, height);
-    x = 8;
+    x = 7;
     y = ((height / 2) + 8) + 11;
     COORD coord;
     coord.Y = y;
-    while (x < width - 10)
+    while (x < width - 9)
     {
         x++;
         key_animation.lock();
