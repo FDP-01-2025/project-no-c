@@ -10,7 +10,7 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 
 ## Equipo
 
-- **Nombre del equipo:** No se mas + 
+- **Nombre del equipo:** No C + + 
 
 ### Integrantes del equipo
 
@@ -75,12 +75,18 @@ Ej. manejo de archivos para guardar y leer los saves del juego.
 ![image](https://github.com/user-attachments/assets/21ebd494-d3d1-40b8-828c-370febad498e)
 
   
-- Consideraciones técnicas del desarrollo 
+- Consideraciones técnicas del desarrollo
+- El juego fue desarrollado en Lenguaje C++
+- Compatible con Windows 10 y 11
+- Para su compilacion es requisito el tener el mingw mayor su version 8.0
+- Se priorizo la jugabilidad, sistema de combate e items del juego
+- Para el audio se utilizó la biblioteca mmsystem.h (Windows Multimedia API), que permite reproducir sonidos en formato WAV    de forma sencilla.
 
 - Imágenes o mockups del juego
 
 ![image](https://github.com/user-attachments/assets/30ccf27b-2c42-463c-8650-b525ad7f50ad)
 ![image](https://github.com/user-attachments/assets/e0303bc0-d02a-49bd-ad2c-7afe5b857517)
 ![image](https://github.com/user-attachments/assets/5af96d14-a437-4416-b30a-6893b0890fd3)
-
-
+![image](https://github.com/user-attachments/assets/4a28c1fc-f7b7-4a98-84d9-bc44a1bd2f6b)
+![image](https://github.com/user-attachments/assets/74b496f8-f569-449b-be71-1afc704a59a5)
+![image](https://github.com/user-attachments/assets/f2a0651e-9492-484a-b9ab-bfd5fefc2ff4)
